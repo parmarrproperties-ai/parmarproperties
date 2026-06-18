@@ -5,7 +5,7 @@ export const AgentsContent = () => {
   return (
     <div className="flex-1 w-full max-w-xl md:pl-16 lg:pl-24 flex flex-col justify-center">
       <SplitTextReveal
-        text="Don't Rent Your Career. Own It."
+        text="Our Edge & Investor Value Proposition"
         className="text-black font-['Instrument_Sans'] text-4xl md:text-5xl lg:text-6xl font-semibold tracking-[-0.04em] leading-[1.05] mb-8 md:mb-12"
       />
 
@@ -19,12 +19,11 @@ export const AgentsContent = () => {
 
       <ScrollReveal delay={100}>
         <p className="text-black font-medium text-lg md:text-xl leading-relaxed font-['Instrument_Sans'] mb-10">
-          At Parmar Properties, our agents don’t just work for the brand—they own a part of it.{" "}
+          We offer access to real buyers beyond conventional channels, early access to pre-launch inventory, and street-level pricing intelligence.{" "}
           <span className="text-black/40">
-            We give top performers real equity, so they’re invested in more than just
-            your transaction—they're invested in your outcome. Agents are certified,
-            supported, and equipped to deliver five-star service—because their
-            success is tied to yours.
+            Experience faster closures through value-led, zero-pressure, trust-first advisory.
+            Strategic timing guidance, negotiation leverage, and long-term wealth creation
+            for HNIs, NRIs, and family businesses.
           </span>
         </p>
       </ScrollReveal>
@@ -34,7 +33,7 @@ export const AgentsContent = () => {
           href="https://parmarproperties.in/join"
           className="inline-flex items-center justify-center bg-black text-white px-8 py-4 rounded-full font-medium text-sm transition-transform hover:scale-105"
         >
-          <span>Join The Movement</span>
+          <span>Connect With Us</span>
           <svg className="ml-3 w-4 h-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M5 12h14m-7-7 7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>

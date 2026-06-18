@@ -8,30 +8,30 @@ export const SupportSection = () => {
         <SupportHeader />
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mt-12 md:mt-16">
           <SupportCard
-            imageAlt="Mortgage Services"
+            imageAlt="Immediate HNI Reach"
             imageSrc="https://c.animaapp.com/mq3zczchi8fb7N/assets/18.jpg"
-            title="Mortgage Services"
-            description="Helping you secure your dream home with flexible mortgage options."
+            title="Immediate HNI Reach"
+            description="Direct access to qualified, liquidity-rich HNI buyers and business families."
             buttonText="Learn More"
             iconSrc="https://c.animaapp.com/mq3zczchi8fb7N/assets/icon-6.svg"
             iconAlt="Icon"
             delay={0}
           />
           <SupportCard
-            imageAlt="Property Management"
+            imageAlt="Pre-Launch Velocity"
             imageSrc="https://c.animaapp.com/mq3zczchi8fb7N/assets/91.jpg"
-            title="Property Management"
-            description="Let us handle the details so you can enjoy the rewards."
+            title="Pre-Launch Velocity"
+            description="Proven pre-launch and early-launch sales execution capabilities."
             buttonText="Learn More"
             iconSrc="https://c.animaapp.com/mq3zczchi8fb7N/assets/icon-6.svg"
             iconAlt="Icon"
             delay={100}
           />
           <SupportCard
-            imageAlt="Property Management"
+            imageAlt="Pricing Insights"
             imageSrc="https://c.animaapp.com/mq3zczchi8fb7N/assets/17.jpg"
-            title="Construction and Real Estate Development"
-            description="Guiding you through the intricacies of building and developing properties with expert insight and support."
+            title="Pricing Insights"
+            description="Market-backed pricing intelligence and transparent mandate-based relationships."
             buttonText="Learn More"
             iconSrc="https://c.animaapp.com/mq3zczchi8fb7N/assets/icon-6.svg"
             iconAlt="Icon"

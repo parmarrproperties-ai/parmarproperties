@@ -10,20 +10,20 @@ export const ServicesSection = () => {
       <div className="w-full flex flex-col border-b border-white/20">
         <ServicePanel
           imageUrl="https://c.animaapp.com/mq3zczchi8fb7N/assets/67.jpg"
-          description="Buy smarter with expert agents backed by mortgage, legal, and appraisal pros—dialed in to get you the best deal, fast. We’ve done this over 10,000 times, and we know what wins."
+          description="Access exclusive and pre-launch luxury inventory in South Mumbai. Take advantage of strategic timing, valuation guidance, and street-level pricing intelligence."
           label="BUY"
           delay={0}
         />
         <ServicePanel
           imageUrl="https://c.animaapp.com/mq3zczchi8fb7N/assets/85.jpg"
-          description="Sell fast, sell high. Your listing gets pro staging, strategic pricing, constant open houses, and agents who never stop working until the right buyer signs."
+          description="Achieve high-velocity sales execution. Leverage our direct reach to liquidity-rich HNI buyers and pre-launch sales capabilities to sell in record time."
           label="SELL"
           delay={150}
         />
         <ServicePanel
           imageUrl="https://c.animaapp.com/mq3zczchi8fb7N/assets/48.jpg"
-          description="Access hidden rentals before they hit the market through agents who know every landlord in town. With decades of NYC experience, we unlock the best deals you won’t find online."
-          label="RENT"
+          description="Strategic wealth planning for HNIs, NRIs, and Family Businesses. Get zero-pressure advisory, negotiation leverage, and long-term capital appreciation."
+          label="PORTFOLIO"
           delay={300}
         />
       </div>

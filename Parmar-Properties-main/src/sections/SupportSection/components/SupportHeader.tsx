@@ -10,23 +10,23 @@ export const SupportHeader = () => {
           <div className="box-border caret-transparent text-[44px] font-medium tracking-[-0.88px] leading-[46.2px] outline-neutral-900 outline-[3px] no-underline md:text-5xl md:tracking-[-1.92px] md:leading-[48px]">
             <h2 className="box-border caret-transparent text-[44px] tracking-[-0.88px] leading-[46.2px] outline-neutral-900 outline-[3px] no-underline md:text-5xl md:tracking-[-1.92px] md:leading-[48px]">
               <div
-                aria-label="Support Beyond Buying and Selling"
+                aria-label="Developer Trusted Partnerships"
                 className="box-border caret-transparent text-[44px] tracking-[-0.88px] leading-[46.2px] outline-neutral-900 outline-[3px] no-underline md:text-5xl md:tracking-[-1.92px] md:leading-[48px]"
               >
                 <div className="box-border caret-transparent text-[44px] tracking-[-0.88px] leading-[46.2px] outline-neutral-900 outline-[3px] relative no-underline w-fit md:text-5xl md:tracking-[-1.92px] md:leading-[48px]">
-                  Support
+                  Developer
                 </div>
                 <div className="box-border caret-transparent text-[44px] tracking-[-0.88px] leading-[46.2px] outline-neutral-900 outline-[3px] relative no-underline w-fit md:text-5xl md:tracking-[-1.92px] md:leading-[48px]">
-                  {" "}Beyond{" "}
+                  {" "}Trusted{" "}
                   <span className="box-border caret-transparent text-white/40 text-[44px] tracking-[-0.88px] leading-[46.2px] outline-neutral-900 outline-[3px] no-underline md:text-5xl md:tracking-[-1.92px] md:leading-[48px]"></span>
                   <span className="box-border caret-transparent text-white/40 text-[44px] tracking-[-0.88px] leading-[46.2px] outline-neutral-900 outline-[3px] no-underline md:text-5xl md:tracking-[-1.92px] md:leading-[48px]">
-                    Buying
+                    Partner­ships
                   </span>
                 </div>
                 <div className="box-border caret-transparent text-[44px] tracking-[-0.88px] leading-[46.2px] outline-neutral-900 outline-[3px] relative no-underline w-fit md:text-5xl md:tracking-[-1.92px] md:leading-[48px]">
                   <span className="box-border caret-transparent text-white/40 text-[44px] tracking-[-0.88px] leading-[46.2px] outline-neutral-900 outline-[3px] no-underline md:text-5xl md:tracking-[-1.92px] md:leading-[48px]"></span>
                   <span className="box-border caret-transparent text-white/40 text-[44px] tracking-[-0.88px] leading-[46.2px] outline-neutral-900 outline-[3px] no-underline md:text-5xl md:tracking-[-1.92px] md:leading-[48px]">
-                    and Selling
+                    & Execution
                   </span>
                 </div>
               </div>
@@ -40,10 +40,10 @@ export const SupportHeader = () => {
         <div className="box-border caret-transparent text-[10px] leading-[11.5px] min-h-[auto] min-w-[auto] outline-neutral-900 outline-[3px] no-underline md:text-[6.66667px] md:leading-[7.66667px]">
           <div className="box-border caret-transparent text-[22px] font-medium tracking-[normal] leading-[28.6px] outline-neutral-900 outline-[3px] no-underline md:text-[21.3333px] md:tracking-[-0.64px] md:leading-[24.5333px]">
             <p className="box-border caret-transparent text-[22px] tracking-[normal] leading-[28.6px] outline-neutral-900 outline-[3px] no-underline md:text-[21.3333px] md:tracking-[-0.64px] md:leading-[24.5333px]">
-              The real estate market never stands still — and neither do we.
+              Why South Mumbai's strongest developer ecosystem trusts Parmar Properties.
               <span className="box-border caret-transparent text-white/40 text-[22px] tracking-[normal] leading-[28.6px] outline-neutral-900 outline-[3px] no-underline md:text-[21.3333px] md:tracking-[-0.64px] md:leading-[24.5333px]">
-                {" "}Our experts offer continued support beyond the sale, helping you
-                maximize your investment.
+                {" "}High-velocity sales, exclusive mandates, and seamless execution
+                built on transparent relationships.
               </span>
             </p>
           </div>
@@ -56,7 +56,7 @@ export const SupportHeader = () => {
                 <div className="items-center box-border caret-transparent gap-x-3.5 flex text-base justify-center leading-6 outline-[3px] gap-y-3.5 no-underline overflow-hidden md:gap-x-[9.33333px] md:text-xs md:leading-[16.8px] md:gap-y-[9.33333px]">
                   <div className="box-border caret-transparent text-base leading-6 min-h-[auto] min-w-[auto] outline-[3px] no-underline overflow-hidden md:text-xs md:leading-[16.8px]">
                     <span className="box-border caret-transparent block text-base leading-6 outline-[3px] relative no-underline md:text-xs md:leading-[16.8px] after:accent-auto after:box-border after:caret-transparent after:text-neutral-900 after:block after:text-base after:not-italic after:normal-nums after:font-medium after:tracking-[normal] after:leading-6 after:list-outside after:list-disc after:outline-[3px] after:pointer-events-auto after:absolute after:text-start after:no-underline after:indent-[0px] after:normal-case after:visible after:border-separate after:top-[105%] after:inset-x-0 after:font-instrument_sans after:md:text-xs after:md:leading-[16.8px]">
-                      Discover Our Services
+                      Explore Our Network
                     </span>
                   </div>
                   <span className="items-center box-border caret-transparent flex text-base h-6 justify-center leading-6 min-h-[auto] min-w-6 outline-[3px] no-underline w-6 md:text-xs md:h-4 md:leading-[16.8px] md:min-w-4 md:w-4">

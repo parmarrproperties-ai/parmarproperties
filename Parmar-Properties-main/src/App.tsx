@@ -1,6 +1,7 @@
 import { Header } from "@/sections/Header/index";
 import { Main } from "@/sections/Main/index";
 import { Footer } from "@/sections/Footer/index";
+import { Agentation } from "agentation";
 
 export const App = () => {
   return (
@@ -8,6 +9,8 @@ export const App = () => {
       <Header />
       <Main />
       <Footer />
+      {import.meta.env.DEV && <Agentation />}
     </div>
   );
 };
+

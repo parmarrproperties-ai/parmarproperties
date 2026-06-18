@@ -339,21 +339,20 @@ export const HeroSection = () => {
             style={{ paddingTop: "18vh", opacity: contentOpacity, transform: `translateY(${contentY}px)`, pointerEvents: contentOpacity < 0.05 ? "none" : "auto" }}>
             <p className="text-white/70 text-xs font-semibold tracking-[0.25em] uppercase mb-4"
               style={{ fontFamily: "'Instrument Sans', sans-serif" }}>
-              Expert Real Estate Agents
+              South Mumbai's Trusted Luxury Real Estate Advisory
             </p>
             <h1 className="text-white font-bold leading-[1.05] mb-5"
               style={{ fontFamily: "'Instrument Sans', sans-serif", fontSize: "clamp(42px, 7.5vw, 110px)", letterSpacing: "-0.03em", textShadow: "0 2px 24px rgba(0,0,0,0.18)" }}>
-              Building Relationships
+              Parmar Properties
             </h1>
             <p className="text-white/85 mb-10 max-w-xl leading-relaxed"
               style={{ fontFamily: "'Instrument Sans', sans-serif", fontSize: "clamp(15px, 1.4vw, 19px)" }}>
-              <strong className="font-semibold text-white">Expert agents. Real guidance.</strong>{" "}
-              A clear path to find what's next.
+              <strong className="font-semibold text-white">Building Relationships</strong>
             </p>
-            <a href="#"
+            <a href="https://parmarproperties.in/contact"
               className="inline-flex items-center gap-2 bg-gray-900 text-white font-semibold rounded-full px-7 py-3.5 hover:bg-gray-800 transition-colors"
               style={{ fontFamily: "'Instrument Sans', sans-serif", fontSize: "clamp(14px, 1.1vw, 16px)" }}>
-              Find Properties <span>→</span>
+              Explore Properties <span>→</span>
             </a>
           </div>
 

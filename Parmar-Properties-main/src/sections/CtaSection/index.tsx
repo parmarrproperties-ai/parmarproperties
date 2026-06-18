@@ -14,7 +14,7 @@ export const CtaSection = () => {
       <div className="relative z-10 w-full max-w-[1920px] mx-auto px-6 md:px-16 text-center">
         <div className="text-3xl sm:text-4xl md:text-5xl font-medium tracking-[-0.3px] md:tracking-[-0.48px] leading-tight">
           <SplitTextReveal 
-            text="Parmar Properties. We’ll Help You Get There."
+            text="Parmar Properties. South Mumbai's Trusted Luxury Real Estate Advisory."
             className="text-3xl sm:text-4xl md:text-5xl tracking-[-0.3px] md:tracking-[-0.48px] leading-tight"
           />
         </div>
