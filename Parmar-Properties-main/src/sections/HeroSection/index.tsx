@@ -285,6 +285,104 @@ export const HeroSection = () => {
 
   return (
     <>
+      <style>{`
+        @keyframes layerEntrance {
+          from {
+            opacity: 0;
+            transform: translateY(40px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        @keyframes heroEntrance {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        @keyframes heroLetterEntrance {
+          from {
+            opacity: 0;
+            transform: translateY(40px);
+            filter: blur(6px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+            filter: blur(0px);
+          }
+        }
+        @keyframes heroPopUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px) scale(0.92);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+          }
+        }
+        @keyframes cloudDrift {
+          from {
+            transform: translateX(-10%);
+          }
+          to {
+            transform: translateX(10%);
+          }
+        }
+        @keyframes buildingDrift {
+          from {
+            transform: translateX(-3%);
+          }
+          to {
+            transform: translateX(3%);
+          }
+        }
+        .animate-layer-entrance {
+          animation: layerEntrance 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+          opacity: 0;
+          will-change: transform, opacity;
+        }
+        .animate-hero-letter {
+          display: inline-block;
+          animation: heroLetterEntrance 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+          opacity: 0;
+          will-change: transform, opacity, filter;
+        }
+        .animate-hero-paragraph {
+          animation: heroEntrance 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+          animation-delay: 1200ms;
+          opacity: 0;
+        }
+        .animate-hero-strong {
+          animation: heroEntrance 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+          animation-delay: 1350ms;
+          opacity: 0;
+        }
+        .animate-hero-button {
+          animation: heroPopUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+          animation-delay: 1500ms;
+          opacity: 0;
+        }
+        .animate-cloud-drift {
+          width: 120%;
+          max-w: none !important;
+          margin-left: -10%;
+          animation: cloudDrift 28s ease-in-out infinite alternate;
+        }
+        .animate-building-drift {
+          width: 106%;
+          max-w: none !important;
+          margin-left: -3%;
+          animation: buildingDrift 38s ease-in-out infinite alternate;
+        }
+      `}</style>
       {/* Dynamic scroll room so mobile devices have a shorter scroll distance */}
       <section ref={sectionRef} style={{ height: `${scrollVh}vh` }} className="relative w-full">
         <div className="sticky top-0 h-screen w-full overflow-hidden">
@@ -292,7 +390,9 @@ export const HeroSection = () => {
           {/* ── Layer 1: Sky ── */}
           <div className="absolute inset-0"
             style={{ transform: `scale(${skyScale})`, transformOrigin: "center center", willChange: "transform" }}>
-            <img src={heroBg} alt="" aria-hidden="true" className="w-full h-full object-cover" />
+            <div className="animate-layer-entrance w-full h-full">
+              <img src={heroBg} alt="" aria-hidden="true" className="w-full h-full object-cover" />
+            </div>
           </div>
 
           {/* ── Layer 2: Dark tint (phase 1) ── */}
@@ -306,19 +406,31 @@ export const HeroSection = () => {
               opacity: buildingOpacity,
               willChange: "transform, opacity",
             }}>
-            <img src={heroBuilding} alt="Luxury real estate building" className="w-full h-auto block" />
+            <div className="animate-layer-entrance w-full h-full">
+              <div className="animate-building-drift w-full h-full">
+                <img src={heroBuilding} alt="Luxury real estate building" className="w-full h-auto block" />
+              </div>
+            </div>
           </div>
 
           {/* ── Layer 4a: Left Cloud ── */}
           <div className="absolute pointer-events-none z-20"
             style={{ bottom: "10%", left: "-10%", width: "55%", opacity: cloudSideOpacity, transform: `translateX(${cloudLeftX}px)` }}>
-            <img src={heroCloud} alt="" aria-hidden="true" className="w-full h-auto" />
+            <div className="animate-layer-entrance w-full h-full">
+              <div className="animate-cloud-drift w-full h-full">
+                <img src={heroCloud} alt="" aria-hidden="true" className="w-full h-auto" />
+              </div>
+            </div>
           </div>
 
           {/* ── Layer 4b: Right Cloud ── */}
           <div className="absolute pointer-events-none z-20"
             style={{ bottom: "15%", right: "-10%", width: "55%", opacity: cloudSideOpacity, transform: `translateX(${cloudRightX}px) scaleX(-1)` }}>
-            <img src={heroCloud} alt="" aria-hidden="true" className="w-full h-auto" />
+            <div className="animate-layer-entrance w-full h-full">
+              <div className="animate-cloud-drift w-full h-full" style={{ animationDelay: "-14s" }}>
+                <img src={heroCloud} alt="" aria-hidden="true" className="w-full h-auto" />
+              </div>
+            </div>
           </div>
 
           {/* ── Layer 5: Bottom gradient ── */}
@@ -418,20 +530,28 @@ export const HeroSection = () => {
           {/* ── Layer 9: Hero content ── */}
           <div className="absolute inset-0 flex flex-col items-center justify-start z-30 text-center px-6"
             style={{ paddingTop: "18vh", opacity: contentOpacity, transform: `translateY(${contentY}px)`, pointerEvents: contentOpacity < 0.05 ? "none" : "auto" }}>
-            <p className="text-white/70 text-xs font-semibold tracking-[0.25em] uppercase mb-4"
+            <p className="text-white/70 text-xs font-semibold tracking-[0.25em] uppercase mb-4 animate-hero-paragraph"
               style={{ fontFamily: "'Instrument Sans', sans-serif" }}>
               South Mumbai's Trusted Luxury Real Estate Advisory
             </p>
-            <h1 className="text-white font-bold leading-[1.05] mb-5"
+            <h1 className="text-white font-bold leading-[1.05] mb-5 overflow-hidden flex flex-wrap justify-center"
               style={{ fontFamily: "'Instrument Sans', sans-serif", fontSize: "clamp(42px, 7.5vw, 110px)", letterSpacing: "-0.03em", textShadow: "0 2px 24px rgba(0,0,0,0.18)" }}>
-              Parmar Properties
+              {"Parmar Properties".split("").map((char, index) => (
+                <span
+                  key={index}
+                  className="animate-hero-letter"
+                  style={{ animationDelay: `${300 + index * 60}ms` }}
+                >
+                  {char === " " ? "\u00A0" : char}
+                </span>
+              ))}
             </h1>
-            <p className="text-white/85 mb-10 max-w-xl leading-relaxed"
+            <p className="text-white/85 mb-10 max-w-xl leading-relaxed animate-hero-strong"
               style={{ fontFamily: "'Instrument Sans', sans-serif", fontSize: "clamp(15px, 1.4vw, 19px)" }}>
               <strong className="font-semibold text-white">Building Relationships</strong>
             </p>
             <a href="https://parmarproperties.in/contact"
-              className="inline-flex items-center gap-2 bg-gray-900 text-white font-semibold rounded-full px-7 py-3.5 hover:bg-gray-800 transition-colors"
+              className="inline-flex items-center gap-2 bg-gray-900 text-white font-semibold rounded-full px-7 py-3.5 hover:bg-gray-800 transition-colors animate-hero-button"
               style={{ fontFamily: "'Instrument Sans', sans-serif", fontSize: "clamp(14px, 1.1vw, 16px)" }}>
               Explore Properties <span>→</span>
             </a>
