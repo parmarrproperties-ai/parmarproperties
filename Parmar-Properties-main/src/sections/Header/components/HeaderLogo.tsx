@@ -11,7 +11,7 @@ export const HeaderLogo = () => {
         <img
           src={logo}
           alt="Parmar Properties Logo"
-          className="box-border caret-transparent inline outline-[3px] no-underline h-[84px] md:h-[52px] w-auto object-contain object-left scale-[1.6] md:scale-[2.2] origin-left"
+          className="box-border caret-transparent inline outline-[3px] no-underline h-[94px] md:h-[62px] w-auto object-contain object-left scale-[1.6] md:scale-[2.2] origin-left"
         />
       </a>
     </div>
