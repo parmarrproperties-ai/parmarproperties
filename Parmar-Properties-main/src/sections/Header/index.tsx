@@ -22,7 +22,15 @@ export const Header = () => {
         <div className="items-center box-border caret-transparent text-neutral-900 grid grid-cols-[1fr_auto] leading-[11.5px] min-h-[94px] relative no-underline z-50 md:grid-cols-[166.667px_1fr_166.667px] md:leading-[1.5] md:min-h-[62px]">
           <HeaderLogo />
           <DesktopNavigation />
-          <MobileMenuButton isOpen={isMobileMenuOpen} onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} />
+          <div className="flex justify-end items-center">
+            <a
+              href="https://parmarproperties.in/contact"
+              className="hidden md:inline-flex items-center justify-center bg-neutral-900 hover:bg-neutral-800 text-white font-semibold text-xs px-5 py-2.5 rounded-full transition-all duration-200 shadow-sm hover:shadow-md whitespace-nowrap"
+            >
+              Schedule Consultation
+            </a>
+            <MobileMenuButton isOpen={isMobileMenuOpen} onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} />
+          </div>
         </div>
       </div>
 
@@ -33,6 +41,13 @@ export const Header = () => {
           <a href="/Expertise" className="text-neutral-900 font-medium no-underline hover:text-neutral-600 transition-colors">Agents</a>
           <a href="/Opportunities" className="text-neutral-900 font-medium no-underline hover:text-neutral-600 transition-colors">Join</a>
           <a href="/Contact" className="text-neutral-900 font-medium no-underline hover:text-neutral-600 transition-colors">About Us</a>
+          <a
+            href="https://parmarproperties.in/contact"
+            className="mt-4 inline-flex items-center justify-center bg-neutral-900 hover:bg-neutral-800 text-white font-semibold text-base px-6 py-3 rounded-full transition-all duration-200 shadow-sm hover:shadow-md"
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            Schedule Consultation
+          </a>
         </div>
       </div>
     </header>
