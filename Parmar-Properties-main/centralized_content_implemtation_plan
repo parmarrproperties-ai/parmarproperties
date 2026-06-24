@@ -1,0 +1,378 @@
+# Centralized Content File — Implementation Plan (v3 — Final)
+
+## Goal
+
+Create `src/content/content.ts` as the single source of truth for all user-facing content, and `src/content/config.ts` for technical configuration. Every component pulls its data from these files.
+
+---
+
+## Files Created
+
+### `src/content/content.ts`
+All copy, image URLs, links, and data arrays. Pure TypeScript — no React, no JSX.
+
+### `src/content/config.ts`
+Technical configuration only: API endpoints, form redirect URLs, third-party service IDs.
+
+---
+
+## What Is Explicitly NOT in `content.ts`
+
+| Item | Reason |
+|---|---|
+| `PARMAR_PATHS`, `PROPS_PATHS` SVG data | Implementation detail |
+| `heroBg`, `heroBuilding`, `heroCloud`, `heroCloudScroll` | Vite static asset imports — stay entirely in `HeroSection/index.tsx` |
+| Newsletter redirect URL (`parmarproperties.in/newsletter-confirmed`) | Configuration — goes in `config.ts` |
+| Animation timing, CSS classes | Implementation detail |
+
+---
+
+## TypeScript Types (defined at top of `content.ts`)
+
+```ts
+type NavLink = { label: string; href: string };
+type CtaButton = { label: string; href: string };
+type TextSegment = { text: string; revealColorClass: string; baseColorClass: string };
+type ServiceItem = { number: number; label: string; description: string; imageUrl: string };
+type ProcessStep = { stepNumber: string; title: string; description: string };
+type SupportCard = { title: string; description: string; imageSrc: string; iconSrc: string; buttonText: string; href: string };
+type TestimonialItem = { quote: string; author: string; rating: number };
+type FooterLink = { label: string; href: string };
+type ContactInfo = { label: string; value: string; href: string };
+```
+
+All exported objects will be typed against these explicitly. No `as const` needed since the types provide the same safety with better error messages.
+
+---
+
+## Content Blocks in `content.ts`
+
+### `==== SEO META ====`
+```ts
+export const seoMeta = {
+  title: "Parmar Properties — South Mumbai's Luxury Real Estate Advisory",
+  description: "40+ years of premium South Bombay luxury real estate advisory. Record-breaking sales, HNI buyer access, pre-launch inventory.",
+  ogImage: "https://parmarproperties.in/og-image.jpg", // TODO: replace with production OG image URL
+  ogUrl: "https://parmarproperties.in",
+};
+```
+
+---
+
+### `==== BRAND ====`
+```ts
+export const brand = {
+  name: "Parmar Properties",
+  tagline: "South Mumbai's Trusted Luxury Real Estate Advisory Since 1985",
+  // Computed at build time — no manual annual update needed
+  copyrightYear: new Date().getFullYear(),
+};
+```
+
+---
+
+### `==== HEADER / NAVIGATION ====`
+```ts
+export const navigation = {
+  links: [
+    { label: "About",         href: "/About" },
+    { label: "Expertise",     href: "/Expertise" },
+    { label: "Opportunities", href: "#" }, // STUB — fill when page is ready
+    { label: "Contact",       href: "#" }, // STUB — fill when page is ready
+  ] as NavLink[],
+  ctaButton: { label: "Schedule Consultation", href: "https://parmarproperties.in/contact" } as CtaButton,
+};
+```
+
+---
+
+### `==== HERO SECTION ====`
+```ts
+export const hero = {
+  headline:    "Access. Influence. Legacy",
+  subHeadline: "SOUTH MUMBAI'S TRUSTED LUXURY REAL ESTATE ADVISORY SINCE 1985",
+  ctaButton: { label: "Explore Opportunities", href: "https://parmar-properties-listing.vercel.app/" } as CtaButton,
+  // NOTE: heroBg / heroBuilding / heroCloud / heroCloudScroll are Vite static
+  // asset imports and remain inside HeroSection/index.tsx — not referenced here.
+};
+```
+
+---
+
+### `==== IDENTITY SECTION ====`
+```ts
+export const identity = {
+  heading: "Who We Are & What We Do",
+  // ORDER-DEPENDENT — scrub-reveal animates segments in array sequence. Do not reorder.
+  bodySegments: [
+    {
+      text: "A premier luxury real estate advisory with 40+ years presence in premium South Bombay markets.",
+      revealColorClass: "text-black font-medium",
+      baseColorClass:   "text-neutral-200 font-medium",
+    },
+    {
+      text: " We deliver record-breaking sales—including ₹154 Cr sold in 30 days at Tribeca Tower 1—and provide portfolio planning, investment acquisition, valuation guidance, and high-velocity sales execution.",
+      revealColorClass: "text-neutral-400 font-medium",
+      baseColorClass:   "text-neutral-200 font-medium",
+    },
+  ] as TextSegment[],
+  // ORDER-DEPENDENT — displayed left-to-right in chevron stack
+  images: [
+    "https://c.animaapp.com/mq3zczchi8fb7N/assets/21.jpg",
+    "https://c.animaapp.com/mq3zczchi8fb7N/assets/77.jpg",
+    "https://c.animaapp.com/mq3zczchi8fb7N/assets/37.jpg",
+    "https://c.animaapp.com/mq3zczchi8fb7N/assets/28.jpg",
+  ],
+};
+```
+
+---
+
+### `==== WHY PARMAR SECTION ====`
+```ts
+export const whyParmar = {
+  eyebrow: "Why Parmar",
+  // ORDER-DEPENDENT
+  bodySegments: [
+    {
+      text: "40+ years of presence. Don't just find a broker",
+      revealColorClass: "text-black font-semibold",
+      baseColorClass:   "text-neutral-200 font-semibold",
+    },
+    {
+      text: " — find proven outcomes. We give you direct access to the Jain–Marwadi network, clarity, and the right advisory by your side.",
+      revealColorClass: "text-neutral-400 font-medium",
+      baseColorClass:   "text-neutral-200 font-medium",
+    },
+  ] as TextSegment[],
+  featureImageUrl: "https://c.animaapp.com/mq3zczchi8fb7N/assets/37.jpg",
+};
+```
+
+---
+
+### `==== SERVICES SECTION ====`
+```ts
+export const services = {
+  items: [
+    {
+      number: 1, label: "Buy",
+      description: "Access exclusive and pre-launch luxury inventory in South Mumbai. Take advantage of strategic timing, valuation guidance, and street-level pricing intelligence.",
+      imageUrl: "https://c.animaapp.com/mq3zczchi8fb7N/assets/67.jpg",
+    },
+    {
+      number: 2, label: "Sell",
+      description: "Achieve high-velocity sales execution. Leverage our direct reach to liquidity-rich HNI buyers and pre-launch sales capabilities to sell in record time.",
+      imageUrl: "https://c.animaapp.com/mq3zczchi8fb7N/assets/85.jpg",
+    },
+    {
+      number: 3, label: "Lease",
+      description: "Strategic wealth planning for HNIs, NRIs, and Family Businesses. Get zero-pressure advisory, negotiation leverage, and long-term capital appreciation.",
+      imageUrl: "https://c.animaapp.com/mq3zczchi8fb7N/assets/48.jpg",
+    },
+  ] as ServiceItem[],
+};
+```
+
+---
+
+### `==== PROCESS / WHY SOUTH MUMBAI SECTION ====`
+```ts
+export const processSouthMumbai = {
+  heading:    "Why South Mumbai.",
+  subHeading: "Why South Mumbai:",
+  ctaButton: { label: "Explore Opportunities", href: "#" } as CtaButton, // STUB — fill when page is ready
+  steps: [
+    { stepNumber: "01", title: "Consistent High Liquidity.", description: "₹12,000+ Cr annual luxury transaction volume." },
+    { stepNumber: "02", title: "HNI Business Families.",    description: "78% of buyers in this premium market are HNI business families." },
+    { stepNumber: "03", title: "Limited Supply.",           description: "Limited supply ensures long-term appreciation and wealth preservation." },
+  ] as ProcessStep[],
+};
+```
+
+---
+
+### `==== SUPPORT / FEATURES SECTION ====`
+```ts
+export const support = {
+  heading: "Developer Trusted Partnerships & Execution",
+  subHeading: "Why South Mumbai's strongest developer ecosystem trusts Parmar Properties.",
+  subHeadingMuted: " High-velocity sales, exclusive mandates, and seamless execution built on transparent relationships.",
+  ctaButton: { label: "Explore Our Network", href: "/services" } as CtaButton,
+  cards: [
+    {
+      title: "Immediate HNI Reach",
+      description: "Direct access to qualified, liquidity-rich HNI buyers and business families.",
+      imageSrc: "https://c.animaapp.com/mq3zczchi8fb7N/assets/18.jpg",
+      iconSrc:  "https://c.animaapp.com/mq3zczchi8fb7N/assets/icon-6.svg",
+      buttonText: "Learn More",
+      href: "https://parmarproperties.in/services",
+    },
+    {
+      title: "Pre-Launch Velocity",
+      description: "Proven pre-launch and early-launch sales execution capabilities.",
+      imageSrc: "https://c.animaapp.com/mq3zczchi8fb7N/assets/91.jpg",
+      iconSrc:  "https://c.animaapp.com/mq3zczchi8fb7N/assets/icon-6.svg",
+      buttonText: "Learn More",
+      href: "https://parmarproperties.in/services",
+    },
+    {
+      title: "Pricing Insights",
+      description: "Market-backed pricing intelligence and transparent mandate-based relationships.",
+      imageSrc: "https://c.animaapp.com/mq3zczchi8fb7N/assets/17.jpg",
+      iconSrc:  "https://c.animaapp.com/mq3zczchi8fb7N/assets/icon-6.svg",
+      buttonText: "Learn More",
+      href: "https://parmarproperties.in/services",
+    },
+  ] as SupportCard[],
+};
+```
+
+---
+
+### `==== AGENTS / JOIN SECTION ====`
+```ts
+export const agents = {
+  heading:  "Don't Rent Your Career. Own It.",
+  imageUrl: "https://c.animaapp.com/mq3zczchi8fb7N/assets/94.jpg",
+  // ORDER-DEPENDENT
+  bodySegments: [
+    {
+      text: "We offer access to real buyers beyond conventional channels, early access to pre-launch inventory, and street-level pricing intelligence.",
+      revealColorClass: "text-black font-medium",
+      baseColorClass:   "text-neutral-200 font-medium",
+    },
+    {
+      text: " Experience faster closures through value-led, zero-pressure, trust-first advisory. Strategic timing guidance, negotiation leverage, and long-term wealth creation for HNIs, NRIs, and family businesses.",
+      revealColorClass: "text-neutral-400 font-medium",
+      baseColorClass:   "text-neutral-200 font-medium",
+    },
+  ] as TextSegment[],
+  ctaButton: { label: "Connect With Us", href: "https://parmarproperties.in/join" } as CtaButton,
+};
+```
+
+---
+
+### `==== TESTIMONIALS SECTION ====`
+```ts
+export const testimonials = {
+  // ORDER-DEPENDENT
+  headingSegments: [
+    { text: "Don't Take ",       revealColorClass: "text-black",       baseColorClass: "text-neutral-300" },
+    { text: "Our Word for It.",  revealColorClass: "text-neutral-400", baseColorClass: "text-neutral-300" },
+  ] as TextSegment[],
+  sideImageUrl: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+  items: [
+    { quote: "Michael was a great realtor. Such a hard worker, dedicated to helping us find the perfect neighborhood, price point and home. He's a workaholic so he was available morning, noon and night. Tireless and dedicated. Would recommend him 100%!", author: "BERNADETTE HOGAN", rating: 5 },
+    { quote: "Exceptional service and deep market knowledge. They guided us through a complex acquisition seamlessly, securing prime inventory before it even hit the open market.", author: "JAMES CRAWFORD", rating: 5 },
+    { quote: "A truly professional experience from start to finish. The advisory team handled our portfolio with the utmost confidentiality and delivered outstanding returns.", author: "ANITA SHARMA", rating: 5 },
+    { quote: "Unmatched expertise in South Bombay luxury real estate. Their strategic approach to negotiation saved us millions while securing our dream home.", author: "DAVID & SARAH CHEN", rating: 5 },
+    { quote: "They don't just sell properties; they build lasting relationships. The level of trust and transparency they provided was exactly what we needed as first-time luxury buyers.", author: "RAHUL DESAI", rating: 5 },
+  ] as TestimonialItem[],
+};
+```
+
+---
+
+### `==== CTA SECTION ====`
+```ts
+export const cta = {
+  headline: "Parmar Properties. South Mumbai's Trusted Luxury Real Estate Advisory.",
+  backgroundImageUrl: "https://c.animaapp.com/mq3zczchi8fb7N/assets/14.webp",
+  primaryButton: { label: "Let's Get Started", href: "https://parmarproperties.in/contact" } as CtaButton,
+  // Component builds `https://wa.me/${whatsapp.phone}` — edit only the number here.
+  whatsapp: { label: "Chat on WhatsApp", phone: "1234567890" }, // TODO: replace with real number
+};
+```
+
+---
+
+### `==== FOOTER ====`
+```ts
+export const footer = {
+  primaryLinks: [
+    { label: "Search",       href: "https://parmarproperties.in/search" },
+    { label: "Agents",       href: "https://parmarproperties.in/agents" },
+    { label: "Join",         href: "https://parmarproperties.in/join" },
+    { label: "About Us",     href: "https://parmarproperties.in/about" },
+    { label: "Agent Portal", href: "https://app.findrealestate.com/authentication/sign-in" },
+  ] as FooterLink[],
+  socialLinks: [
+    { label: "Facebook",  href: "https://facebook.com/parmarproperties" },
+    { label: "Instagram", href: "https://www.instagram.com/parmarproperties" },
+    { label: "Youtube",   href: "https://www.youtube.com/@parmarproperties" },
+    { label: "Linkedin",  href: "https://www.linkedin.com/company/parmarproperties" },
+  ] as FooterLink[],
+  legalLinks: [
+    { label: "Terms",               href: "https://parmarproperties.in/terms-of-service" },
+    { label: "Privacy policy",      href: "https://parmarproperties.in/privacy-policy" },
+    { label: "Fair Housing Notice", href: "https://dos.ny.gov/system/files/documents/2025/03/nys-housing-and-anti-discrimination-notice_02.2025.pdf" },
+    { label: "Operating Procedure", href: "https://parmarproperties.in/operating-procedure" },
+    { label: "Press",               href: "https://parmarproperties.in/press" },
+  ] as FooterLink[],
+  legalNotices: [
+    "Housing Choice Vouchers Welcome",
+    "Se Aceptan Vales de Elección de Vivienda",
+  ],
+  newsletter: {
+    heading:     "Subscribe to our Newsletter!",
+    placeholder: "Enter address",
+  },
+  contact: [
+    { label: "Head Office", value: "5 West 37th Street, 12th Floor, New York, NY 10018", href: "geo://40.75104385252497,-73.98395637414475" },
+    { label: "Email Us",    value: "hello@parmarproperties.in",                          href: "mailto:hello@parmarproperties.in" },
+    { label: "Call Us",     value: "+1 212 994 9965",                                    href: "tel:+12129949965" },
+  ] as ContactInfo[],
+};
+```
+
+---
+
+### `config.ts`
+```ts
+export const config = {
+  newsletter: {
+    // Redirect after form submission — not user-editable copy
+    confirmationUrl: "https://parmarproperties.in/newsletter-confirmed",
+  },
+};
+```
+
+---
+
+## Components To Update
+
+| Component | What changes |
+|---|---|
+| `Header/index.tsx` | Import `navigation.ctaButton`; mobile drawer uses `navigation.links` |
+| `Header/DesktopNavigation.tsx` | Import `navigation.links` |
+| `HeroSection/index.tsx` | Import `hero.headline`, `hero.subHeadline`, `hero.ctaButton` |
+| `IdentitySection/index.tsx` | Import `identity.heading`, `identity.bodySegments` |
+| `IdentitySection/ImageStack.tsx` | Import `identity.images` |
+| `WhyParmarSection/SectionIntro.tsx` | Import `whyParmar.eyebrow`, `whyParmar.bodySegments` |
+| `WhyParmarSection/VideoFeature.tsx` | Import `whyParmar.featureImageUrl` |
+| `ServicesSection/index.tsx` | Import `services.items`, map to `<ServicePanel>` |
+| `ProcessSection/ProcessHeader.tsx` | Import `processSouthMumbai.heading`, `processSouthMumbai.ctaButton` |
+| `ProcessSection/ProcessSteps.tsx` | Import `processSouthMumbai.steps`, `processSouthMumbai.subHeading` |
+| `SupportSection/index.tsx` | Import `support.cards`, map to `<SupportCard>` |
+| `SupportSection/SupportHeader.tsx` | Import `support.heading`, `support.subHeading`, `support.subHeadingMuted`, `support.ctaButton` |
+| `AgentsSection/AgentsContent.tsx` | Import `agents.*` |
+| `TestimonialsSection/index.tsx` | Import `testimonials.*` |
+| `CtaSection/index.tsx` | Import `cta.*` |
+| `Footer/index.tsx` | No hardcoded strings found — no change needed |
+| `Footer/FooterLinks.tsx` | Import `footer.primaryLinks`, `footer.socialLinks` |
+| `Footer/FooterLegal.tsx` | Import `footer.legalLinks`, `footer.legalNotices`, `brand.copyrightYear`, `brand.name` |
+| `Footer/NewsletterSignup.tsx` | Import `footer.newsletter`, `footer.contact`; import `config.newsletter.confirmationUrl` from `config.ts` |
+
+---
+
+## Verification Plan
+
+### Automated
+- `npm run build` — zero TypeScript errors.
+
+### Manual
+1. Visual check: every section renders identically to before.
+2. **Live edit test**: change `hero.headline` in `content.ts` → verify it updates live in the browser via HMR.
+3. **WhatsApp test**: change `cta.whatsapp.phone` → verify the button `href` updates to the correct `wa.me/` URL.
