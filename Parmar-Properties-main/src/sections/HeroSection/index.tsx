@@ -127,47 +127,6 @@ export const HeroSection = () => {
     return () => window.removeEventListener("scroll", handle);
   }, [viewportH, prefersReducedMotion]);
 
-  // Sync <header> opacity
-  useEffect(() => {
-    const header = document.querySelector("header") as HTMLElement | null;
-    if (!header) return;
-
-    const updateHeaderStyle = () => {
-      const isMenuOpen = header.getAttribute("data-mobile-menu-open") === "true";
-      if (isMenuOpen) {
-        // Reset styles so mobile menu is visible and interactive
-        header.style.opacity = "";
-        header.style.pointerEvents = "";
-        header.style.transition = "";
-      } else {
-        const p1 = Math.min(1, scrollProgress / 0.45); // phase 1 ends at 0.45
-        const opacity = Math.max(0, 1 - p1 * 4);
-        header.style.opacity = String(opacity);
-        header.style.pointerEvents = opacity < 0.05 ? "none" : "";
-        header.style.transition = "opacity 0.1s linear";
-      }
-    };
-
-    // Run initially
-    updateHeaderStyle();
-
-    // Observe changes to attributes (specifically data-mobile-menu-open)
-    const observer = new MutationObserver((mutations) => {
-      for (const mutation of mutations) {
-        if (mutation.type === "attributes" && mutation.attributeName === "data-mobile-menu-open") {
-          updateHeaderStyle();
-        }
-      }
-    });
-
-    observer.observe(header, { attributes: true, attributeFilter: ["data-mobile-menu-open"] });
-
-    return () => {
-      observer.disconnect();
-      header.style.opacity = header.style.pointerEvents = header.style.transition = "";
-    };
-  }, [scrollProgress]);
-
   // Drive per-path dashoffsets — each path has its own scroll range
   useEffect(() => {
     const svg = svgRef.current;

@@ -88,7 +88,7 @@ export const ScrollScrubRevealText = ({
           style={{ marginRight: "0.25em", marginBottom: "0.1em" }}
         >
           {/* Base Layer (Lightest Gray) */}
-          <span className={`inline-block ${item.baseClass}`}>
+          <span className={`inline-block text-transparent ${item.baseClass}`}>
             {item.word}
           </span>
           {/* Reveal Overlay Layer (Black or Gray) */}
