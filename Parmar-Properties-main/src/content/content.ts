@@ -13,7 +13,23 @@ type SupportCard = { title: string; description: string; imageSrc: string; iconS
 type TestimonialItem = { quote: string; author: string; rating: number; imageUrl: string };
 type FooterLink = { label: string; href: string };
 type ContactInfo = { label: string; value: string; href: string };
-type BlogPost = { date: string; title: string; excerpt: string; imageUrl: string; href: string; category?: string };
+type BlogPost = { 
+  date: string; 
+  title: string; 
+  excerpt: string; 
+  imageUrl: string; 
+  href: string; 
+  category?: string;
+  content?: {
+    intro: string[];
+    sections: {
+      title?: string;
+      paragraphs: string[];
+      insight?: string;
+    }[];
+    downloads?: { label: string; href: string }[];
+  };
+};
 
 // ─── SEO Meta ───────────────────────────────────────────────
 export const seoMeta = {
@@ -174,11 +190,46 @@ export const blog = {
   posts: [
     {
       date: "2026-04-13",
-      title: "Q1 2026 South Mumbai Market Report",
-      excerpt: "Q1 2026 saw strong rental demand, active sales, and shifting pricing across South Mumbai. Here's what it means heading into the spring market.",
+      title: "Q1 2026 NYC Market Report",
+      excerpt: "The first quarter of 2026 marked a dynamic start to the year across New York City's real estate market. Increased transaction activity, rising rental demand, and shifting pricing trends all point to a market that is active — but more selective.",
       imageUrl: "https://images.unsplash.com/photo-1485871981521-5b1fd3805eee?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
       href: "/blog/q1-2026-market-report",
       category: "Real Estate",
+      content: {
+        intro: [
+          "The first quarter of 2026 marked a dynamic start to the year across New York City's real estate market. Increased transaction activity, rising rental demand, and shifting pricing trends all point to a market that is active — but more selective.",
+          "While higher-priced markets experienced some pricing adjustments, more affordable boroughs continued to show resilience, driven by steady demand and accessibility. Across both sales and rentals, one theme is clear: buyers and renters are engaged, but more strategic than ever."
+        ],
+        sections: [
+          {
+            title: "Manhattan Market Overview",
+            paragraphs: [
+              "Manhattan remained the city's most active and highest-value market in Q1, leading in both transaction volume and pricing. However, the data reflects a shift in leverage.",
+              "While activity remains strong, pricing saw modest declines, and properties are spending more time on the market. Discounts from initial ask have widened, signaling increased negotiating power for buyers.",
+              "On the rental side, demand remains elevated. Rents continued to climb year-over-year, and leasing activity stayed consistent, reinforcing Manhattan's position as the city's most competitive rental market."
+            ],
+            insight: "Manhattan is still the benchmark market — but it's no longer one-sided. Buyers have more room to negotiate, while renters continue to face upward pricing pressure."
+          },
+          {
+            title: "Brooklyn Market Overview",
+            paragraphs: [
+              "Brooklyn's market remained highly active in Q1, with strong transaction volume and steady demand across both sales and rentals.",
+              "On the sales side, pricing softened slightly, reflecting a more value-conscious buyer pool. Despite this, price per square foot increased year-over-year, suggesting continued long-term strength in the borough.",
+              "Brooklyn's rental market continues to stand out. Rents increased, leasing activity remained strong, and properties moved quickly — all indicators of sustained demand."
+            ]
+          }
+        ],
+        downloads: [
+          { label: "Manhattan Q1 2026 Sales Report", href: "#" },
+          { label: "Manhattan Q1 2026 Rental Report", href: "#" },
+          { label: "Brooklyn Q1 2026 Sales Report", href: "#" },
+          { label: "Brooklyn Q1 2026 Rental Report", href: "#" },
+          { label: "Queens Q1 2026 Sales Report", href: "#" },
+          { label: "Queens Q1 2026 Rental Report", href: "#" },
+          { label: "The Bronx Q1 2026 Sales Report", href: "#" },
+          { label: "The Bronx Q1 2026 Rental Report", href: "#" }
+        ]
+      }
     },
     {
       date: "2026-06-19",
@@ -187,6 +238,21 @@ export const blog = {
       imageUrl: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       href: "/blog/summer-2026-events",
       category: "Lifestyle",
+      content: {
+        intro: [
+          "Summer 2026 in South Mumbai is shaping up to be one of the most vibrant seasons in recent memory. From the revitalized waterfront to the historic charm of Fort, the city is alive with energy.",
+          "Whether you're a long-time resident or a luxury buyer exploring the area, these events offer a unique glimpse into the lifestyle that makes South Mumbai so coveted."
+        ],
+        sections: [
+          {
+            title: "Waterfront Experiences",
+            paragraphs: [
+              "The Marine Drive promenade continues to be the heart of the city's summer life. This year, expect a series of sunset concerts and open-air art installations that celebrate the Arabian Sea.",
+              "Luxury hotels along the coast are also hosting exclusive rooftop events, providing the perfect vantage point for the city's famous summer sunsets."
+            ]
+          }
+        ]
+      }
     },
     {
       date: "2026-05-11",
@@ -195,6 +261,21 @@ export const blog = {
       imageUrl: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       href: "/blog/quiet-south-bombay-neighbourhoods",
       category: "Buying",
+      content: {
+        intro: [
+          "While South Mumbai is known for its bustling markets and iconic skyline, there are pockets of tranquility that offer a rare low-density living experience.",
+          "For families and luxury buyers seeking a more relaxed pace without sacrificing proximity to the city's core, these neighbourhoods are the ultimate hidden gems."
+        ],
+        sections: [
+          {
+            title: "The Charm of Altamount Road",
+            paragraphs: [
+              "Altamount Road remains one of the most prestigious addresses in the country, yet it maintains a quiet, residential feel that is hard to find elsewhere.",
+              "With its lush greenery and limited traffic, it offers a sanctuary for those who value privacy and peace."
+            ]
+          }
+        ]
+      }
     },
     {
       date: "2026-02-23",

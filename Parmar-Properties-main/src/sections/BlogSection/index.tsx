@@ -10,7 +10,7 @@ export const BlogSection = () => {
     <section className="bg-[#f3f1ed] text-black py-16 md:py-[100px] w-full overflow-hidden">
       <div className="max-w-[1920px] mx-auto px-6 md:px-16">
         {/* Header */}
-        <div className="grid grid-cols-1 md:grid-cols-[minmax(0,420px)_1fr] gap-10 md:gap-16 items-start pb-10 md:pb-12 border-b border-black/8">
+        <div className="grid grid-cols-1 md:grid-cols-[minmax(0,420px)_1fr] gap-10 md:gap-16 items-start pb-10 md:pb-12">
 
           <ScrollReveal direction="up" delay={0}>
             <h2 className="font-['Instrument_Sans'] text-[58px] md:text-[78px] font-semibold tracking-[-0.06em] leading-[0.92] text-balance">
@@ -54,7 +54,7 @@ export const BlogSection = () => {
           </ScrollReveal>
         </div>
 
-        <div className="flex flex-col divide-y divide-black/10">
+        <div className="flex flex-col">
           {previewPosts.map((post, index) => (
             <ScrollReveal
               key={post.title}

@@ -3,6 +3,7 @@ import { Header } from "@/sections/Header/index";
 import { Main } from "@/sections/Main/index";
 import { Footer } from "@/sections/Footer/index";
 import { BlogPage } from "@/pages/BlogPage";
+import { BlogPostDetail } from "@/pages/BlogPostDetail";
 import { Agentation } from "agentation";
 
 const HomePage = () => (
@@ -13,18 +14,20 @@ const HomePage = () => (
     <Header />
     <Main />
     <Footer />
-    {import.meta.env.DEV && <Agentation />}
   </div>
 );
 
 export const App = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/blog" element={<BlogPage />} />
-        <Route path="/blog/*" element={<BlogPage />} />
-      </Routes>
-    </BrowserRouter>
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/blog" element={<BlogPage />} />
+          <Route path="/blog/:slug" element={<BlogPostDetail />} />
+        </Routes>
+      </BrowserRouter>
+      {import.meta.env.DEV && <Agentation />}
+    </>
   );
 };

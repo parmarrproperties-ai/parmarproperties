@@ -139,7 +139,6 @@ export const HeroSection = () => {
   }, [viewportH, prefersReducedMotion]);
 
   // The header's own scroll logic handles visibility.
-
   // Drive per-path dashoffsets — each path has its own scroll range
   useEffect(() => {
     const svg = svgRef.current;

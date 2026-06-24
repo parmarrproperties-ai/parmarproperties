@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { blog } from "@/content/content";
+import { Header } from "@/sections/Header/index";
+import { ScrollReveal } from "@/components/ScrollReveal";
+import { ScrollScrubRevealText } from "@/components/ScrollScrubRevealText";
 
 const ArrowIcon = ({ size = 16 }: { size?: number }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -39,83 +42,90 @@ export const BlogPage = () => {
 
   return (
     <div id="main-content" className="min-h-screen bg-white font-['Instrument_Sans']">
-      {/* Top bar */}
-      <div className="border-b border-black/10 px-5 md:px-12 py-4 flex items-center gap-3">
-        <Link to="/" className="text-sm font-medium text-black hover:text-black/60 transition-colors">
-          ← Back to Home
-        </Link>
+      <Header />
+
+      <div className="pt-[64px] md:pt-[62px]">
+        <div className="px-5 md:px-12 pt-12 pb-8">
+          <div className="grid grid-cols-1 md:grid-cols-[minmax(0,420px)_1fr] gap-8 md:gap-16 items-start">
+          <ScrollReveal direction="up" delay={0}>
+            <h1 className="font-['Instrument_Sans'] text-[58px] md:text-[78px] font-semibold tracking-[-0.06em] leading-[0.92]">
+              <ScrollScrubRevealText
+                text={blog.heading.main}
+                className="inline"
+                baseColorClass="text-neutral-300"
+                revealColorClass="text-black"
+                scrubStart="top 90%"
+                scrubEnd="center 60%"
+                as="span"
+              />
+              {" "}
+              <ScrollScrubRevealText
+                text={blog.heading.accent}
+                className="inline"
+                baseColorClass="text-neutral-300/55"
+                revealColorClass="text-neutral-400"
+                scrubStart="top 85%"
+                scrubEnd="center 55%"
+                as="span"
+              />
+            </h1>
+          </ScrollReveal>
+
+          <ScrollReveal direction="up" delay={150}>
+            <div className="max-w-[640px] md:pt-1 md:justify-self-start md:pl-4">
+              <p className="text-[20px] md:text-[25px] font-medium tracking-[-0.05em] leading-[1.18] max-w-[590px]">
+                {blog.subheading}
+              </p>
+            </div>
+          </ScrollReveal>
+        </div>
+      </div>
       </div>
 
-      {/* Hero heading */}
-      <div className="px-5 md:px-12 pt-12 pb-8 border-b border-black/10">
-        <h1 className="text-5xl md:text-6xl lg:text-7xl font-['Instrument_Serif'] font-normal tracking-tight text-black">
-          Blog &amp; Resources
-        </h1>
-      </div>
+      <ScrollReveal direction="up" delay={120}>
+        <div className="px-5 md:px-12 pt-12 pb-8 flex items-center gap-3">
+          <input
+            type="text"
+            placeholder="Search"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="flex-1 text-sm text-black placeholder-black/40 bg-transparent outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black rounded-sm px-1"
+          />
+          <SearchIcon />
+        </div>
+      </ScrollReveal>
 
-      {/* Search bar */}
-      <div className="px-5 md:px-12 py-4 border-b border-black/10 flex items-center gap-3">
-        <input
-          type="text"
-          placeholder="Search"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="flex-1 text-sm text-black placeholder-black/40 bg-transparent outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black rounded-sm px-1"
-        />
-        <SearchIcon />
-      </div>
-
-      {/* Category filters */}
-      <div className="px-5 md:px-12 py-4 border-b border-black/10 flex flex-wrap gap-2">
-        {blog.categories.map((cat) => (
-          <button
-            key={cat}
-            onClick={() => setActiveCategory(cat)}
-            className={`px-4 py-1.5 rounded-full text-sm font-medium border transition-all duration-200 ${
-              activeCategory === cat
-                ? "bg-black text-white border-black"
-                : "bg-white text-black border-black/20 hover:border-black/50"
-            }`}
-          >
-            {cat}
-          </button>
-        ))}
-      </div>
+      <ScrollReveal direction="up" delay={160}>
+        <div className="px-5 md:px-12 py-4 flex flex-wrap gap-2">
+          {blog.categories.map((cat, index) => (
+            <button
+              key={cat}
+              onClick={() => setActiveCategory(cat)}
+              className={`px-4 py-1.5 rounded-full text-sm font-medium border transition-all duration-200 ${
+                activeCategory === cat
+                  ? "bg-black text-white border-black"
+                  : "bg-white text-black border-black/20 hover:border-black/50"
+              }`}
+              style={{ transitionDelay: `${index * 40}ms` }}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+      </ScrollReveal>
 
       <div className="px-5 md:px-12 py-8 md:py-12">
-
-        {/* Featured Post */}
         {search.trim() === "" && activeCategory === "All" && featuredPost && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-0 mb-10 md:mb-16 border border-black/10 rounded-none overflow-hidden">
+          <ScrollReveal direction="up" delay={0} className="relative grid grid-cols-1 md:grid-cols-2 gap-0 mb-10 md:mb-16 border border-black/10 rounded-none overflow-hidden">
             {/* Featured image */}
-            <div className="relative aspect-[16/10] md:aspect-auto overflow-hidden">
+            <ScrollReveal direction="left" delay={0} className="relative aspect-[16/10] md:aspect-auto overflow-hidden">
               <img
                 src={featuredPost.imageUrl}
                 alt={featuredPost.title}
                 className="w-full h-full object-cover"
               />
-              {/* Carousel arrows (decorative, advance featured post) */}
-              <div className="absolute bottom-4 right-4 flex gap-2">
-                <button
-                  onClick={() => setFeaturedIndex((prev) => (prev - 1 + allPosts.length) % allPosts.length)}
-                  className="w-9 h-9 rounded-full border border-white/60 bg-white/20 backdrop-blur-sm flex items-center justify-center hover:bg-white/40 transition-colors"
-                  aria-label="Previous featured post"
-                >
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M19 12H5m7-7-7 7 7 7"/>
-                  </svg>
-                </button>
-                <button
-                  onClick={() => setFeaturedIndex((prev) => (prev + 1) % allPosts.length)}
-                  className="w-9 h-9 rounded-full border border-white/60 bg-white/20 backdrop-blur-sm flex items-center justify-center hover:bg-white/40 transition-colors"
-                  aria-label="Next featured post"
-                >
-                  <ArrowIcon size={14} />
-                </button>
-              </div>
-            </div>
-            {/* Featured content */}
-            <div className="p-8 md:p-10 flex flex-col justify-center gap-4 bg-white">
+            </ScrollReveal>
+            <ScrollReveal direction="right" delay={150} className="p-8 md:p-10 flex flex-col justify-center gap-4 bg-white">
               <time className="text-xs text-black/40 font-medium tracking-wide">{featuredPost.date}</time>
               <h2 className="text-2xl md:text-3xl font-['Instrument_Serif'] font-normal leading-snug tracking-tight text-balance">
                 {featuredPost.title}
@@ -127,16 +137,33 @@ export const BlogPage = () => {
               >
                 Read More <ArrowIcon size={14} />
               </Link>
+            </ScrollReveal>
+            <div className="absolute bottom-4 right-4 z-10 flex gap-2">
+              <button
+                onClick={() => setFeaturedIndex((prev) => (prev - 1 + allPosts.length) % allPosts.length)}
+                className="w-9 h-9 rounded-full border border-white/60 bg-white/20 backdrop-blur-sm flex items-center justify-center hover:bg-white/40 transition-colors"
+                aria-label="Previous featured post"
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M19 12H5m7-7-7 7 7 7" />
+                </svg>
+              </button>
+              <button
+                onClick={() => setFeaturedIndex((prev) => (prev + 1) % allPosts.length)}
+                className="w-9 h-9 rounded-full border border-white/60 bg-white/20 backdrop-blur-sm flex items-center justify-center hover:bg-white/40 transition-colors"
+                aria-label="Next featured post"
+              >
+                <ArrowIcon size={14} />
+              </button>
             </div>
-          </div>
+          </ScrollReveal>
         )}
 
-        {/* Post Grid */}
         {filtered.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            {filtered.map((post) => (
-              <article key={post.title} className="flex flex-col gap-3 group">
-                <div className="overflow-hidden rounded-md aspect-[4/3]">
+            {filtered.map((post, index) => (
+              <ScrollReveal key={post.title} delay={index * 100} className="flex flex-col gap-3 group">
+                <div className="overflow-hidden aspect-[4/3]">
                   <img
                     src={post.imageUrl}
                     alt={post.title}
@@ -159,15 +186,14 @@ export const BlogPage = () => {
                     Read More <ArrowIcon size={12} />
                   </Link>
                 </div>
-              </article>
+              </ScrollReveal>
             ))}
           </div>
         ) : (
-          <div className="text-center py-20 text-black/40">
+          <ScrollReveal direction="up" delay={0} className="text-center py-20 text-black/40">
             <p className="text-lg font-['Instrument_Serif']">No posts found.</p>
-          </div>
+          </ScrollReveal>
         )}
-
       </div>
     </div>
   );

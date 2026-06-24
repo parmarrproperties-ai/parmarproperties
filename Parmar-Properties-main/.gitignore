@@ -42,3 +42,4 @@ Thumbs.db
 # If you generated parity/plan artifacts in repo
 parity_plan.md.resolved
 
+.vercel
