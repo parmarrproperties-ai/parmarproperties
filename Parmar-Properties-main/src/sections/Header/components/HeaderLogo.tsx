@@ -2,16 +2,16 @@ import logo from "assets/Parmar logo without bg.webp";
 
 export const HeaderLogo = () => {
   return (
-    <div className="items-center box-border caret-transparent flex outline-[3px] no-underline">
+    <div className="flex items-center h-full">
       <a
         href="/"
-        className="box-border caret-transparent block outline-[3px] no-underline cursor-pointer transition-opacity duration-200 hover:opacity-80"
+        className="flex items-center transition-opacity duration-200 hover:opacity-80"
         aria-label="Go to home page"
       >
         <img
           src={logo}
           alt="Parmar Properties Logo"
-          className="box-border caret-transparent inline outline-[3px] no-underline h-[64px] md:h-[72px] w-auto object-contain object-left scale-[1.6] md:scale-[2.2] origin-left translate-y-[10px]"
+          className="h-[64px] md:h-[72px] w-auto object-contain object-left scale-[1.76] md:scale-[2.42] origin-left pointer-events-none"
         />
       </a>
     </div>

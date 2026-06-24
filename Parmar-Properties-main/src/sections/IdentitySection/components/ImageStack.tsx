@@ -20,13 +20,13 @@ export const ImageStack = () => {
             className="shrink-0 relative"
             style={{
               zIndex: 10 - index,
-              marginLeft: isFirst ? '0' : '-40',
+              marginLeft: isFirst ? "0" : "clamp(-40px, -6vw, -20px)",
             }}
           >
             <div
               className="identity-card overflow-hidden bg-neutral-100 transition-transform duration-300 ease-out hover:-translate-y-4 hover:scale-105"
               style={{
-                width: "clamp(120px, 25vw, 280px)",
+                width: "clamp(75px, 22vw, 280px)",
                 aspectRatio: "346 / 440",
                 clipPath: chevronClipPath,
                 WebkitClipPath: chevronClipPath,

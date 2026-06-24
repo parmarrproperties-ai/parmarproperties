@@ -23,7 +23,7 @@ export const NewsletterSignup = () => {
             type="email"
             placeholder={footer.newsletter.placeholder}
             name="email"
-            className="w-full bg-transparent text-base text-white placeholder-white/50 focus:outline-none focus:ring-0"
+            className="w-full bg-transparent text-base text-white placeholder-white/50 focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black rounded-sm px-1"
             required
           />
           <button

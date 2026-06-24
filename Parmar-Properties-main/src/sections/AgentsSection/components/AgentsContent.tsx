@@ -15,7 +15,7 @@ export const AgentsContent = () => {
         scrubEnd="center 60%"
       />
 
-      <ScrollReveal delay={200} className="relative w-full aspect-[3/2] rounded-2xl overflow-hidden mb-6">
+      <ScrollReveal delay={200} className="relative w-full aspect-[3/2] rounded-none overflow-hidden mb-6">
         <img
           src={agents.imageUrl}
           alt="Agents working"

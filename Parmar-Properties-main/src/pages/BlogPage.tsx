@@ -38,7 +38,7 @@ export const BlogPage = () => {
   });
 
   return (
-    <div className="min-h-screen bg-white font-['Instrument_Sans']">
+    <div id="main-content" className="min-h-screen bg-white font-['Instrument_Sans']">
       {/* Top bar */}
       <div className="border-b border-black/10 px-5 md:px-12 py-4 flex items-center gap-3">
         <Link to="/" className="text-sm font-medium text-black hover:text-black/60 transition-colors">
@@ -60,7 +60,7 @@ export const BlogPage = () => {
           placeholder="Search"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="flex-1 text-sm text-black placeholder-black/40 bg-transparent outline-none"
+          className="flex-1 text-sm text-black placeholder-black/40 bg-transparent outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black rounded-sm px-1"
         />
         <SearchIcon />
       </div>
@@ -86,7 +86,7 @@ export const BlogPage = () => {
 
         {/* Featured Post */}
         {search.trim() === "" && activeCategory === "All" && featuredPost && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-0 mb-10 md:mb-16 border border-black/10 rounded-lg overflow-hidden">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-0 mb-10 md:mb-16 border border-black/10 rounded-none overflow-hidden">
             {/* Featured image */}
             <div className="relative aspect-[16/10] md:aspect-auto overflow-hidden">
               <img
@@ -117,7 +117,7 @@ export const BlogPage = () => {
             {/* Featured content */}
             <div className="p-8 md:p-10 flex flex-col justify-center gap-4 bg-white">
               <time className="text-xs text-black/40 font-medium tracking-wide">{featuredPost.date}</time>
-              <h2 className="text-2xl md:text-3xl font-['Instrument_Serif'] font-normal leading-snug tracking-tight">
+              <h2 className="text-2xl md:text-3xl font-['Instrument_Serif'] font-normal leading-snug tracking-tight text-balance">
                 {featuredPost.title}
               </h2>
               <p className="text-sm text-black/60 leading-relaxed">{featuredPost.excerpt}</p>

@@ -7,6 +7,9 @@ import { Agentation } from "agentation";
 
 const HomePage = () => (
   <div className="w-full flex flex-col text-black font-instrument_sans">
+    <a href="#main-content" className="sr-only focus-visible:not-sr-only focus-visible:absolute focus-visible:top-4 focus-visible:left-4 focus-visible:z-[9999] focus-visible:bg-white focus-visible:text-black focus-visible:px-4 focus-visible:py-2 focus-visible:rounded-full focus-visible:shadow-md font-medium">
+      Skip to main content
+    </a>
     <Header />
     <Main />
     <Footer />

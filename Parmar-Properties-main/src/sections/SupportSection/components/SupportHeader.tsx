@@ -10,7 +10,7 @@ export const SupportHeader = () => {
       <ScrollReveal direction="up" delay={0}>
         <div className="box-border caret-transparent text-[10px] leading-[11.5px] min-h-[auto] min-w-[auto] outline-neutral-900 outline-[3px] no-underline md:text-[6.66667px] md:leading-[7.66667px]">
           <div className="box-border caret-transparent text-[44px] font-medium tracking-[-0.88px] leading-[46.2px] outline-neutral-900 outline-[3px] no-underline md:text-5xl md:tracking-[-1.92px] md:leading-[48px]">
-            <h2 className="box-border caret-transparent text-[44px] tracking-[-0.88px] leading-[46.2px] outline-neutral-900 outline-[3px] no-underline md:text-5xl md:tracking-[-1.92px] md:leading-[48px]">
+            <h2 className="box-border caret-transparent text-[44px] tracking-[-0.88px] leading-[46.2px] outline-neutral-900 outline-[3px] no-underline md:text-5xl md:tracking-[-1.92px] md:leading-[48px] text-balance">
               <ScrollScrubRevealText 
                 text={support.heading}
                 className="box-border caret-transparent text-[44px] tracking-[-0.88px] leading-[46.2px] outline-neutral-900 outline-[3px] no-underline md:text-5xl md:tracking-[-1.92px] md:leading-[48px]"

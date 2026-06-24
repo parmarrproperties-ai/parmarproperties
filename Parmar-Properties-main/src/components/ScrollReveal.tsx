@@ -16,9 +16,9 @@ interface ScrollRevealProps {
 export const ScrollReveal = ({
   children,
   delay = 0,
-  duration = 1200,
+  duration = 1600,
   direction = "up",
-  distance = 64,
+  distance = 80,
   className = "",
   style: customStyle = {},
   as: Component = "div",
@@ -45,10 +45,9 @@ export const ScrollReveal = ({
     ...customStyle,
     opacity: isVisible ? 1 : 0,
     transform: isVisible ? "translate(0) scale(1) skew(0)" : getTransform(),
-    filter: isVisible ? "blur(0px)" : "blur(8px)",
-    transition: `opacity ${duration}ms cubic-bezier(0.16, 1, 0.3, 1), transform ${duration}ms cubic-bezier(0.16, 1, 0.3, 1), filter ${duration}ms cubic-bezier(0.16, 1, 0.3, 1)`,
+    transition: `opacity ${duration}ms cubic-bezier(0.22, 1, 0.36, 1), transform ${duration}ms cubic-bezier(0.22, 1, 0.36, 1)`,
     transitionDelay: `${delay}ms`,
-    willChange: "transform, opacity, filter",
+    willChange: "transform, opacity",
   };
 
   return (

@@ -8,11 +8,14 @@ export const VideoFeature = () => {
         direction="left" 
         distance={200}
         duration={1500}
-        className="relative w-full aspect-[4/5] md:aspect-[21/9] rounded-2xl md:rounded-[40px] overflow-hidden"
+        className="relative w-full aspect-[4/5] md:aspect-[21/9] rounded-none overflow-hidden"
       >
         <img
           src={whyParmar.featureImageUrl}
           alt="Luxury Real Estate Placeholder"
+          loading="lazy"
+          width="1200"
+          height="600"
           className="absolute inset-0 w-full h-full object-cover"
         />
       </ScrollReveal>

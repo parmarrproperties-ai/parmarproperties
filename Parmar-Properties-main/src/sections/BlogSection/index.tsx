@@ -13,7 +13,7 @@ export const BlogSection = () => {
         <div className="grid grid-cols-1 md:grid-cols-[minmax(0,420px)_1fr] gap-10 md:gap-16 items-start pb-10 md:pb-12 border-b border-black/8">
 
           <ScrollReveal direction="up" delay={0}>
-            <h2 className="font-['Instrument_Sans'] text-[58px] md:text-[78px] font-semibold tracking-[-0.06em] leading-[0.92]">
+            <h2 className="font-['Instrument_Sans'] text-[58px] md:text-[78px] font-semibold tracking-[-0.06em] leading-[0.92] text-balance">
               <ScrollScrubRevealText
                 text={blog.heading.main}
                 className="inline"

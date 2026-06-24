@@ -1,5 +1,4 @@
 import { ScrollReveal } from "@/components/ScrollReveal";
-import logo from "assets/Parmar logo without bg.webp";
 
 export const FooterLogo = () => {
   return (
@@ -9,11 +8,14 @@ export const FooterLogo = () => {
         className="no-underline cursor-pointer transition-opacity duration-200 hover:opacity-80 inline-block"
         aria-label="Go to home page"
       >
-        <img
-          src={logo}
-          alt="Parmar Properties Logo"
-          className="w-auto h-16 md:h-24 object-contain inline-block"
-        />
+        <div className="flex flex-col items-start justify-center font-['Instrument_Sans']">
+          <span className="text-[52px] md:text-[80px] font-bold tracking-tight leading-none">
+            PARMAR
+          </span>
+          <span className="text-[15px] md:text-[22px] font-medium tracking-[0.3em] text-white/70 leading-none mt-1 md:mt-2">
+            PROPERTIES
+          </span>
+        </div>
       </a>
     </ScrollReveal>
   );

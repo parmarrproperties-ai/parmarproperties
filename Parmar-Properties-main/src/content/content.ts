@@ -10,7 +10,7 @@ type TextSegment = { text: string; revealColorClass: string; baseColorClass: str
 type ServiceItem = { number: number; label: string; description: string; imageUrl: string };
 type ProcessStep = { stepNumber: string; title: string; description: string };
 type SupportCard = { title: string; description: string; imageSrc: string; iconSrc: string; buttonText: string; href: string };
-type TestimonialItem = { quote: string; author: string; rating: number };
+type TestimonialItem = { quote: string; author: string; rating: number; imageUrl: string };
 type FooterLink = { label: string; href: string };
 type ContactInfo = { label: string; value: string; href: string };
 type BlogPost = { date: string; title: string; excerpt: string; imageUrl: string; href: string; category?: string };
@@ -69,10 +69,10 @@ export const identity = {
   ] as TextSegment[],
   // ORDER-DEPENDENT — displayed left-to-right in chevron stack
   images: [
-    "https://c.animaapp.com/mq3zczchi8fb7N/assets/21.jpg",
+    "https://c.animaapp.com/mq3zczchi8fb7N/assets/28.jpg",
     "https://c.animaapp.com/mq3zczchi8fb7N/assets/77.jpg",
     "https://c.animaapp.com/mq3zczchi8fb7N/assets/37.jpg",
-    "https://c.animaapp.com/mq3zczchi8fb7N/assets/28.jpg",
+    "https://c.animaapp.com/mq3zczchi8fb7N/assets/21.jpg",
   ],
 };
 
@@ -268,11 +268,11 @@ export const testimonials = {
   ] as TextSegment[],
   sideImageUrl: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
   items: [
-    { quote: "Michael was a great realtor. Such a hard worker, dedicated to helping us find the perfect neighborhood, price point and home. He's a workaholic so he was available morning, noon and night. Tireless and dedicated. Would recommend him 100%!", author: "BERNADETTE HOGAN", rating: 5 },
-    { quote: "Exceptional service and deep market knowledge. They guided us through a complex acquisition seamlessly, securing prime inventory before it even hit the open market.", author: "JAMES CRAWFORD", rating: 5 },
-    { quote: "A truly professional experience from start to finish. The advisory team handled our portfolio with the utmost confidentiality and delivered outstanding returns.", author: "ANITA SHARMA", rating: 5 },
-    { quote: "Unmatched expertise in South Bombay luxury real estate. Their strategic approach to negotiation saved us millions while securing our dream home.", author: "DAVID & SARAH CHEN", rating: 5 },
-    { quote: "They don't just sell properties; they build lasting relationships. The level of trust and transparency they provided was exactly what we needed as first-time luxury buyers.", author: "RAHUL DESAI", rating: 5 },
+    { quote: "Michael was a great realtor. Such a hard worker, dedicated to helping us find the perfect neighborhood, price point and home. He's a workaholic so he was available morning, noon and night. Tireless and dedicated. Would recommend him 100%!", author: "BERNADETTE HOGAN", rating: 5, imageUrl: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" },
+    { quote: "Exceptional service and deep market knowledge. They guided us through a complex acquisition seamlessly, securing prime inventory before it even hit the open market.", author: "JAMES CRAWFORD", rating: 5, imageUrl: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" },
+    { quote: "A truly professional experience from start to finish. The advisory team handled our portfolio with the utmost confidentiality and delivered outstanding returns.", author: "ANITA SHARMA", rating: 5, imageUrl: "https://images.unsplash.com/photo-1485871981521-5b1fd3805eee?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" },
+    { quote: "Unmatched expertise in South Bombay luxury real estate. Their strategic approach to negotiation saved us millions while securing our dream home.", author: "DAVID & SARAH CHEN", rating: 5, imageUrl: "https://images.unsplash.com/photo-1516912481808-3406841bd33c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" },
+    { quote: "They don't just sell properties; they build lasting relationships. The level of trust and transparency they provided was exactly what we needed as first-time luxury buyers.", author: "RAHUL DESAI", rating: 5, imageUrl: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" },
   ] as TestimonialItem[],
 };
 

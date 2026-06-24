@@ -11,11 +11,12 @@ export type ServicePanelProps = {
 export const ServicePanel = ({ imageUrl, description, label, number, delay = 0 }: ServicePanelProps) => {
   return (
     <ScrollReveal delay={delay} direction="up" distance={40} className="group relative w-full border-t border-white/20 bg-black overflow-hidden flex flex-col md:flex-row items-start md:items-center py-10 md:py-16 px-6 md:px-16 transition-all duration-500 cursor-pointer">
-      {/* Background Image (appears on hover) */}
-      <div className="absolute inset-0 opacity-0 group-hover:opacity-40 transition-opacity duration-700 pointer-events-none z-0">
+      {/* Background Image (appears on hover on desktop, always visible on mobile) */}
+      <div className="absolute inset-0 opacity-40 md:opacity-0 md:group-hover:opacity-40 transition-opacity duration-700 pointer-events-none z-0">
         <img
           src={imageUrl}
           alt={label}
+          loading="lazy"
           className="w-full h-full object-cover"
         />
       </div>
@@ -36,10 +37,10 @@ export const ServicePanel = ({ imageUrl, description, label, number, delay = 0 }
 
         {/* Right Side: Huge Label Text */}
         <div className="w-full md:w-auto flex justify-center md:justify-end">
-          <h2 className="relative text-white font-['Instrument_Sans'] text-6xl md:text-[160px] lg:text-[180px] font-medium tracking-tight leading-none transition-transform duration-500 group-hover:scale-105 inline-block
-                         after:content-[''] after:absolute after:bottom-[-8px] md:after:bottom-3 after:left-0 after:w-full after:h-[3px] md:after:h-[6px] after:bg-white after:scale-x-0 after:origin-right group-hover:after:scale-x-100 group-hover:after:origin-left after:transition-transform after:duration-500">
+          <span className="block relative text-white font-['Instrument_Sans'] text-6xl md:text-[160px] lg:text-[180px] font-medium tracking-tight leading-none transition-transform duration-500 md:group-hover:scale-105
+                         after:content-[''] after:absolute after:bottom-[-8px] md:after:bottom-3 after:left-0 after:w-full after:h-[3px] md:after:h-[6px] after:bg-white after:scale-x-0 after:origin-right md:group-hover:after:scale-x-100 md:group-hover:after:origin-left after:transition-transform after:duration-500">
             {label}
-          </h2>
+          </span>
         </div>
       </div>
     </ScrollReveal>

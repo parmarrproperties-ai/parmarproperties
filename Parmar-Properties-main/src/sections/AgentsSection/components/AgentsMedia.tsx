@@ -8,10 +8,13 @@ export const AgentsMedia = ({ imageUrl }: AgentsMediaProps) => {
       <div className="text-black/60 font-['Instrument_Sans'] font-semibold tracking-widest text-sm uppercase mb-4 md:mb-6">
         For Agents
       </div>
-      <div className="relative w-full max-w-[280px] md:max-w-[320px] h-[340px] sm:h-auto aspect-[4/5] rounded-2xl overflow-hidden mt-8 md:mt-24">
+      <div className="relative w-full max-w-[280px] md:max-w-[320px] h-[340px] sm:h-auto aspect-[4/5] rounded-none overflow-hidden mt-8 md:mt-24">
         <img
           src={imageUrl}
           alt="Agent portrait"
+          loading="lazy"
+          width="400"
+          height="500"
           className="absolute inset-0 w-full h-full object-cover"
         />
       </div>

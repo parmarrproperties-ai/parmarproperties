@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { TestimonialCarousel } from "./components/TestimonialCarousel";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { ScrollScrubRevealText } from "@/components/ScrollScrubRevealText";
@@ -5,6 +6,9 @@ import { testimonials as testimonialsContent } from "@/content/content";
 
 
 export function TestimonialsSection() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const activeImage = testimonialsContent.items[activeIndex].imageUrl;
+
   return (
     <section className="bg-zinc-100 py-20 md:py-32 w-full overflow-hidden">
       <div className="max-w-[1920px] mx-auto px-6 md:px-16">
@@ -28,11 +32,15 @@ export function TestimonialsSection() {
           
           {/* Left: Large Image */}
           <div className="flex-1 w-full relative z-20">
-            <ScrollReveal className="w-full h-full min-h-[400px] md:min-h-[500px] rounded-2xl overflow-hidden relative z-20">
+            <ScrollReveal className="w-full h-full min-h-[400px] md:min-h-[500px] rounded-none overflow-hidden relative z-20 bg-neutral-200">
               <img 
-                src={testimonialsContent.sideImageUrl} 
+                key={activeImage}
+                src={activeImage} 
                 alt="Clients discussing property"
-                className="absolute inset-0 w-full h-full object-cover"
+                loading="lazy"
+                width="800"
+                height="800"
+                className="absolute inset-0 w-full h-full object-cover animate-fade-in"
               />
             </ScrollReveal>
           </div>
@@ -40,7 +48,11 @@ export function TestimonialsSection() {
           {/* Right: Testimonial Carousel */}
           <div className="flex-1 w-full flex flex-col justify-center">
             <ScrollReveal delay={200} direction="left">
-              <TestimonialCarousel testimonials={testimonialsContent.items} />
+              <TestimonialCarousel 
+                testimonials={testimonialsContent.items as any} 
+                activeIndex={activeIndex}
+                setActiveIndex={setActiveIndex}
+              />
             </ScrollReveal>
           </div>
 

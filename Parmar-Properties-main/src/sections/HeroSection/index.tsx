@@ -111,62 +111,34 @@ export const HeroSection = () => {
 
   // Scroll progress
   useEffect(() => {
+    let ticking = false;
+
     const handle = () => {
       if (prefersReducedMotion) {
         setScrollProgress(0);
         return;
       }
-      const section = sectionRef.current;
-      if (!section) return;
-      const scrolled = window.scrollY - section.offsetTop;
-      const range = section.offsetHeight - (viewportH || document.documentElement.clientHeight);
-      setScrollProgress(range > 0 ? Math.max(0, Math.min(1, scrolled / range)) : 0);
+      
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const section = sectionRef.current;
+          if (section) {
+            const scrolled = window.scrollY - section.offsetTop;
+            const range = section.offsetHeight - (viewportH || document.documentElement.clientHeight);
+            setScrollProgress(range > 0 ? Math.max(0, Math.min(1, scrolled / range)) : 0);
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
+    
     window.addEventListener("scroll", handle, { passive: true });
     handle();
     return () => window.removeEventListener("scroll", handle);
   }, [viewportH, prefersReducedMotion]);
 
-  // Sync <header> opacity
-  useEffect(() => {
-    const header = document.querySelector("header") as HTMLElement | null;
-    if (!header) return;
-
-    const updateHeaderStyle = () => {
-      const isMenuOpen = header.getAttribute("data-mobile-menu-open") === "true";
-      if (isMenuOpen) {
-        // Reset styles so mobile menu is visible and interactive
-        header.style.opacity = "";
-        header.style.pointerEvents = "";
-        header.style.transition = "";
-      } else {
-        const p1 = Math.min(1, scrollProgress / 0.45); // phase 1 ends at 0.45
-        const opacity = Math.max(0, 1 - p1 * 4);
-        header.style.opacity = String(opacity);
-        header.style.pointerEvents = opacity < 0.05 ? "none" : "";
-        header.style.transition = "opacity 0.1s linear";
-      }
-    };
-
-    // Run initially
-    updateHeaderStyle();
-
-    // Observe changes to attributes (specifically data-mobile-menu-open)
-    const observer = new MutationObserver((mutations) => {
-      for (const mutation of mutations) {
-        if (mutation.type === "attributes" && mutation.attributeName === "data-mobile-menu-open") {
-          updateHeaderStyle();
-        }
-      }
-    });
-
-    observer.observe(header, { attributes: true, attributeFilter: ["data-mobile-menu-open"] });
-
-    return () => {
-      observer.disconnect();
-      header.style.opacity = header.style.pointerEvents = header.style.transition = "";
-    };
-  }, [scrollProgress]);
+  // The header's own scroll logic handles visibility.
 
   // Drive per-path dashoffsets — each path has its own scroll range
   useEffect(() => {
@@ -220,10 +192,13 @@ export const HeroSection = () => {
   const isMobile = viewportW > 0 && viewportW < 768;
 
   // Building: anchored at top.
-  // Desktop: starts with top-edge at 35% from viewport top (original behaviour).
+  // Desktop: starts with top-edge at 45% from viewport top so it doesn't clip the button.
   // Mobile:  starts at 175% to balance the entrance from below the screen.
-  const buildingStartY = isMobile ? 175 : 35;
+  const buildingStartY = isMobile ? 175 : 45;
   const buildingY = buildingStartY - scrollProgress * 80;
+  
+  // Building POP effect: scales up to 15% larger as you scroll, creating a looming 3D effect
+  const buildingScale = 1 + p1e * 0.15;
 
   // Fade IN the sky overlay as SVG nears completion (starts at 0.60, fully covers outside building by 0.70)
   const buildingFadeProgress = Math.max(0, Math.min(1, (scrollProgress - 0.60) / 0.10));
@@ -235,11 +210,11 @@ export const HeroSection = () => {
   const contentY = p1e * 120;
 
   // Content vertical offset:
-  // Desktop → same as before: -min(45px, 6vh) keeps text just above true center.
+  // Desktop → lift the text higher: -min(80px, 12vh) keeps text safely above the building.
   // Mobile adjusts text position — reduced negative offset to bring text further down
   const contentTranslateY = isMobile
     ? `${contentY - viewportH * 0.10}px`
-    : `calc(${contentY}px - min(45px, 6vh))`;
+    : `calc(${contentY}px - min(80px, 12vh))`;
 
   // On mobile, clouds drift left and right as you scroll down
   const cloudLeftX = isMobile ? -scrollProgress * 200 : 0;
@@ -304,12 +279,10 @@ export const HeroSection = () => {
           from {
             opacity: 0;
             transform: translateY(40px);
-            filter: blur(6px);
           }
           to {
             opacity: 1;
             transform: translateY(0);
-            filter: blur(0px);
           }
         }
         @keyframes heroPopUp {
@@ -357,7 +330,7 @@ export const HeroSection = () => {
           display: inline-block;
           animation: heroLetterEntrance 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
           opacity: 0;
-          will-change: transform, opacity, filter;
+          will-change: transform, opacity;
         }
         .animate-hero-paragraph {
           animation: heroEntrance 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -401,7 +374,7 @@ export const HeroSection = () => {
           <div className="absolute inset-0"
             style={{ transform: `scale(${skyScale})`, transformOrigin: "center center", willChange: "transform" }}>
             <div className="animate-layer-entrance w-full h-full">
-              <img src={heroBg} alt="" aria-hidden="true" className="w-full h-full object-cover animate-breathe" />
+              <img src={heroBg} alt="" aria-hidden="true" className="w-full h-full object-cover" />
             </div>
           </div>
 
@@ -412,8 +385,8 @@ export const HeroSection = () => {
           <div className="absolute top-0 inset-x-0 pointer-events-none"
             style={{
               zIndex: 25,
-              transform: `translateY(${buildingY}%)`,
-              transformOrigin: "top center",
+              transform: `translateY(${buildingY}%) scale(${buildingScale})`,
+              transformOrigin: "bottom center",
               opacity: buildingOpacity,
               willChange: "transform, opacity",
             }}>
@@ -521,7 +494,7 @@ export const HeroSection = () => {
                     transform: `translate(-50%, -50%)`,
                   }}>
                     <div className="absolute inset-0" style={{ transform: `scale(${skyScale})`, transformOrigin: "center center" }}>
-                      <img src={heroBg} className="w-full h-full object-cover animate-breathe" />
+                      <img src={heroBg} className="w-full h-full object-cover" />
                     </div>
                     {/* Add the dark tint over the sky just like Layer 2 to perfectly match it */}
                     <div className="absolute inset-0 bg-black pointer-events-none" style={{ opacity: darkOpacity }} />
@@ -550,19 +523,27 @@ export const HeroSection = () => {
           <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6"
             style={{ zIndex: 10, opacity: contentOpacity, transform: `translateY(${contentTranslateY})`, pointerEvents: contentOpacity < 0.05 ? "none" : "auto" }}>
             <h1 className="text-black font-bold leading-[1.05] mb-1 pb-4 overflow-hidden flex flex-wrap justify-center"
-              style={{ fontFamily: "'Instrument Sans', sans-serif", fontSize: "clamp(46px, max(7vw, 13vmin), 110px)", letterSpacing: "-0.02em", textShadow: "none" }}>
+              style={{ fontFamily: "'Instrument Sans', sans-serif", fontSize: "clamp(46px, 8vw, 260px)", letterSpacing: "-0.02em", textShadow: "none" }}>
               <span className="animate-hero-letter" style={{ animationDelay: "300ms" }}>
                 {hero.headline}
               </span>
             </h1>
             <p className="text-black/85 mb-3 max-w-[90vw] leading-relaxed animate-hero-strong"
-              style={{ fontFamily: "'Instrument Sans', sans-serif", fontSize: "clamp(13px, max(1.3vw, 3.5vmin), 22px)", textAlign: "center" }}>
+              style={{ fontFamily: "'Instrument Sans', sans-serif", fontSize: "clamp(13px, 1.4vw, 50px)", textAlign: "center", marginTop: "clamp(0px, 1vw, 20px)", marginBottom: "clamp(12px, 2vw, 40px)" }}>
               <strong className="font-semibold text-black">SOUTH MUMBAI'S TRUSTED LUXURY REAL ESTATE ADVISORY SINCE 1985</strong>
             </p>
             <a href="https://parmar-properties-listing.vercel.app/" target="_blank"
-              className="group inline-flex items-center gap-2 bg-gray-900 text-white font-semibold rounded-full px-6 py-3 hover:bg-gray-800 hover:scale-105 transition-all duration-300 shadow-md hover:shadow-xl animate-hero-button"
-              style={{ fontFamily: "'Instrument Sans', sans-serif", fontSize: "clamp(14px, max(0.8vw, 3.5vmin), 16px)" }}>
-              Explore Opportunities <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+              className="group inline-flex items-center bg-gray-900 text-white font-semibold rounded-full hover:bg-gray-800 hover:scale-105 transition-all duration-300 shadow-md hover:shadow-xl animate-hero-button"
+              style={{ 
+                fontFamily: "'Instrument Sans', sans-serif", 
+                fontSize: "clamp(14px, 1.1vw, 32px)",
+                padding: "clamp(12px, 1vw, 32px) clamp(24px, 2vw, 64px)",
+                gap: "clamp(8px, 0.5vw, 16px)"
+              }}>
+              Explore Opportunities 
+              <svg width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transition-transform duration-300 group-hover:translate-x-1">
+                <path d="M5 12h14m-7-7 7 7-7 7"/>
+              </svg>
             </a>
           </div>
 

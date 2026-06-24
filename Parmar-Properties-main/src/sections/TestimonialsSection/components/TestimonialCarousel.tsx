@@ -9,10 +9,11 @@ export type Testimonial = {
 
 type Props = {
   testimonials: Testimonial[];
+  activeIndex: number;
+  setActiveIndex: (index: number) => void;
 };
 
-export const TestimonialCarousel = ({ testimonials }: Props) => {
-  const [activeIndex, setActiveIndex] = useState(0);
+export const TestimonialCarousel = ({ testimonials, activeIndex, setActiveIndex }: Props) => {
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
@@ -101,7 +102,9 @@ export const TestimonialCarousel = ({ testimonials }: Props) => {
             <button
               key={index}
               onClick={() => goToIndex(index)}
-              className={`w-8 h-8 rounded-full border border-neutral-300 flex items-center justify-center text-sm font-medium transition-colors ${
+              aria-label={`Go to testimonial ${index + 1}`}
+              aria-current={index === activeIndex ? "true" : undefined}
+              className={`w-8 h-8 rounded-full border border-neutral-300 flex items-center justify-center text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 ${
                 index === activeIndex
                   ? "border-black text-black"
                   : "text-neutral-400 hover:text-black hover:border-black"
@@ -143,7 +146,7 @@ export const TestimonialCarousel = ({ testimonials }: Props) => {
           <span className="text-neutral-300">/</span>
           <div className="flex gap-1 text-black">
             {[...Array(t.rating)].map((_, i) => (
-              <svg key={i} className="w-3 h-3 fill-current" viewBox="0 0 24 24">
+              <svg key={i} className="w-3 h-3 fill-current" viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
               </svg>
             ))}
