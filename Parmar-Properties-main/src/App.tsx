@@ -4,6 +4,10 @@ import { Main } from "@/sections/Main/index";
 import { Footer } from "@/sections/Footer/index";
 import { BlogPage } from "@/pages/BlogPage";
 import { BlogPostDetail } from "@/pages/BlogPostDetail";
+import { LoginPage } from "@/pages/admin/LoginPage";
+import { AdminDashboard } from "@/pages/admin/AdminDashboard";
+import { PostEditor } from "@/pages/admin/PostEditor";
+import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { Agentation } from "agentation";
 
 const HomePage = () => (
@@ -22,9 +26,37 @@ export const App = () => {
     <>
       <BrowserRouter>
         <Routes>
+          {/* Public routes */}
           <Route path="/" element={<HomePage />} />
           <Route path="/blog" element={<BlogPage />} />
           <Route path="/blog/:slug" element={<BlogPostDetail />} />
+
+          {/* Admin routes */}
+          <Route path="/admin/login" element={<LoginPage />} />
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute>
+                <AdminDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/post/new"
+            element={
+              <ProtectedRoute>
+                <PostEditor />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/post/:slug"
+            element={
+              <ProtectedRoute>
+                <PostEditor />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </BrowserRouter>
       {import.meta.env.DEV && <Agentation />}

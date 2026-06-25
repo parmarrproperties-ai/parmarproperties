@@ -1,10 +1,12 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { blog } from "@/content/content";
 import { Header } from "@/sections/Header/index";
 import { Footer } from "@/sections/Footer/index";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { ScrollScrubRevealText } from "@/components/ScrollScrubRevealText";
+import { fetchPostBySlug, fetchMoreArticles } from "@/hooks/useBlogPosts";
+import { BlogPreviewCard, BlogPreviewCardSkeleton } from "@/components/BlogPreviewCard";
+import type { BlogPost } from "@/lib/types";
 
 const ArrowIcon = ({ size = 16 }: { size?: number }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -26,12 +28,60 @@ const FacebookIcon = () => (
 
 export const BlogPostDetail = () => {
   const { slug } = useParams();
-  const post = blog.posts.find((p) => p.href === `/blog/${slug}`);
+  const [post, setPost] = useState<BlogPost | null | undefined>(undefined); // undefined=loading, null=not found
+  const [moreArticles, setMoreArticles] = useState<BlogPost[]>([]);
+  const [moreLoading, setMoreLoading] = useState(true);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [slug]);
 
+  useEffect(() => {
+    if (!slug) { setPost(null); return; }
+    setPost(undefined);
+    setMoreLoading(true);
+
+    fetchPostBySlug(slug).then(async (found) => {
+      setPost(found);
+      if (found) {
+        const more = await fetchMoreArticles(found);
+        setMoreArticles(more);
+      }
+      setMoreLoading(false);
+    });
+  }, [slug]);
+
+  // ─── Loading state ────────────────────────────────────────
+  if (post === undefined) {
+    return (
+      <div className="min-h-screen bg-white font-['Instrument_Sans']">
+        <Header />
+        <main className="pt-[100px] md:pt-[140px] pb-20">
+          <div className="max-w-[1920px] mx-auto px-6 md:px-16">
+            <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.5fr] gap-12 lg:gap-24 items-start">
+              <div className="lg:sticky lg:top-[140px] flex flex-col gap-8 animate-pulse">
+                <div className="h-4 w-32 bg-neutral-200 rounded" />
+                <div className="h-20 w-3/4 bg-neutral-200 rounded" />
+                <div className="h-16 w-full bg-neutral-200 rounded" />
+                <div className="flex gap-4 mt-12">
+                  <div className="w-12 h-12 rounded-full bg-neutral-200" />
+                  <div className="w-12 h-12 rounded-full bg-neutral-200" />
+                </div>
+              </div>
+              <div className="flex flex-col gap-12 animate-pulse">
+                <div className="h-5 w-full bg-neutral-200 rounded" />
+                <div className="h-5 w-4/5 bg-neutral-200 rounded" />
+                <div className="h-5 w-3/5 bg-neutral-200 rounded" />
+              </div>
+            </div>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+
+  // ─── Not found state ──────────────────────────────────────
   if (!post) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -43,21 +93,20 @@ export const BlogPostDetail = () => {
     );
   }
 
-  const otherPosts = blog.posts.filter((p) => p.href !== post.href).slice(0, 3);
-
+  // ─── Full post ────────────────────────────────────────────
   return (
     <div className="min-h-screen bg-white font-['Instrument_Sans']">
       <Header />
-      
+
       <main className="pt-[100px] md:pt-[140px] pb-20">
         <div className="max-w-[1920px] mx-auto px-6 md:px-16">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.5fr] gap-12 lg:gap-24 items-start">
-            
+
             {/* Left Column: Meta */}
             <div className="lg:sticky lg:top-[140px] flex flex-col gap-8">
               <ScrollReveal direction="up" delay={0}>
-                <time className="text-sm font-medium text-black/60 block mb-6 uppercase tracking-widest">
-                  {post.date}
+                <time className="text-[16px] font-medium text-black/90 block mb-6 tracking-normal">
+                  {new Date(post.date).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
                 </time>
                 <h1 className="text-[56px] md:text-[84px] font-['Instrument_Sans'] font-semibold leading-[0.95] tracking-[-0.06em] text-black">
                   <ScrollScrubRevealText
@@ -83,7 +132,19 @@ export const BlogPostDetail = () => {
 
             {/* Right Column: Content */}
             <div className="flex flex-col gap-12">
-              <ScrollReveal direction="up" delay={100} className="flex flex-col gap-8">
+              <ScrollReveal direction="up" delay={100} className="flex flex-col gap-8 pb-8 border-b border-black/20">
+                {/* Right side title and optional sub-tags (from design) */}
+                <div className="flex flex-col gap-2 mb-2">
+                  <h2 className="text-[32px] md:text-[42px] font-['Instrument_Sans'] font-semibold leading-tight tracking-[-0.04em]">
+                    {post.title}
+                  </h2>
+                  {post.category && (
+                    <p className="text-[12px] font-medium text-black/50 uppercase tracking-widest">
+                      {post.category}
+                    </p>
+                  )}
+                </div>
+
                 {post.content?.intro.map((para, i) => (
                   <p key={i} className="text-[18px] md:text-[21px] leading-[1.5] text-black/90 font-medium">
                     {para}
@@ -92,7 +153,7 @@ export const BlogPostDetail = () => {
               </ScrollReveal>
 
               {post.content?.sections.map((section, idx) => (
-                <ScrollReveal key={idx} direction="up" delay={150 + idx * 50} className="flex flex-col gap-8">
+                <ScrollReveal key={section.id} direction="up" delay={150 + idx * 50} className={`flex flex-col gap-8 pb-8 ${(idx !== (post.content?.sections.length || 0) - 1) || (post.content?.downloads && post.content.downloads.length > 0) ? "border-b border-black/20" : ""}`}>
                   {section.title && (
                     <h2 className="text-[32px] md:text-[42px] font-['Instrument_Sans'] font-semibold leading-tight tracking-[-0.04em]">
                       {section.title}
@@ -104,7 +165,7 @@ export const BlogPostDetail = () => {
                     </p>
                   ))}
                   {section.insight && (
-                    <div className="pt-4">
+                    <div className="pt-4 mt-2">
                       <p className="text-[16px] md:text-[18px] leading-[1.6] text-black font-medium">
                         <span className="font-bold">Insight: </span>
                         {section.insight}
@@ -114,12 +175,12 @@ export const BlogPostDetail = () => {
                 </ScrollReveal>
               ))}
 
-              {post.content?.downloads && (
+              {post.content?.downloads && post.content.downloads.length > 0 && (
                 <ScrollReveal direction="up" delay={300} className="mt-8 pt-12">
                   <h3 className="text-[24px] md:text-[32px] font-['Instrument_Sans'] font-semibold mb-6 tracking-tight">
-                    Download the Full Q1 Reports
+                    Download the Full Reports
                   </h3>
-                  <p className="text-black/60 mb-8">For a deeper, borough-by-borough breakdown of sales and rental data, download the full reports below:</p>
+                  <p className="text-black/60 mb-8">For a deeper breakdown of the data, download the full reports below:</p>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-12">
                     {post.content.downloads.map((link, i) => (
                       <a key={i} href={link.href} className="text-[#0099ff] hover:underline flex items-center gap-2 text-[16px] md:text-[18px]">
@@ -136,7 +197,7 @@ export const BlogPostDetail = () => {
         {/* More Articles Section */}
         <section className="mt-32 pt-20">
           <div className="max-w-[1920px] mx-auto px-6 md:px-16">
-            <ScrollReveal direction="up" delay={0} className="mb-12">
+            <ScrollReveal direction="up" delay={0} className="mb-12 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
               <h2 className="text-[58px] md:text-[78px] font-['Instrument_Sans'] font-semibold tracking-[-0.06em] leading-[0.92]">
                 <ScrollScrubRevealText
                   text="More Articles"
@@ -147,28 +208,31 @@ export const BlogPostDetail = () => {
                   scrubEnd="center 60%"
                 />
               </h2>
+              {/* "See All Blogs" link — new per implementation plan */}
+              <Link
+                to="/blog"
+                className="inline-flex items-center gap-2 text-sm font-medium text-black/60 hover:text-black transition-colors duration-200 shrink-0 mb-4 md:mb-6 group"
+              >
+                See All Blogs
+                <span className="transition-transform duration-200 group-hover:translate-x-1">
+                  <ArrowIcon size={14} />
+                </span>
+              </Link>
             </ScrollReveal>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
-              {otherPosts.map((other, index) => (
-                <ScrollReveal key={other.title} delay={index * 100} className="flex flex-col gap-3 group">
-                  <Link to={other.href} className="overflow-hidden rounded-none aspect-[16/10] md:aspect-[16/9]">
-                    <img
-                      src={other.imageUrl}
-                      alt={other.title}
-                      className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                    />
-                  </Link>
-                  <div className="flex flex-col gap-1 pt-2">
-                    <time className="text-[11px] font-medium text-black/40 uppercase tracking-wider">{other.date}</time>
-                    <Link to={other.href}>
-                      <h3 className="text-[22px] md:text-[26px] font-['Instrument_Sans'] font-medium leading-[1.2] tracking-[-0.04em] text-black group-hover:text-black/70 transition-colors">
-                        {other.title}
-                      </h3>
-                    </Link>
-                  </div>
-                </ScrollReveal>
-              ))}
+              {moreLoading ? (
+                <BlogPreviewCardSkeleton variant="article" count={3} />
+              ) : (
+                moreArticles.map((other, index) => (
+                  <BlogPreviewCard
+                    key={other.id}
+                    post={other}
+                    variant="article"
+                    delay={index * 100}
+                  />
+                ))
+              )}
             </div>
           </div>
         </section>
