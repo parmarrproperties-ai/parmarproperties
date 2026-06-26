@@ -11,7 +11,7 @@ export const ServicesCta = () => {
       </h3>
       
       <a
-        href="https://parmarproperties.in/contact"
+        href="https://parmar-properties-two.vercel.app/contact"
         className="inline-flex items-center justify-center border border-white/30 text-white hover:bg-white hover:text-black px-8 py-4 rounded-full font-medium text-sm transition-colors duration-300"
       >
         <span>Get Started with Parmar Properties</span>

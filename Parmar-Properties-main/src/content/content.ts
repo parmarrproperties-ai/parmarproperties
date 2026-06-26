@@ -44,7 +44,7 @@ type BlogPost = {
 export const seoMeta = {
   title: "Parmar Properties â€” South Mumbai's Luxury Real Estate Advisory",
   description: "40+ years of premium South Bombay luxury real estate advisory. Record-breaking sales, HNI buyer access, pre-launch inventory.",
-  ogImage: "https://parmarproperties.in/og-image.jpg", // TODO: replace with production OG image URL
+  ogImage: "https://parmar-properties-two.vercel.app/og-image.jpg", // TODO: replace with production OG image URL
   ogUrl: "https://parmar-properties-two.vercel.app",
 };
 
@@ -64,7 +64,7 @@ export const navigation = {
     { label: "Opportunities", href: "#", isDropdown: true }, // STUB â€” fill when page is ready
     { label: "Contact", href: "#", isDropdown: true }, // STUB â€” fill when page is ready
   ] as NavLink[],
-  ctaButton: { label: "Schedule Consultation", href: "https://parmarproperties.in/contact" } as CtaButton,
+  ctaButton: { label: "Schedule Consultation", href: "https://parmar-properties-two.vercel.app/contact" } as CtaButton,
 };
 
 // â”€â”€â”€ Hero Section â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
@@ -169,7 +169,7 @@ export const support = {
       imageSrc: "https://c.animaapp.com/mq3zczchi8fb7N/assets/18.jpg",
       iconSrc: "https://c.animaapp.com/mq3zczchi8fb7N/assets/icon-6.svg",
       buttonText: "Learn More",
-      href: "https://parmarproperties.in/services",
+      href: "https://parmar-properties-two.vercel.app/services",
     },
     {
       title: "Pre-Launch Velocity",
@@ -177,7 +177,7 @@ export const support = {
       imageSrc: "https://c.animaapp.com/mq3zczchi8fb7N/assets/91.jpg",
       iconSrc: "https://c.animaapp.com/mq3zczchi8fb7N/assets/icon-6.svg",
       buttonText: "Learn More",
-      href: "https://parmarproperties.in/services",
+      href: "https://parmar-properties-two.vercel.app/services",
     },
     {
       title: "Pricing Insights",
@@ -185,7 +185,7 @@ export const support = {
       imageSrc: "https://c.animaapp.com/mq3zczchi8fb7N/assets/17.jpg",
       iconSrc: "https://c.animaapp.com/mq3zczchi8fb7N/assets/icon-6.svg",
       buttonText: "Learn More",
-      href: "https://parmarproperties.in/services",
+      href: "https://parmar-properties-two.vercel.app/services",
     },
   ] as SupportCard[],
 };
@@ -218,7 +218,7 @@ export const agents = {
       baseColorClass: "text-neutral-200 font-medium",
     },
   ] as TextSegment[],
-  ctaButton: { label: "Connect With Us", href: "https://parmarproperties.in/join" } as CtaButton,
+  ctaButton: { label: "Connect With Us", href: "https://parmar-properties-two.vercel.app/join" } as CtaButton,
 };
 
 // â”€â”€â”€ Testimonials Section â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
@@ -242,7 +242,7 @@ export const testimonials = {
 export const cta = {
   headline: "Parmar Properties. South Mumbai's Trusted Luxury Real Estate Advisory.",
   backgroundImageUrl: "https://c.animaapp.com/mq3zczchi8fb7N/assets/14.webp",
-  primaryButton: { label: "Let's Get Started", href: "https://parmarproperties.in/contact" } as CtaButton,
+  primaryButton: { label: "Let's Get Started", href: "https://parmar-properties-two.vercel.app/contact" } as CtaButton,
   // Component builds `https://wa.me/${cta.whatsapp.phone}` â€” edit only the number here.
   whatsapp: { label: "Chat on WhatsApp", phone: "1234567890" }, // TODO: replace with real number
 };
@@ -250,10 +250,10 @@ export const cta = {
 // â”€â”€â”€ Footer â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 export const footer = {
   primaryLinks: [
-    { label: "Search", href: "https://parmarproperties.in/search" },
-    { label: "Agents", href: "https://parmarproperties.in/agents" },
-    { label: "Join", href: "https://parmarproperties.in/join" },
-    { label: "About Us", href: "https://parmarproperties.in/about" },
+    { label: "Search", href: "https://parmar-properties-two.vercel.app/search" },
+    { label: "Agents", href: "https://parmar-properties-two.vercel.app/agents" },
+    { label: "Join", href: "https://parmar-properties-two.vercel.app/join" },
+    { label: "About Us", href: "https://parmar-properties-two.vercel.app/about" },
     { label: "Agent Portal", href: "https://app.findrealestate.com/authentication/sign-in" },
   ] as FooterLink[],
   socialLinks: [
@@ -263,11 +263,11 @@ export const footer = {
     { label: "Linkedin", href: "https://www.linkedin.com/company/parmarproperties" },
   ] as FooterLink[],
   legalLinks: [
-    { label: "Terms", href: "https://parmarproperties.in/terms-of-service" },
-    { label: "Privacy policy", href: "https://parmarproperties.in/privacy-policy" },
+    { label: "Terms", href: "https://parmar-properties-two.vercel.app/terms-of-service" },
+    { label: "Privacy policy", href: "https://parmar-properties-two.vercel.app/privacy-policy" },
     { label: "Fair Housing Notice", href: "https://dos.ny.gov/system/files/documents/2025/03/nys-housing-and-anti-discrimination-notice_02.2025.pdf" },
-    { label: "Operating Procedure", href: "https://parmarproperties.in/operating-procedure" },
-    { label: "Press", href: "https://parmarproperties.in/press" },
+    { label: "Operating Procedure", href: "https://parmar-properties-two.vercel.app/operating-procedure" },
+    { label: "Press", href: "https://parmar-properties-two.vercel.app/press" },
   ] as FooterLink[],
   legalNotices: [
     "Housing Choice Vouchers Welcome",
@@ -279,7 +279,7 @@ export const footer = {
   },
   contact: [
     { label: "Head Office", value: "5 West 37th Street, 12th Floor, New York, NY 10018", href: "geo://40.75104385252497,-73.98395637414475" },
-    { label: "Email Us", value: "hello@parmarproperties.in", href: "mailto:hello@parmarproperties.in" },
+    { label: "Email Us", value: "hello@parmar-properties-two.vercel.app", href: "mailto:hello@parmar-properties-two.vercel.app" },
     { label: "Call Us", value: "+1 212 994 9965", href: "tel:+12129949965" },
   ] as ContactInfo[],
 };

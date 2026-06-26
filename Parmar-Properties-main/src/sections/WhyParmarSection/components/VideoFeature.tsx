@@ -3,7 +3,7 @@ import { whyParmar } from "@/content/content";
 
 export const VideoFeature = () => {
   return (
-    <div className="w-full max-w-7xl mx-auto px-6 md:px-12 pt-10">
+    <div className="w-full max-w-[1920px] mx-auto px-6 md:px-16 2xl:px-32 pt-10">
       <ScrollReveal 
         direction="left" 
         distance={200}

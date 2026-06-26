@@ -6,6 +6,6 @@
 export const config = {
   newsletter: {
     // Redirect URL after form submission — not user-editable copy
-    confirmationUrl: "https://parmarproperties.in/newsletter-confirmed",
+    confirmationUrl: "https://parmar-properties-two.vercel.app/newsletter-confirmed",
   },
 };

@@ -9,6 +9,7 @@ import { AdminDashboard } from "@/pages/admin/AdminDashboard";
 import { PostEditor } from "@/pages/admin/PostEditor";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { Agentation } from "agentation";
+import { NewsletterConfirmedPage } from "@/pages/NewsletterConfirmedPage";
 
 const HomePage = () => (
   <div className="w-full flex flex-col text-black font-instrument_sans">
@@ -30,6 +31,7 @@ export const App = () => {
           <Route path="/" element={<HomePage />} />
           <Route path="/blog" element={<BlogPage />} />
           <Route path="/blog/:slug" element={<BlogPostDetail />} />
+          <Route path="/newsletter-confirmed" element={<NewsletterConfirmedPage />} />
 
           {/* Admin routes */}
           <Route path="/admin/login" element={<LoginPage />} />

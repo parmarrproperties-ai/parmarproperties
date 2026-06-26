@@ -24,9 +24,9 @@ export const ImageStack = () => {
             }}
           >
             <div
-              className="identity-card overflow-hidden bg-neutral-100 scale-90 md:scale-100"
+              className="identity-card overflow-hidden bg-neutral-100"
               style={{
-                width: "clamp(75px, 22vw, 280px)",
+                width: "clamp(90px, 26vw, 280px)",
                 aspectRatio: "346 / 440",
                 clipPath: chevronClipPath,
                 WebkitClipPath: chevronClipPath,
