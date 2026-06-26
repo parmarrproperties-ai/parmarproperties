@@ -4,7 +4,7 @@ import { ScrollScrubRevealText } from "@/components/ScrollScrubRevealText";
 import { identity } from "@/content/content";
 export const IdentitySection = () => {
   return (
-    <section className="bg-white py-20 md:py-32 overflow-hidden w-full">
+    <section className="bg-white py-10 md:py-16 overflow-hidden w-full">
       <div className="max-w-[1920px] mx-auto px-6 md:px-16 flex flex-col items-center text-center">
         <ScrollScrubRevealText 
           as="h2"

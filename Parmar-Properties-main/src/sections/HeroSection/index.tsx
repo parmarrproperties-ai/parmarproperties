@@ -522,7 +522,7 @@ export const HeroSection = () => {
           <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6"
             style={{ zIndex: 10, opacity: contentOpacity, transform: `translateY(${contentTranslateY})`, pointerEvents: contentOpacity < 0.05 ? "none" : "auto" }}>
             <h1 className="text-black font-bold leading-[1.05] mb-1 pb-4 overflow-hidden flex flex-wrap justify-center"
-              style={{ fontFamily: "'Instrument Sans', sans-serif", fontSize: "clamp(46px, 8vw, 260px)", letterSpacing: "-0.02em", textShadow: "none" }}>
+              style={{ fontFamily: "'Instrument Sans', sans-serif", fontSize: "clamp(46px, 6vw, 260px)", letterSpacing: "-0.02em", textShadow: "none" }}>
               <span className="animate-hero-letter" style={{ animationDelay: "300ms" }}>
                 {hero.headline}
               </span>

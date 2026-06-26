@@ -11,7 +11,7 @@ export const HeaderLogo = () => {
         <img
           src={logo}
           alt="Parmar Properties Logo"
-          className="h-[54px] md:h-[52px] w-auto object-contain object-left pointer-events-none"
+          className="h-[54px] md:h-[68px] md:ml-[80px] w-auto object-contain object-left pointer-events-none"
         />
       </a>
     </div>

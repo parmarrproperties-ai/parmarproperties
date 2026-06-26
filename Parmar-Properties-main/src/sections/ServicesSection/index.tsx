@@ -5,7 +5,7 @@ import { services } from "@/content/content";
 
 export const ServicesSection = () => {
   return (
-    <section className="bg-black py-20 md:py-32 w-full overflow-hidden">
+    <section className="bg-black py-10 md:py-16 w-full overflow-hidden">
       <ServicesHeader />
       
       <div className="w-full flex flex-col border-b border-white/20">

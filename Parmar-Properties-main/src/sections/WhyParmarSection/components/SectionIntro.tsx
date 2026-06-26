@@ -7,21 +7,25 @@ import { whyParmar } from "@/content/content";
 // span — not a separate <h2> + <p> pair.
 export const SectionIntro = () => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_minmax(0,2.4fr)] gap-6 md:gap-10 items-start mb-10 md:mb-16 max-w-7xl mx-auto px-6 md:px-12">
-      <ScrollReveal delay={100} direction="right">
-        <p className="text-black font-['Instrument_Sans'] text-sm md:text-base font-semibold uppercase tracking-[0.02em]">
-          {whyParmar.eyebrow}
-        </p>
-      </ScrollReveal>
-      <ScrollReveal delay={200}>
-        <ScrollScrubRevealText 
-          as="p"
-          className="font-['Instrument_Sans'] tracking-[-0.02em] leading-[1.15] text-3xl md:text-5xl"
-          segments={whyParmar.bodySegments}
-          scrubStart="top 90%"
-          scrubEnd="center 40%"
-        />
-      </ScrollReveal>
+    <div className="flex flex-col md:flex-row gap-6 md:gap-10 items-start mb-10 md:mb-16 w-full max-w-[1920px] mx-auto px-6 md:px-16 2xl:px-32">
+      <div className="w-full md:w-[35%] lg:w-[40%] flex-shrink-0">
+        <ScrollReveal delay={100} direction="right">
+          <p className="text-black font-['Instrument_Sans'] text-lg md:text-xl font-semibold tracking-[0.02em]">
+            {whyParmar.eyebrow}
+          </p>
+        </ScrollReveal>
+      </div>
+      <div className="w-full md:w-[65%] lg:w-[60%]">
+        <ScrollReveal delay={200}>
+          <ScrollScrubRevealText
+            as="p"
+            className="font-['Instrument_Sans'] tracking-[-0.02em] leading-[1.15] text-2xl md:text-4xl lg:text-[42px]"
+            segments={whyParmar.bodySegments}
+            scrubStart="top 90%"
+            scrubEnd="center 40%"
+          />
+        </ScrollReveal>
+      </div>
     </div>
   );
 };

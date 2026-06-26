@@ -66,12 +66,12 @@ export const Header = () => {
           : "opacity-100 pointer-events-auto translate-y-0"
       } ${
         showWhiteBg
-          ? "bg-transparent md:bg-white/95 md:backdrop-blur-md md:shadow-sm" 
+          ? "bg-white/95 backdrop-blur-md shadow-sm" 
           : "bg-transparent"
       }`}
     >
       <div className="box-border caret-transparent w-full max-w-[1920px] no-underline mx-auto px-4 sm:px-6 md:px-10 lg:px-16">
-        <div className="items-center box-border caret-transparent text-neutral-900 grid grid-cols-[1fr_auto] leading-[11.5px] min-h-[64px] relative no-underline z-[100] md:grid-cols-[200px_1fr_200px] md:leading-[1.5] md:min-h-[62px]">
+        <div className="items-center box-border caret-transparent text-neutral-900 grid grid-cols-[1fr_auto] leading-[11.5px] min-h-[64px] relative no-underline z-[100] md:grid-cols-[200px_1fr_200px] md:leading-[1.5] md:min-h-[75px]">
           <div className="relative z-10 w-full">
             <HeaderLogo />
           </div>

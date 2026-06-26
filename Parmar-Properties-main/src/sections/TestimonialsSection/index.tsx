@@ -10,7 +10,7 @@ export function TestimonialsSection() {
   const activeImage = testimonialsContent.items[activeIndex].imageUrl;
 
   return (
-    <section className="bg-zinc-100 py-20 md:py-32 w-full overflow-hidden">
+    <section className="bg-zinc-100 py-10 md:py-16 w-full overflow-hidden">
       <div className="max-w-[1920px] mx-auto px-6 md:px-16">
         
         {/* Header - Aligned to match left column width or span full */}

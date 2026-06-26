@@ -3,7 +3,7 @@ import { VideoFeature } from "@/sections/WhyParmarSection/components/VideoFeatur
 
 export const WhyFindSection = () => {
   return (
-    <section className="bg-white relative py-20 md:py-32 w-full overflow-hidden">
+    <section className="bg-white relative py-10 md:py-16 w-full overflow-hidden">
       <SectionIntro />
       <VideoFeature />
     </section>

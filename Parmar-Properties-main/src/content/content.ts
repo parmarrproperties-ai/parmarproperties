@@ -13,12 +13,12 @@ type SupportCard = { title: string; description: string; imageSrc: string; iconS
 type TestimonialItem = { quote: string; author: string; rating: number; imageUrl: string };
 type FooterLink = { label: string; href: string };
 type ContactInfo = { label: string; value: string; href: string };
-type BlogPost = { 
-  date: string; 
-  title: string; 
-  excerpt: string; 
-  imageUrl: string; 
-  href: string; 
+type BlogPost = {
+  date: string;
+  title: string;
+  excerpt: string;
+  imageUrl: string;
+  href: string;
   category?: string;
   content?: {
     intro: string[];
@@ -36,7 +36,7 @@ export const seoMeta = {
   title: "Parmar Properties — South Mumbai's Luxury Real Estate Advisory",
   description: "40+ years of premium South Bombay luxury real estate advisory. Record-breaking sales, HNI buyer access, pre-launch inventory.",
   ogImage: "https://parmarproperties.in/og-image.jpg", // TODO: replace with production OG image URL
-  ogUrl: "https://parmarproperties.in",
+  ogUrl: "https://parmar-properties-two.vercel.app",
 };
 
 // ─── Brand ──────────────────────────────────────────────────
@@ -94,16 +94,16 @@ export const identity = {
 
 // ─── Why Parmar Section ─────────────────────────────────────
 export const whyParmar = {
-  eyebrow: "Why Parmar",
+  eyebrow: "Why PARMAR",
   // ORDER-DEPENDENT
   bodySegments: [
     {
-      text: "40+ years of presence. Don't just find a broker",
+      text: "Don't settle for a broker—partner with trusted advisors.",
       revealColorClass: "text-black font-semibold",
       baseColorClass: "text-neutral-200 font-semibold",
     },
     {
-      text: " — find proven outcomes. We give you direct access to the Jain–Marwadi network, clarity, and the right advisory by your side.",
+      text: " Every recommendation is backed by decades of market expertise, deep developer relationships, and an unwavering commitment to your success.",
       revealColorClass: "text-neutral-400 font-medium",
       baseColorClass: "text-neutral-200 font-medium",
     },
