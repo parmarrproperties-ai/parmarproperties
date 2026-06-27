@@ -55,7 +55,7 @@ describe('mapPost()', () => {
   });
 
   it('uses empty array for intro when PostRow.intro is null', () => {
-    // @ts-expect-error — testing defensive null handling at runtime
+    // @ts-ignore — testing defensive null handling at runtime
     const post = mapPost({ ...mockPostRow, intro: null }, []);
     expect(post.content?.intro).toEqual([]);
   });
