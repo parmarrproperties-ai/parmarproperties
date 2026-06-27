@@ -1,6 +1,7 @@
 import { HeroSection } from "@/sections/HeroSection";
 import { WhyFindSection } from "@/sections/WhyParmarSection";
 import { IdentitySection } from "@/sections/IdentitySection";
+import { AboutSection } from "@/sections/AboutSection";
 import { ProcessSection } from "@/sections/ProcessSection";
 import { TestimonialsSection } from "@/sections/TestimonialsSection";
 import { ServicesSection } from "@/sections/ServicesSection";
@@ -17,6 +18,7 @@ export const Main = () => {
       <div style={clipStyle}>
         <WhyFindSection />
         <IdentitySection />
+        <AboutSection />
         <ProcessSection />
         <TestimonialsSection />
         <ServicesSection />

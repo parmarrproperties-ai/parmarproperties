@@ -28,11 +28,16 @@ export function useScrollReveal<T extends Element>(options: {
         const observer = new IntersectionObserver(callback, defaultOptions);
         const currentRef = ref.current;
 
+        let timeoutId: ReturnType<typeof setTimeout>;
         if (currentRef) {
-            observer.observe(currentRef);
+            // Delay observation slightly to allow window.scrollTo(0,0) on page load to complete
+            timeoutId = setTimeout(() => {
+                observer.observe(currentRef);
+            }, 100);
         }
 
         return () => {
+            clearTimeout(timeoutId);
             if (currentRef) {
                 observer.unobserve(currentRef);
             }

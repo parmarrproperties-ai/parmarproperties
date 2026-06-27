@@ -12,7 +12,12 @@
 export type { BlogPost } from "@/lib/types";
 
 // â”€â”€â”€ Types â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-type NavLink = { label: string; href: string; isDropdown?: boolean };
+type NavLink = {
+  label: string;
+  href: string;
+  isDropdown?: boolean;
+  dropdownItems?: { label: string; href: string }[];
+};
 type CtaButton = { label: string; href: string };
 type TextSegment = { text: string; revealColorClass: string; baseColorClass: string };
 type ServiceItem = { number: number; label: string; description: string; imageUrl: string };
@@ -59,10 +64,36 @@ export const brand = {
 // â”€â”€â”€ Header / Navigation â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 export const navigation = {
   links: [
-    { label: "About", href: "/About", isDropdown: false },
-    { label: "Expertise", href: "/Expertise", isDropdown: false },
-    { label: "Opportunities", href: "#", isDropdown: true }, // STUB â€” fill when page is ready
-    { label: "Contact", href: "#", isDropdown: true }, // STUB â€” fill when page is ready
+    {
+      label: "About",
+      href: "/About",
+      isDropdown: true,
+      dropdownItems: [
+        { label: "About Us", href: "/About" },
+        { label: "Blog", href: "/blog" },
+        { label: "Press", href: "#" }
+      ]
+    },
+    { label: "Expertise", href: "/#expertise", isDropdown: false },
+    {
+      label: "Opportunities",
+      href: "#",
+      isDropdown: true,
+      dropdownItems: [
+        { label: "Buy", href: "https://parmar-properties-listing.vercel.app/" },
+        { label: "Sell", href: "#" },
+        { label: "Lease", href: "#" }
+      ]
+    },
+    {
+      label: "Contact",
+      href: "#",
+      isDropdown: true,
+      dropdownItems: [
+        { label: "WhatsApp us", href: "https://wa.me/1234567890" },
+        { label: "Email Us", href: "mailto:hello@parmar-properties-two.vercel.app" }
+      ]
+    },
   ] as NavLink[],
   ctaButton: { label: "Schedule Consultation", href: "https://parmar-properties-two.vercel.app/contact" } as CtaButton,
 };
@@ -188,6 +219,26 @@ export const support = {
       href: "https://parmar-properties-two.vercel.app/services",
     },
   ] as SupportCard[],
+};
+
+// ─── About Section ───────────────────────────────────────────
+export const aboutSection = {
+  eyebrow: "Our Heritage & Philosophy",
+  heading: "Forty Years of Unwavering Advisory.",
+  bodySegments: [
+    {
+      text: "For over four decades, Parmar Properties has been the silent force behind South Mumbai's most significant acquisitions.",
+      revealColorClass: "text-black font-semibold",
+      baseColorClass: "text-neutral-300 font-semibold",
+    },
+    {
+      text: " We do not simply list properties. We advise, strategize, and execute with absolute precision, protecting the legacy of South Bombay's most prominent families.",
+      revealColorClass: "text-neutral-500 font-medium",
+      baseColorClass: "text-neutral-300 font-medium",
+    },
+  ] as TextSegment[],
+  buttonLabel: "About us",
+  imageUrl: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
 };
 
 // â”€â”€â”€ Blog & Resources Section â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€

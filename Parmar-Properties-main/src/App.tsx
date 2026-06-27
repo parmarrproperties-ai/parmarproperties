@@ -4,6 +4,7 @@ import { Main } from "@/sections/Main/index";
 import { Footer } from "@/sections/Footer/index";
 import { BlogPage } from "@/pages/BlogPage";
 import { BlogPostDetail } from "@/pages/BlogPostDetail";
+import { AboutPage } from "@/pages/AboutPage";
 import { LoginPage } from "@/pages/admin/LoginPage";
 import { AdminDashboard } from "@/pages/admin/AdminDashboard";
 import { PostEditor } from "@/pages/admin/PostEditor";
@@ -31,6 +32,8 @@ export const App = () => {
           <Route path="/" element={<HomePage />} />
           <Route path="/blog" element={<BlogPage />} />
           <Route path="/blog/:slug" element={<BlogPostDetail />} />
+          <Route path="/About" element={<AboutPage />} />
+          <Route path="/about" element={<AboutPage />} />
           <Route path="/newsletter-confirmed" element={<NewsletterConfirmedPage />} />
 
           {/* Admin routes */}
