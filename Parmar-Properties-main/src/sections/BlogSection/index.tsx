@@ -8,7 +8,11 @@ import { BlogPreviewCard, BlogPreviewCardSkeleton } from "@/components/BlogPrevi
 export const BlogSection = () => {
   const { posts, loading } = useBlogPosts();
   const previewPosts = [...posts]
-    .sort((a, b) => a.gridOrder - b.gridOrder)
+    .sort((a, b) => {
+      if (a.featured && !b.featured) return -1;
+      if (!a.featured && b.featured) return 1;
+      return a.gridOrder - b.gridOrder;
+    })
     .slice(0, 3);
 
   return (

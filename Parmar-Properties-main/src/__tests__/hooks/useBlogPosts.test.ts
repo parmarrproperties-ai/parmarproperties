@@ -23,7 +23,7 @@ function mockPostsError(message: string) {
 }
 
 describe('useBlogPosts()', () => {
-  beforeEach(() => vi.clearAllMocks());
+  beforeEach(() => { vi.clearAllMocks(); });
 
   it('starts in loading state', () => {
     mockSupabase.from.mockReturnValue({
@@ -72,7 +72,7 @@ describe('useBlogPosts()', () => {
 });
 
 describe('fetchPostBySlug()', () => {
-  beforeEach(() => vi.clearAllMocks());
+  beforeEach(() => { vi.clearAllMocks(); });
 
   it('returns a mapped BlogPost for a valid published slug', async () => {
     mockPostsAndSections([mockPostRow], [mockSection]);
@@ -105,7 +105,7 @@ describe('fetchPostBySlug()', () => {
 });
 
 describe('fetchMoreArticles()', () => {
-  beforeEach(() => vi.clearAllMocks());
+  beforeEach(() => { vi.clearAllMocks(); });
 
   it('falls back to 3 most-recent other posts when no override', async () => {
     const otherRows = [

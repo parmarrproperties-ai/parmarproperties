@@ -57,38 +57,38 @@ const RowCard = ({
 }) => (
   <ScrollReveal
     delay={delay}
-    className="grid grid-cols-1 md:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] gap-6 md:gap-10 py-7 md:py-10 items-stretch"
+    className="grid grid-cols-1 md:grid-cols-[minmax(0,1.2fr)_minmax(0,1.3fr)] gap-8 md:gap-20 py-10 md:py-14 items-stretch border-b border-black/[0.08] last:border-b-0"
   >
-    <div className="flex h-full flex-col justify-between">
+    <div className="flex h-full flex-col justify-between py-1">
       {loading ? (
-        <Shimmer className="w-24 h-3" />
+        <Shimmer className="w-24 h-4" />
       ) : (
         <time
           dateTime={post.date}
-          className="text-[11px] md:text-sm font-medium text-black/90 tracking-normal"
+          className="text-sm md:text-base font-medium text-black/90 tracking-tight"
         >
           {post.date}
         </time>
       )}
-      <div className="pt-7 md:pt-10 flex flex-col gap-4 max-w-[520px]">
+      <div className="pt-6 md:pt-10 flex flex-col gap-4 max-w-[540px]">
         {loading ? (
           <>
-            <Shimmer className="w-full h-8" />
-            <Shimmer className="w-4/5 h-4" />
-            <Shimmer className="w-3/5 h-4" />
-            <Shimmer className="w-28 h-10 rounded-full mt-4" />
+            <Shimmer className="w-full h-12" />
+            <Shimmer className="w-4/5 h-5" />
+            <Shimmer className="w-3/5 h-5" />
+            <Shimmer className="w-32 h-12 rounded-full mt-4" />
           </>
         ) : (
           <>
-            <h3 className="text-[22px] md:text-[26px] font-['Instrument_Sans'] font-medium leading-[1.1] tracking-[-0.05em]">
+            <h3 className="text-[32px] md:text-[46px] font-['Instrument_Sans'] font-semibold leading-[1.05] tracking-[-0.04em] text-black">
               {post.title}
             </h3>
-            <p className="text-[12px] md:text-[13px] text-black/85 leading-[1.5] max-w-[460px]">
+            <p className="text-sm md:text-[15px] text-black/70 leading-[1.4] tracking-tight max-w-[460px] mt-1">
               {post.excerpt}
             </p>
             <Link
               to={post.href}
-              className="mt-3 inline-flex items-center gap-3 w-fit rounded-full border border-black/15 bg-white/70 px-4 py-2.5 text-sm font-medium text-black shadow-[0_1px_0_rgba(0,0,0,0.04)] transition-all duration-300 hover:bg-black hover:text-white hover:border-black"
+              className="mt-6 inline-flex items-center gap-3 w-fit rounded-full border border-black/15 bg-white/70 px-5 py-3 text-sm font-medium text-black shadow-[0_1px_0_rgba(0,0,0,0.04)] transition-all duration-300 hover:bg-black hover:text-white hover:border-black"
             >
               Read More
               <ArrowIcon size={14} />
@@ -98,14 +98,14 @@ const RowCard = ({
       </div>
     </div>
 
-    <div className="overflow-hidden rounded-none aspect-[16/10] md:aspect-[4/3]">
+    <div className="overflow-hidden rounded-none aspect-[16/10] md:aspect-[16/9]">
       {loading ? (
         <Shimmer className="w-full h-full" />
       ) : (
         <img
           src={post.imageUrl}
           alt={post.title}
-          className="w-full h-full object-cover transition-transform duration-700 ease-out hover:scale-105"
+          className="w-full h-full object-cover transition-transform duration-700 ease-out hover:scale-102"
           loading="lazy"
         />
       )}

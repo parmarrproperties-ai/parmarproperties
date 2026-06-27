@@ -581,6 +581,7 @@ export const PostEditor = () => {
         .single();
 
       if (postErr) throw postErr;
+      if (!postRow) throw new Error("Save succeeded but no post row was returned.");
 
       // Replace all sections
       await supabase.from("post_sections").delete().eq("post_id", postRow.id);

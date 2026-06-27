@@ -32,13 +32,12 @@ export const AboutSection = () => {
         {/* Bottom Section: 2 columns */}
         <div className="w-full flex flex-col-reverse md:flex-row gap-12 md:gap-20 items-end justify-between">
           
-          {/* Left Image */}
           <div className="w-full md:w-[60%] lg:w-[55%]">
             <ScrollReveal 
-              direction="up" 
+              direction="right" 
               distance={100}
               duration={1200}
-              className="relative w-full rounded-2xl overflow-hidden shadow-sm"
+              className="relative w-full rounded-none overflow-hidden shadow-sm"
             >
               <img
                 src={aboutSection.imageUrl}
