@@ -24,6 +24,9 @@ export const SplitTextReveal = ({
   return (
     <Component ref={ref} className={className}>
       {words.map((word, index) => {
+        if (word === "<br/>") {
+          return <br key={index} />;
+        }
         const style: React.CSSProperties = {
           opacity: isVisible ? 1 : 0,
           transform: isVisible ? "translateY(0) rotate(0deg)" : "translateY(120%) rotate(4deg)",

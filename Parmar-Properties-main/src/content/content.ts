@@ -1,4 +1,4 @@
-﻿// ============================================================
+// ============================================================
 // content.ts â€” Single source of truth for all user-facing content
 // NO React, NO JSX. Pure TypeScript.
 //
@@ -240,7 +240,7 @@ export const testimonials = {
 
 // â”€â”€â”€ CTA Section â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 export const cta = {
-  headline: "Parmar Properties. South Mumbai's Trusted Luxury Real Estate Advisory.",
+  headline: "Parmar Properties. <br/> South Mumbai's Trusted Luxury Real Estate Advisory.",
   backgroundImageUrl: "https://c.animaapp.com/mq3zczchi8fb7N/assets/14.webp",
   primaryButton: { label: "Let's Get Started", href: "https://parmar-properties-two.vercel.app/contact" } as CtaButton,
   // Component builds `https://wa.me/${cta.whatsapp.phone}` â€” edit only the number here.
