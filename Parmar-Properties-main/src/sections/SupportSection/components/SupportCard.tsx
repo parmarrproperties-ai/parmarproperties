@@ -14,10 +14,10 @@ export type SupportCardProps = {
 
 export const SupportCard = (props: SupportCardProps) => {
   return (
-      <div className="group relative flex-1 transition-[flex] duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] hover:flex-[1.8] lg:hover:flex-[2.5] min-h-[320px] md:min-h-[380px] lg:min-h-[420px] rounded-xl overflow-hidden cursor-pointer">
+      <div className="group relative flex-1 flex flex-col transition-[flex] duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] hover:flex-[1.8] lg:hover:flex-[2.5] min-h-[320px] md:min-h-[380px] lg:min-h-[420px] rounded-xl overflow-hidden cursor-pointer">
         <ScrollReveal 
           delay={props.delay || 0} 
-          className="w-full h-full flex flex-col justify-between p-6 md:p-8"
+          className="w-full flex-1 flex flex-col justify-between p-6 md:p-8"
         >
           {/* Background Image */}
           <div className="absolute inset-0 z-0">

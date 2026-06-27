@@ -35,7 +35,7 @@ export const HeroSection = () => {
     // 2. Responsive Scroll-Jack Height Setup
     const mQueryMobile = window.matchMedia("(max-width: 767px)");
     const updateScrollVh = (e: MediaQueryListEvent | MediaQueryList) => {
-      setScrollVh(e.matches ? 600 : 1200); // Increased scroll height gives more ticks for all phases
+      setScrollVh(e.matches ? 450 : 800); // Tuned scroll height to be faster than original but still visible
     };
     updateScrollVh(mQueryMobile);
 
