@@ -81,144 +81,144 @@ export const BlogPostDetail = () => {
     );
   }
 
-  // ─── Full post ────────────────────────────────────────────
   return (
-    <div className="min-h-screen bg-white font-['Instrument_Sans']">
-      <Header />
+    <>
+      <div id="main-content-wrapper" className="min-h-screen bg-white font-['Instrument_Sans'] relative z-10">
+        <Header />
 
-      <main className="pt-[100px] md:pt-[140px] pb-20">
-        <div className="max-w-[1920px] mx-auto px-6 md:px-16">
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.5fr] gap-12 lg:gap-24 items-start">
+        <main className="pt-[100px] md:pt-[140px] pb-20">
+          <div className="max-w-[1920px] mx-auto px-6 md:px-16">
+            <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.5fr] gap-12 lg:gap-24 items-start">
 
-            {/* Left Column: Meta */}
-            <div className="lg:sticky lg:top-[140px] flex flex-col gap-8">
-              <ScrollReveal direction="up" delay={0}>
-                <time className="text-[16px] font-medium text-black/90 block mb-6 tracking-normal">
-                  {new Date(post.date).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
-                </time>
-                <h1 className="text-[56px] md:text-[84px] font-['Instrument_Sans'] font-semibold leading-[0.95] tracking-[-0.06em] text-black">
+              {/* Left Column: Meta */}
+              <div className="lg:sticky lg:top-[140px] flex flex-col gap-8">
+                <ScrollReveal direction="up" delay={0}>
+                  <time className="text-[16px] font-medium text-black/90 block mb-6 tracking-normal">
+                    {new Date(post.date).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
+                  </time>
+                  <h1 className="text-[56px] md:text-[84px] font-['Instrument_Sans'] font-semibold leading-[0.95] tracking-[-0.06em] text-black">
+                    <ScrollScrubRevealText
+                      text={post.title}
+                      as="span"
+                      baseColorClass="text-neutral-200"
+                      revealColorClass="text-black"
+                      scrubStart="top 90%"
+                      scrubEnd="center 60%"
+                    />
+                  </h1>
+                </ScrollReveal>
+
+              </div>
+
+              {/* Right Column: Content */}
+              <div className="flex flex-col gap-12">
+                <ScrollReveal direction="up" delay={100} className="flex flex-col gap-8 pb-8 border-b border-black/20">
+                  {/* Right side title and optional sub-tags (from design) */}
+                  <div className="flex flex-col gap-2 mb-2">
+                    <h2 className="text-[32px] md:text-[42px] font-['Instrument_Sans'] font-semibold leading-tight tracking-[-0.04em]">
+                      {post.title}
+                    </h2>
+                    {post.category && (
+                      <p className="text-[12px] font-medium text-black/50 uppercase tracking-widest">
+                        {post.category}
+                      </p>
+                    )}
+                  </div>
+
+                  {post.content?.intro.map((para, i) => (
+                    <p key={i} className="text-[18px] md:text-[21px] leading-[1.5] text-black/90 font-medium">
+                      {para}
+                    </p>
+                  ))}
+                </ScrollReveal>
+
+                {post.content?.sections.map((section, idx) => (
+                  <ScrollReveal key={section.id} direction="up" delay={150 + idx * 50} className={`flex flex-col gap-8 pb-8 ${(idx !== (post.content?.sections.length || 0) - 1) || (post.content?.downloads && post.content.downloads.length > 0) ? "border-b border-black/20" : ""}`}>
+                    {section.title && (
+                      <h2 className="text-[32px] md:text-[42px] font-['Instrument_Sans'] font-semibold leading-tight tracking-[-0.04em]">
+                        {section.title}
+                      </h2>
+                    )}
+                    {section.paragraphs.map((para, i) => (
+                      <p key={i} className="text-[16px] md:text-[18px] leading-[1.6] text-black/80">
+                        {para}
+                      </p>
+                    ))}
+                    {section.insight && (
+                      <div className="pt-4 mt-2">
+                        <p className="text-[16px] md:text-[18px] leading-[1.6] text-black font-medium">
+                          <span className="font-bold">Insight: </span>
+                          {section.insight}
+                        </p>
+                      </div>
+                    )}
+                  </ScrollReveal>
+                ))}
+
+                {post.content?.downloads && post.content.downloads.length > 0 && (
+                  <ScrollReveal direction="up" delay={300} className="mt-8 pt-12">
+                    <h3 className="text-[24px] md:text-[32px] font-['Instrument_Sans'] font-semibold mb-6 tracking-tight">
+                      Download the Full Reports
+                    </h3>
+                    <p className="text-black/60 mb-8">For a deeper breakdown of the data, download the full reports below:</p>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-12">
+                      {post.content.downloads.map((link, i) => (
+                        <a key={i} href={link.href} className="text-[#0099ff] hover:underline flex items-center gap-2 text-[16px] md:text-[18px]">
+                          {link.label}
+                        </a>
+                      ))}
+                    </div>
+                  </ScrollReveal>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* More Articles Section */}
+          <section className="mt-32 pt-20">
+            <div className="max-w-[1920px] mx-auto px-6 md:px-16">
+              <ScrollReveal direction="up" delay={0} className="mb-12 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+                <h2 className="text-[58px] md:text-[78px] font-['Instrument_Sans'] font-semibold tracking-[-0.06em] leading-[0.92]">
                   <ScrollScrubRevealText
-                    text={post.title}
+                    text="More Articles"
                     as="span"
-                    baseColorClass="text-neutral-200"
+                    baseColorClass="text-neutral-300"
                     revealColorClass="text-black"
                     scrubStart="top 90%"
                     scrubEnd="center 60%"
                   />
-                </h1>
+                </h2>
+                {/* "See All Blogs" link — new per implementation plan */}
+                <Link
+                  to="/blog"
+                  className="inline-flex items-center gap-2 text-sm font-medium text-black/60 hover:text-black transition-colors duration-200 shrink-0 mb-4 md:mb-6 group"
+                >
+                  See All Blogs
+                  <span className="transition-transform duration-200 group-hover:translate-x-1">
+                    <ArrowIcon size={14} />
+                  </span>
+                </Link>
               </ScrollReveal>
 
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+                {moreLoading ? (
+                  <BlogPreviewCardSkeleton variant="article" count={3} />
+                ) : (
+                  moreArticles.map((other, index) => (
+                    <BlogPreviewCard
+                      key={other.id}
+                      post={other}
+                      variant="article"
+                      delay={index * 100}
+                    />
+                  ))
+                )}
+              </div>
             </div>
-
-            {/* Right Column: Content */}
-            <div className="flex flex-col gap-12">
-              <ScrollReveal direction="up" delay={100} className="flex flex-col gap-8 pb-8 border-b border-black/20">
-                {/* Right side title and optional sub-tags (from design) */}
-                <div className="flex flex-col gap-2 mb-2">
-                  <h2 className="text-[32px] md:text-[42px] font-['Instrument_Sans'] font-semibold leading-tight tracking-[-0.04em]">
-                    {post.title}
-                  </h2>
-                  {post.category && (
-                    <p className="text-[12px] font-medium text-black/50 uppercase tracking-widest">
-                      {post.category}
-                    </p>
-                  )}
-                </div>
-
-                {post.content?.intro.map((para, i) => (
-                  <p key={i} className="text-[18px] md:text-[21px] leading-[1.5] text-black/90 font-medium">
-                    {para}
-                  </p>
-                ))}
-              </ScrollReveal>
-
-              {post.content?.sections.map((section, idx) => (
-                <ScrollReveal key={section.id} direction="up" delay={150 + idx * 50} className={`flex flex-col gap-8 pb-8 ${(idx !== (post.content?.sections.length || 0) - 1) || (post.content?.downloads && post.content.downloads.length > 0) ? "border-b border-black/20" : ""}`}>
-                  {section.title && (
-                    <h2 className="text-[32px] md:text-[42px] font-['Instrument_Sans'] font-semibold leading-tight tracking-[-0.04em]">
-                      {section.title}
-                    </h2>
-                  )}
-                  {section.paragraphs.map((para, i) => (
-                    <p key={i} className="text-[16px] md:text-[18px] leading-[1.6] text-black/80">
-                      {para}
-                    </p>
-                  ))}
-                  {section.insight && (
-                    <div className="pt-4 mt-2">
-                      <p className="text-[16px] md:text-[18px] leading-[1.6] text-black font-medium">
-                        <span className="font-bold">Insight: </span>
-                        {section.insight}
-                      </p>
-                    </div>
-                  )}
-                </ScrollReveal>
-              ))}
-
-              {post.content?.downloads && post.content.downloads.length > 0 && (
-                <ScrollReveal direction="up" delay={300} className="mt-8 pt-12">
-                  <h3 className="text-[24px] md:text-[32px] font-['Instrument_Sans'] font-semibold mb-6 tracking-tight">
-                    Download the Full Reports
-                  </h3>
-                  <p className="text-black/60 mb-8">For a deeper breakdown of the data, download the full reports below:</p>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-12">
-                    {post.content.downloads.map((link, i) => (
-                      <a key={i} href={link.href} className="text-[#0099ff] hover:underline flex items-center gap-2 text-[16px] md:text-[18px]">
-                        {link.label}
-                      </a>
-                    ))}
-                  </div>
-                </ScrollReveal>
-              )}
-            </div>
-          </div>
-        </div>
-
-        {/* More Articles Section */}
-        <section className="mt-32 pt-20">
-          <div className="max-w-[1920px] mx-auto px-6 md:px-16">
-            <ScrollReveal direction="up" delay={0} className="mb-12 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
-              <h2 className="text-[58px] md:text-[78px] font-['Instrument_Sans'] font-semibold tracking-[-0.06em] leading-[0.92]">
-                <ScrollScrubRevealText
-                  text="More Articles"
-                  as="span"
-                  baseColorClass="text-neutral-300"
-                  revealColorClass="text-black"
-                  scrubStart="top 90%"
-                  scrubEnd="center 60%"
-                />
-              </h2>
-              {/* "See All Blogs" link — new per implementation plan */}
-              <Link
-                to="/blog"
-                className="inline-flex items-center gap-2 text-sm font-medium text-black/60 hover:text-black transition-colors duration-200 shrink-0 mb-4 md:mb-6 group"
-              >
-                See All Blogs
-                <span className="transition-transform duration-200 group-hover:translate-x-1">
-                  <ArrowIcon size={14} />
-                </span>
-              </Link>
-            </ScrollReveal>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
-              {moreLoading ? (
-                <BlogPreviewCardSkeleton variant="article" count={3} />
-              ) : (
-                moreArticles.map((other, index) => (
-                  <BlogPreviewCard
-                    key={other.id}
-                    post={other}
-                    variant="article"
-                    delay={index * 100}
-                  />
-                ))
-              )}
-            </div>
-          </div>
-        </section>
-      </main>
-
+          </section>
+        </main>
+      </div>
       <Footer />
-    </div>
+    </>
   );
 };
