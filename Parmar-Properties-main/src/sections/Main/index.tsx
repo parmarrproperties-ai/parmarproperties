@@ -13,7 +13,7 @@ const clipStyle = { overflowX: "clip" as const };
 
 export const Main = () => {
   return (
-    <main id="main-content" className="relative z-[1] min-h-0">
+    <main id="main-content" className="relative z-[1] min-h-0 bg-white">
       <HeroSection />
       <div style={clipStyle}>
         <WhyFindSection />
