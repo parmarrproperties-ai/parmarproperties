@@ -14,18 +14,35 @@ export const Footer = () => {
 
     const wrapper = document.getElementById('main-content-wrapper');
 
+    const updateMargin = (height: number) => {
+      if (!wrapper) return;
+      if (window.innerWidth >= 768) {
+        wrapper.style.marginBottom = `${height}px`;
+      } else {
+        wrapper.style.marginBottom = '0px';
+      }
+    };
+
+    let currentHeight = footerElement.offsetHeight;
+
     const resizeObserver = new ResizeObserver((entries) => {
       for (let entry of entries) {
-        if (wrapper) {
-          wrapper.style.marginBottom = `${entry.contentRect.height}px`;
-        }
+        currentHeight = entry.contentRect.height;
+        updateMargin(currentHeight);
       }
     });
 
     resizeObserver.observe(footerElement);
 
+    const handleWindowResize = () => {
+      updateMargin(currentHeight);
+    };
+
+    window.addEventListener('resize', handleWindowResize);
+
     return () => {
       resizeObserver.disconnect();
+      window.removeEventListener('resize', handleWindowResize);
       if (wrapper) {
         wrapper.style.marginBottom = '0px';
       }
@@ -35,7 +52,7 @@ export const Footer = () => {
   return (
     <footer 
       ref={footerRef}
-      className="fixed bottom-0 left-0 w-full -z-10"
+      className="relative md:fixed bottom-0 left-0 w-full z-0 md:-z-10"
     >
       <div className="bg-neutral-900 text-white min-h-[auto] min-w-[auto] z-0 overflow-hidden w-full h-full">
         <div className="w-full max-w-[1920px] mx-auto px-6 md:px-16">
