@@ -5,6 +5,7 @@ import { AboutSection } from "@/sections/AboutSection";
 import { ProcessSection } from "@/sections/ProcessSection";
 import { TestimonialsSection } from "@/sections/TestimonialsSection";
 import { ServicesSection } from "@/sections/ServicesSection";
+import { PartnersSection } from "@/sections/PartnersSection";
 import { SupportSection } from "@/sections/SupportSection";
 import { BlogSection } from "@/sections/BlogSection";
 import { CtaSection } from "@/sections/CtaSection";
@@ -22,6 +23,7 @@ export const Main = () => {
         <ProcessSection />
         <TestimonialsSection />
         <ServicesSection />
+        <PartnersSection />
         <SupportSection />
         <BlogSection />
         <CtaSection />

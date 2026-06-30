@@ -16,15 +16,13 @@ export const SectionIntro = () => {
         </ScrollReveal>
       </div>
       <div className="w-full md:w-[65%] lg:w-[60%]">
-        <ScrollReveal delay={200}>
-          <ScrollScrubRevealText
-            as="p"
-            className="font-['Instrument_Sans'] tracking-[-0.02em] leading-[1.15] text-2xl md:text-4xl lg:text-[42px]"
-            segments={whyParmar.bodySegments}
-            scrubStart="top 90%"
-            scrubEnd="center 40%"
-          />
-        </ScrollReveal>
+        <ScrollScrubRevealText
+          as="p"
+          className="font-['Instrument_Sans'] tracking-[-0.02em] leading-[1.15] text-2xl md:text-4xl lg:text-[42px]"
+          segments={whyParmar.bodySegments}
+          scrubStart="top 90%"
+          scrubEnd="center 40%"
+        />
       </div>
     </div>
   );

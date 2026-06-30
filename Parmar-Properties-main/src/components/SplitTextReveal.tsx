@@ -12,9 +12,9 @@ interface SplitTextRevealProps {
 
 export const SplitTextReveal = ({
   text,
-  delayPerWord = 60,
+  delayPerWord = 5,
   initialDelay = 0,
-  duration = 1200,
+  duration = 200,
   className = "",
   as: Component = "h2",
 }: SplitTextRevealProps) => {
@@ -27,13 +27,17 @@ export const SplitTextReveal = ({
         if (word === "<br/>") {
           return <br key={index} />;
         }
+        const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+        const activeDuration = isMobile ? duration * 0.5 : duration;
+        const activeDelayPerWord = isMobile ? delayPerWord * 0.5 : delayPerWord;
+        const activeInitialDelay = isMobile ? initialDelay * 0.5 : initialDelay;
+
         const style: React.CSSProperties = {
           opacity: isVisible ? 1 : 0,
           transform: isVisible ? "translateY(0) rotate(0deg)" : "translateY(120%) rotate(4deg)",
-          filter: isVisible ? "blur(0px)" : "blur(10px)",
-          transition: `opacity ${duration}ms cubic-bezier(0.16, 1, 0.3, 1), transform ${duration}ms cubic-bezier(0.16, 1, 0.3, 1), filter ${duration}ms cubic-bezier(0.16, 1, 0.3, 1)`,
-          transitionDelay: `${initialDelay + index * delayPerWord}ms`,
-          willChange: "transform, opacity, filter",
+          transition: `opacity ${activeDuration}ms cubic-bezier(0.16, 1, 0.3, 1), transform ${activeDuration}ms cubic-bezier(0.16, 1, 0.3, 1)`,
+          transitionDelay: `${activeInitialDelay + index * activeDelayPerWord}ms`,
+          willChange: "transform, opacity",
           display: "inline-block",
         };
 
@@ -44,6 +48,10 @@ export const SplitTextReveal = ({
               overflow: "hidden",
               display: "inline-block",
               marginRight: "0.25em",
+              paddingTop: "0.15em",
+              paddingBottom: "0.15em",
+              marginTop: "-0.15em",
+              marginBottom: "-0.15em",
             }}
           >
             <span style={style}>{word}</span>

@@ -26,6 +26,10 @@ export const ScrollReveal = ({
 }: ScrollRevealProps) => {
   const { ref, isVisible } = useScrollReveal({ triggerOnce });
 
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+  const activeDuration = isMobile ? duration * 0.5 : duration;
+  const activeDelay = isMobile ? delay * 0.5 : delay;
+
   const getTransform = () => {
     switch (direction) {
       case "up":
@@ -45,8 +49,8 @@ export const ScrollReveal = ({
     ...customStyle,
     opacity: isVisible ? 1 : 0,
     transform: isVisible ? "translate(0) scale(1) skew(0)" : getTransform(),
-    transition: `opacity ${duration}ms cubic-bezier(0.22, 1, 0.36, 1), transform ${duration}ms cubic-bezier(0.22, 1, 0.36, 1)`,
-    transitionDelay: `${delay}ms`,
+    transition: `opacity ${activeDuration}ms cubic-bezier(0.22, 1, 0.36, 1), transform ${activeDuration}ms cubic-bezier(0.22, 1, 0.36, 1)`,
+    transitionDelay: `${activeDelay}ms`,
     willChange: "transform, opacity",
   };
 

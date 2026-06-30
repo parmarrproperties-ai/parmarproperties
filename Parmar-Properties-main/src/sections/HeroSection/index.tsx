@@ -333,17 +333,17 @@ export const HeroSection = () => {
         }
         .animate-hero-paragraph {
           animation: heroEntrance 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-          animation-delay: 1200ms;
+          animation-delay: 300ms;
           opacity: 0;
         }
         .animate-hero-strong {
           animation: heroEntrance 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-          animation-delay: 1350ms;
+          animation-delay: 300ms;
           opacity: 0;
         }
         .animate-hero-button {
           animation: heroPopUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-          animation-delay: 1500ms;
+          animation-delay: 300ms;
           opacity: 0;
         }
         .animate-cloud-drift {

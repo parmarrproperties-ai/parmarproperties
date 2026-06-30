@@ -9,7 +9,7 @@ export const FooterContact = () => {
     <div className="grid grid-cols-1 gap-y-8 md:grid-cols-3 md:gap-x-12 font-['Instrument_Sans']">
       {headOffice && (
         <div className="flex flex-col order-2 md:order-none">
-          <div className="hidden md:block text-[11px] font-medium text-white/40 uppercase tracking-widest mb-4">
+          <div className="text-[11px] font-medium text-white/40 uppercase tracking-widest mb-4">
             {headOffice.label}
           </div>
           <a
@@ -23,7 +23,7 @@ export const FooterContact = () => {
       
       {emailUs && (
         <div className="flex flex-col order-1 md:order-none">
-          <div className="hidden md:block text-[11px] font-medium text-white/40 uppercase tracking-widest mb-4">
+          <div className="text-[11px] font-medium text-white/40 uppercase tracking-widest mb-4">
             {emailUs.label}
           </div>
           <a
@@ -37,7 +37,7 @@ export const FooterContact = () => {
       
       {callUs && (
         <div className="flex flex-col order-3 md:order-none">
-          <div className="hidden md:block text-[11px] font-medium text-white/40 uppercase tracking-widest mb-4">
+          <div className="text-[11px] font-medium text-white/40 uppercase tracking-widest mb-4">
             {callUs.label}
           </div>
           <a

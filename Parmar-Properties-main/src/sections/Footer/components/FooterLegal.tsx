@@ -1,28 +1,21 @@
-import { ScrollReveal } from "@/components/ScrollReveal";
 import { footer, brand } from "@/content/content";
 
 export const FooterLegal = () => {
   return (
-      <ScrollReveal delay={100} className="col-start-[copyright] col-end-[copyright] row-start-[copyright] row-end-[copyright] flex flex-col md:flex-row justify-between items-start md:items-center text-white/40 text-sm md:text-xs font-medium mt-8 md:mt-5 gap-6 md:gap-5">
-        <div className="flex flex-col md:flex-row gap-6 md:gap-5">
-          {footer.legalLinks.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              className="hover:text-white transition-colors"
-            >
-              {link.label}
-            </a>
-          ))}
-          {footer.legalNotices.map((notice) => (
-            <span key={notice}>{notice}</span>
-          ))}
-        </div>
-        <div className="flex flex-col md:flex-row gap-2 md:gap-6 mt-4 md:mt-0">
-          <div>{brand.name}</div>
-          <div>Copyright © {brand.copyrightYear}</div>
-        </div>
-      </ScrollReveal>
+      <div className="col-span-full flex flex-row flex-wrap justify-end items-center text-white/40 text-xs font-medium mt-8 md:mt-5 gap-x-4 md:gap-x-8">
+        {footer.legalLinks.map((link) => (
+          <a
+            key={link.label}
+            href={link.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-white transition-colors"
+          >
+            {link.label}
+          </a>
+        ))}
+        <div>Copyright © {brand.copyrightYear}</div>
+      </div>
   );
 };
   

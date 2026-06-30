@@ -114,7 +114,7 @@ export const TestimonialCarousel = ({ testimonials, activeIndex, setActiveIndex 
             </button>
           ))}
         </div>
-        <div className="text-4xl text-neutral-800 font-serif leading-none h-6 select-none">
+        <div className="text-4xl text-neutral-800 font-serif leading-[1.1] h-8 select-none">
           ”
         </div>
       </div>

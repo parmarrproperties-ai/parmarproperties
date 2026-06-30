@@ -5,7 +5,12 @@ export function useScrollReveal<T extends Element>(options: {
     rootMargin?: string;
     triggerOnce?: boolean;
 } = {}) {
-    const { threshold = 0.15, rootMargin = "0px 0px -80px 0px", triggerOnce = true } = options;
+    const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+    const { 
+        threshold = options.threshold ?? 0, 
+        rootMargin = options.rootMargin ?? (isMobile ? "0px 0px 15% 0px" : "0px 0px 50px 0px"), 
+        triggerOnce = true 
+    } = options;
     const ref = useRef<T>(null);
     const [isVisible, setIsVisible] = useState(false);
 

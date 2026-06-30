@@ -57,7 +57,7 @@ export const BlogPage = () => {
       <div className="pt-[64px] md:pt-[62px]">
         <div className="px-5 md:px-12 pt-8 pb-6 text-center">
           <ScrollReveal direction="up" delay={0}>
-            <h1 className="font-['Instrument_Sans'] text-[32px] md:text-[50px] font-semibold tracking-[-0.06em] leading-[0.92] text-black">
+            <h1 className="font-['Instrument_Sans'] text-[32px] md:text-[50px] font-semibold tracking-[-0.06em] leading-[1.1] text-black">
               Blog & Resources
             </h1>
           </ScrollReveal>

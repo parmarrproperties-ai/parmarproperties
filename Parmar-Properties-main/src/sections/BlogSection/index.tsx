@@ -8,7 +8,11 @@ import { BlogPreviewCard, BlogPreviewCardSkeleton } from "@/components/BlogPrevi
 export const BlogSection = () => {
   const { posts, loading } = useBlogPosts();
   const previewPosts = [...posts]
-    .sort((a, b) => a.gridOrder - b.gridOrder)
+    .sort((a, b) => {
+      if (a.featured && !b.featured) return -1;
+      if (!a.featured && b.featured) return 1;
+      return a.gridOrder - b.gridOrder;
+    })
     .slice(0, 3);
 
   return (
@@ -46,7 +50,7 @@ export const BlogSection = () => {
               </p>
               <Link
                 to="/blog"
-                className="mt-8 inline-flex items-center gap-3 bg-black text-white text-sm md:text-base font-medium leading-none px-6 py-3.5 rounded-full hover:bg-black/85 transition-colors duration-300 shadow-sm"
+                className="mt-8 inline-flex items-center gap-3 bg-black text-white text-sm md:text-base font-medium leading-[1.1] px-6 py-3.5 rounded-full hover:bg-black/85 transition-colors duration-300 shadow-sm"
               >
                 <span>{blog.ctaButton.label}</span>
                 <span className="flex items-center justify-center w-5 h-5">
