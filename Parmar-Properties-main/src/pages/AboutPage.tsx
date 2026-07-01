@@ -14,6 +14,9 @@ import Lodha from "assets/lodha-500x328-Photoroom.webp";
 import Bhoomi from "assets/bhoomi.webp";
 import Avighna from "assets/Avighna-Photoroom.webp";
 import Avhad from "assets/avhad-Photoroom.webp";
+import Godrej from "assets/godrejlogo.webp";
+import Kalpatru from "assets/kalpatruLogo-removebg-preview.png";
+import Piramal from "assets/Piramal Logo.png";
 const ArrowIcon = ({ size = 16 }: { size?: number }) => (
   <svg
     width={size}
@@ -170,6 +173,9 @@ export const AboutPage = () => {
     { name: "Bhoomi", logo: Bhoomi, customClass: "scale-125 md:scale-150" },
     { name: "Avighna", logo: Avighna },
     { name: "Avhad", logo: Avhad },
+    { name: "Godrej", logo: Godrej, customClass: "scale-[1.65] md:scale-[1.95]" },
+    { name: "Kalpatru", logo: Kalpatru },
+    { name: "Piramal", logo: Piramal, customClass: "scale-75 md:scale-[0.85]" },
   ];
 
   return (

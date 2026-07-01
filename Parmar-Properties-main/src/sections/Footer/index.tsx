@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { brand } from "@/content/content";
+import { brand, footer } from "@/content/content";
 import { Facebook, Instagram, Youtube, Linkedin, MessageCircle, ArrowRight } from "lucide-react";
 
 export const Footer = () => {
@@ -53,14 +53,14 @@ export const Footer = () => {
 
             {/* Socials */}
             <div className="flex items-center gap-6 text-white">
-              <a href="#" className="hover:text-white/70 transition-colors"><Facebook size={20} strokeWidth={2.5} /></a>
-              <a href="#" className="hover:text-white/70 transition-colors"><Instagram size={20} strokeWidth={2.5} /></a>
+              <a href={footer.socialLinks.find(l => l.label === "Facebook")?.href || "#"} target="_blank" rel="noopener noreferrer" className="hover:text-white/70 transition-colors"><Facebook size={20} strokeWidth={2.5} /></a>
+              <a href={footer.socialLinks.find(l => l.label === "Instagram")?.href || "#"} target="_blank" rel="noopener noreferrer" className="hover:text-white/70 transition-colors"><Instagram size={20} strokeWidth={2.5} /></a>
               <a href="#" className="hover:text-white/70 transition-colors">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4l11.733 16h4.267l-11.733 -16z" /><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" /></svg>
               </a>
-              <a href="#" className="hover:text-white/70 transition-colors"><Youtube size={22} strokeWidth={2.5} /></a>
-              <a href="#" className="hover:text-white/70 transition-colors"><MessageCircle size={20} strokeWidth={2.5} /></a>
-              <a href="#" className="hover:text-white/70 transition-colors"><Linkedin size={20} strokeWidth={2.5} /></a>
+              <a href={footer.socialLinks.find(l => l.label === "Youtube")?.href || "#"} target="_blank" rel="noopener noreferrer" className="hover:text-white/70 transition-colors"><Youtube size={22} strokeWidth={2.5} /></a>
+              <a href={footer.socialLinks.find(l => l.label === "Whatsapp")?.href || "#"} target="_blank" rel="noopener noreferrer" className="hover:text-white/70 transition-colors"><MessageCircle size={20} strokeWidth={2.5} /></a>
+              <a href={footer.socialLinks.find(l => l.label === "Linkedin")?.href || "#"} target="_blank" rel="noopener noreferrer" className="hover:text-white/70 transition-colors"><Linkedin size={20} strokeWidth={2.5} /></a>
             </div>
           </div>
 

@@ -9,7 +9,7 @@ import Bhoomi from "assets/bhoomi.webp";
 import Avighna from "assets/Avighna-Photoroom.webp";
 import Avhad from "assets/avhad-Photoroom.webp";
 import Godrej from "assets/godrejlogo.webp";
-import Kalpataru from "assets/kalpatruLogo.webp";
+import Kalpataru from "assets/kalpatruLogo-removebg-preview.png";
 import Piramal from "assets/Piramal Logo.png";
 
 export const PartnersSection = () => {
