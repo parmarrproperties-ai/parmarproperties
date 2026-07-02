@@ -1,13 +1,10 @@
-import { ServicesHeader } from "@/sections/ServicesSection/components/ServicesHeader";
 import { ServicePanel } from "@/sections/ServicesSection/components/ServicePanel";
 import { ServicesCta } from "@/sections/ServicesSection/components/ServicesCta";
 import { services } from "@/content/content";
 
 export const ServicesSection = () => {
   return (
-    <section id="services" className="bg-black py-10 md:py-16 w-full overflow-hidden">
-      <ServicesHeader />
-      
+    <section id="services" className="bg-black pt-0 pb-10 md:pb-16 w-full overflow-hidden">
       <div className="w-full flex flex-col border-b border-white/20">
         {services.items.map((item, index) => (
           <ServicePanel

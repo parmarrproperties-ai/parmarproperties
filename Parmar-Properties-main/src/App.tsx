@@ -11,6 +11,9 @@ import { PostEditor } from "@/pages/admin/PostEditor";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { Agentation } from "agentation";
 import { NewsletterConfirmedPage } from "@/pages/NewsletterConfirmedPage";
+import { PrivacyPolicyPage } from "@/pages/PrivacyPolicyPage";
+import { TermsAndConditionsPage } from "@/pages/TermsAndConditionsPage";
+import { TestimonialVariationsPage } from "@/pages/TestimonialVariationsPage";
 import { SmoothScroll } from "@/components/SmoothScroll";
 
 import { Preloader } from "@/components/Preloader";
@@ -48,7 +51,10 @@ export const App = () => {
           <Route path="/blog/:slug" element={<BlogPostDetail />} />
           <Route path="/About" element={<AboutPage />} />
           <Route path="/about" element={<AboutPage />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+          <Route path="/terms-of-service" element={<TermsAndConditionsPage />} />
           <Route path="/newsletter-confirmed" element={<NewsletterConfirmedPage />} />
+          <Route path="/testimonial-variations" element={<TestimonialVariationsPage />} />
 
           {/* Admin routes */}
           <Route path="/admin/login" element={<LoginPage />} />

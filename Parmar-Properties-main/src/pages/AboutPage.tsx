@@ -17,6 +17,7 @@ import Avhad from "assets/avhad-Photoroom.webp";
 import Godrej from "assets/godrejlogo.webp";
 import Kalpatru from "assets/kalpatruLogo-removebg-preview.png";
 import Piramal from "assets/Piramal Logo.png";
+import DilipParmarImage from "assets/Mr. Dilip Parmar.jpeg";
 const ArrowIcon = ({ size = 16 }: { size?: number }) => (
   <svg
     width={size}
@@ -251,17 +252,17 @@ export const AboutPage = () => {
               <div className="flex flex-col gap-6">
                 <ScrollReveal delay={100} className="w-full aspect-[4/5] bg-neutral-100 relative overflow-hidden group">
                   <img
-                    src="https://images.unsplash.com/photo-1556157382-97eda2d62296?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                    alt="Founder Name"
+                    src={DilipParmarImage}
+                    alt="Mr. Jain Dilip P. Parmar"
                     className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 border border-black/5 pointer-events-none"></div>
                 </ScrollReveal>
                 <ScrollReveal direction="up" delay={150}>
-                  <h3 className="text-[26px] font-semibold tracking-[-0.03em]">John Doe</h3>
-                  <p className="text-sm uppercase tracking-widest text-black/40 mt-1 mb-4">Founder & Chairman</p>
+                  <h3 className="text-[26px] font-semibold tracking-[-0.03em]">Mr. Jain Dilip P. Parmar</h3>
+                  <p className="text-sm uppercase tracking-widest text-black/40 mt-1 mb-4">The Leader</p>
                   <p className="text-base text-black/70 leading-relaxed">
-                    Visionary leader guiding our commitment to integrity and long-term client relationships.
+                    Founded Parmar Properties with a vision for trusted real estate. Brings 40+ years of experience and leadership.
                   </p>
                 </ScrollReveal>
               </div>
@@ -278,10 +279,10 @@ export const AboutPage = () => {
                   <div className="absolute inset-0 border border-black/5 pointer-events-none"></div>
                 </ScrollReveal>
                 <ScrollReveal direction="up" delay={250}>
-                  <h3 className="text-[26px] font-semibold tracking-[-0.03em]">Jane Doe</h3>
-                  <p className="text-sm uppercase tracking-widest text-black/40 mt-1 mb-4">Co-Founder & CEO</p>
+                  <h3 className="text-[26px] font-semibold tracking-[-0.03em]">Mr. Sanjay Dilip Parmar</h3>
+                  <p className="text-sm uppercase tracking-widest text-black/40 mt-1 mb-4">The Director</p>
                   <p className="text-base text-black/70 leading-relaxed">
-                    Dedicated to understanding client goals and evaluating opportunities with complete transparency.
+                    Leads marketing and sales with strong market expertise. Also drives business growth and team development.
                   </p>
                 </ScrollReveal>
               </div>
@@ -298,10 +299,10 @@ export const AboutPage = () => {
                   <div className="absolute inset-0 border border-black/5 pointer-events-none"></div>
                 </ScrollReveal>
                 <ScrollReveal direction="up" delay={350}>
-                  <h3 className="text-[26px] font-semibold tracking-[-0.03em]">Richard Roe</h3>
-                  <p className="text-sm uppercase tracking-widest text-black/40 mt-1 mb-4">Co-Founder & COO</p>
+                  <h3 className="text-[26px] font-semibold tracking-[-0.03em]">Mr. Jain Ankit Dilip Parmar</h3>
+                  <p className="text-sm uppercase tracking-widest text-black/40 mt-1 mb-4">The Director</p>
                   <p className="text-base text-black/70 leading-relaxed">
-                    Ensuring every real estate journey is built on thoughtful advice and unwavering trust.
+                    Brings energy with financial and market expertise. Leads campaigns and helps buyers find their dream homes.
                   </p>
                 </ScrollReveal>
               </div>

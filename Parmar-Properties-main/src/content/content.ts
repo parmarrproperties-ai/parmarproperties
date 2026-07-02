@@ -270,12 +270,12 @@ export const footer = {
     { label: "Facebook", href: "https://www.facebook.com/people/Parmar-Properties/61556751864965/" },
     { label: "Instagram", href: "https://www.instagram.com/parmar_properties?igsh=Y3B6amlmMHRydmpl" },
     { label: "Youtube", href: "https://www.youtube.com/@parmarpropertiesofficial" },
-    { label: "Linkedin", href: "https://www.linkedin.com/company/parmarproperties" },
+    { label: "Linkedin", href: "https://www.linkedin.com/company/parmar-properties-and-infrastructure-pvt-ltd/" },
     { label: "Whatsapp", href: "https://wa.me/1234567890" },
   ] as FooterLink[],
   legalLinks: [
-    { label: "Terms & Conditions", href: "https://parmar-properties-two.vercel.app/terms-of-service" },
-    { label: "Privacy policy", href: "https://parmar-properties-two.vercel.app/privacy-policy" },
+    { label: "Terms & Conditions", href: "/terms-of-service" },
+    { label: "Privacy policy", href: "/privacy-policy" },
   ] as FooterLink[],
 
   contact: [

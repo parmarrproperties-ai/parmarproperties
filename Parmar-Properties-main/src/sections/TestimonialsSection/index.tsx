@@ -10,10 +10,10 @@ export function TestimonialsSection() {
   const activeImage = testimonialsContent.items[activeIndex].imageUrl;
 
   return (
-    <section className="bg-zinc-100 py-10 md:py-16 w-full overflow-hidden">
+    <section className="bg-[#f8f7f4] py-16 md:py-24 w-full overflow-hidden">
       <div className="max-w-[1920px] mx-auto px-6 md:px-16">
-        
-        {/* Header - Aligned to match left column width or span full */}
+
+        {/* Header */}
         <ScrollReveal className="mb-12 md:mb-16">
           <ScrollScrubRevealText 
             as="h2"
@@ -28,25 +28,23 @@ export function TestimonialsSection() {
         </ScrollReveal>
 
         {/* 2-Column Layout */}
-        <div className="flex flex-col md:flex-row gap-10 md:gap-16 lg:gap-24 items-stretch">
-          
+        <div className="flex flex-col lg:flex-row gap-10 lg:gap-20 items-stretch">
+
           {/* Left: Large Image */}
-          <div className="flex-1 w-full relative z-20">
-            <ScrollReveal className="w-full h-full min-h-[400px] md:min-h-[500px] rounded-none overflow-hidden relative z-20 bg-neutral-200">
-              <img 
+          <div className="w-full lg:w-1/2">
+            <ScrollReveal className="w-full overflow-hidden relative bg-neutral-200" direction="right">
+              <img
                 key={activeImage}
-                src={activeImage} 
-                alt="Clients discussing property"
+                src={activeImage}
+                alt="Client testimonial"
                 loading="lazy"
-                width="800"
-                height="800"
-                className="absolute inset-0 w-full h-full object-cover animate-fade-in"
+                className="w-full aspect-[4/5] object-cover object-center grayscale animate-fade-in"
               />
             </ScrollReveal>
           </div>
 
           {/* Right: Testimonial Carousel */}
-          <div className="flex-1 w-full flex flex-col justify-center">
+          <div className="w-full lg:w-1/2 flex flex-col justify-center">
             <ScrollReveal delay={200} direction="left">
               <TestimonialCarousel 
                 testimonials={testimonialsContent.items as any} 

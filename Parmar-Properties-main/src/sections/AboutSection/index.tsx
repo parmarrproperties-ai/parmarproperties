@@ -1,18 +1,32 @@
 import { Link } from "react-router-dom";
 import { ScrollReveal } from "@/components/ScrollReveal";
+import { ScrollScrubRevealText } from "@/components/ScrollScrubRevealText";
 import { aboutSection } from "@/content/content";
 import AboutUsImg from "assets/AboutUsImg.png";
 
 export const AboutSection = () => {
+  const aboutSegments = [
+    {
+      text: "A boutique real estate consultancy offering curated solutions across luxury residences, commercial spaces, bespoke leases, and NRI investments.",
+      revealColorClass: "text-black font-semibold",
+      baseColorClass: "text-neutral-300 font-medium",
+    },
+    {
+      text: " With deep developer relationships and a personalised, detail-first approach—we help you find the right space, effortlessly.",
+      revealColorClass: "text-[#555] font-medium",
+      baseColorClass: "text-neutral-300 font-medium",
+    },
+  ];
+
   return (
     <section className="bg-white relative py-16 md:py-24 w-full overflow-hidden">
       <div className="max-w-[1920px] mx-auto px-6 md:px-16 lg:px-24 xl:px-32 flex flex-col lg:flex-row gap-16 md:gap-24 relative z-10">
-        
+
         {/* Left Column */}
         <div className="w-full lg:w-[45%] flex flex-col gap-12 pt-4">
           <ScrollReveal direction="up" delay={0}>
             <h2 className="text-[#333] font-['Instrument_Sans'] text-xl md:text-2xl font-medium tracking-wide leading-relaxed max-w-sm">
-              Tailored Real Estate Advisory for the<br/>Most Discerning Buyers & Sellers
+              Tailored Real Estate Advisory for the Most Discerning Buyers & Sellers
             </h2>
           </ScrollReveal>
 
@@ -43,13 +57,17 @@ export const AboutSection = () => {
               ABOUT
             </h1>
           </ScrollReveal>
-          
+
           <ScrollReveal direction="up" delay={200}>
-            <p className="text-[#555] font-['Instrument_Sans'] text-base md:text-[17px] leading-[1.6] max-w-[500px] mb-10">
-              A boutique real estate consultancy offering curated solutions across luxury residences, commercial spaces, bespoke leases, and NRI investments. With deep developer relationships and a personalised, detail-first approach—we help you find the right space, effortlessly.
-            </p>
+            <ScrollScrubRevealText
+              as="p"
+              className="font-['Instrument_Sans'] text-base md:text-[17px] leading-[1.6] max-w-[500px] mb-10"
+              segments={aboutSegments}
+              scrubStart="top 85%"
+              scrubEnd="center 50%"
+            />
           </ScrollReveal>
-          
+
           <ScrollReveal direction="up" delay={300}>
             <Link
               to="/about"
@@ -65,14 +83,14 @@ export const AboutSection = () => {
           </ScrollReveal>
         </div>
       </div>
-      
-      {/* Decorative Image (positioned bottom right) */}
-      <div className="absolute bottom-0 right-0 w-80 md:w-[450px] lg:w-[600px] pointer-events-none z-0 transform translate-x-12 lg:translate-x-24 translate-y-12">
+
+      {/* Decorative Image (positioned top right) */}
+      <div className="absolute top-0 right-0 w-80 md:w-[450px] lg:w-[600px] pointer-events-none z-0 transform translate-x-12 lg:translate-x-24 -translate-y-4">
         <ScrollReveal direction="left" delay={500}>
-          <img 
-            src={AboutUsImg} 
-            alt="Architecture" 
-            className="w-full h-auto object-cover rounded-tl-3xl shadow-2xl opacity-90" 
+          <img
+            src={AboutUsImg}
+            alt="Architecture"
+            className="w-full h-auto object-cover rounded-tl-3xl shadow-2xl opacity-90"
             style={{ WebkitMaskImage: 'linear-gradient(to top, transparent 10%, black 100%)', maskImage: 'linear-gradient(to top, transparent 10%, black 100%)' }}
           />
         </ScrollReveal>

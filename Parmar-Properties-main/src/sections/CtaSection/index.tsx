@@ -1,6 +1,7 @@
 import { SplitTextReveal } from "@/components/SplitTextReveal";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { cta } from "@/content/content";
+import IndianFamily from "assets/Indian family.png";
 
 export const CtaSection = () => {
   return (
@@ -8,7 +9,7 @@ export const CtaSection = () => {
       <div className="absolute inset-0 overflow-hidden bg-neutral-900/80">
         <img
           alt=""
-          src={cta.backgroundImageUrl}
+          src={IndianFamily}
           loading="lazy"
           className="w-full h-full object-cover scale-[1.0102] mix-blend-overlay"
         />

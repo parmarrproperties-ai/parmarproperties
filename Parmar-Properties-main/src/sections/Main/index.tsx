@@ -24,7 +24,7 @@ export const Main = () => {
         <TestimonialsSection />
         
         {/* Marquee Section */}
-        <div className="w-full overflow-hidden whitespace-nowrap py-10 md:py-14 bg-black text-[#b59e7e] flex items-center border-y border-neutral-100">
+        <div className="w-full overflow-hidden whitespace-nowrap py-10 md:py-14 bg-black text-[#b59e7e] flex items-center">
           <div className="animate-marquee inline-block flex-shrink-0">
             <span className="marquee-text sm:mx-6 md:mx-8 text-4xl md:text-6xl lg:text-7xl font-normal tracking-wide font-bebas text-transparent [-webkit-text-stroke:1px_white]">
               TARDEO&nbsp;&nbsp; LOWER PAREL&nbsp;&nbsp; PRABHADEVI&nbsp;&nbsp; MAHALAXMI&nbsp;&nbsp; MALABAR HILL&nbsp;&nbsp; WALKESHWAR&nbsp; &nbsp; WORLI&nbsp;&nbsp; ALTAMOUNT ROAD&nbsp;&nbsp; BREACH CANDY&nbsp;&nbsp; CUFFE PARADE&nbsp;&nbsp; WORLI SEA FACE&nbsp;&nbsp; NEPEAN SEA ROAD&nbsp;&nbsp; HUGHES ROAD&nbsp;&nbsp; PEDDER ROAD&nbsp;&nbsp; MARINE DRIVE&nbsp;&nbsp; NARIMAN POINT&nbsp;
