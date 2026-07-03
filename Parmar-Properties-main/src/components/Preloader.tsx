@@ -4,9 +4,16 @@ import { brand } from "@/content/content";
 export const Preloader = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isAnimatingOut, setIsAnimatingOut] = useState(false);
-  const [isUnmounted, setIsUnmounted] = useState(false);
+  const [isUnmounted, setIsUnmounted] = useState(() => {
+    return sessionStorage.getItem("preloaderShown") === "true";
+  });
 
   useEffect(() => {
+    if (isUnmounted) return;
+
+    // Mark as shown so it doesn't appear on navigation/reload in same session
+    sessionStorage.setItem("preloaderShown", "true");
+
     // Trigger the text fade-in immediately on mount
     const loadTimer = setTimeout(() => setIsLoaded(true), 50);
     
@@ -21,7 +28,7 @@ export const Preloader = () => {
       clearTimeout(outTimer);
       clearTimeout(unmountTimer);
     };
-  }, []);
+  }, [isUnmounted]);
 
   if (isUnmounted) return null;
 

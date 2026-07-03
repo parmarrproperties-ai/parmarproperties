@@ -17,10 +17,15 @@ import Avhad from "assets/Avhad.webp";
 import Godrej from "assets/Godrej.webp";
 import Kalpatru from "assets/Kalpataru.png";
 import Piramal from "assets/Piramal.png";
-import DilipParmarImage from "assets/Mr. Dilip Parmar.jpeg";
 import Birla from "assets/Birla.png";
 import LnT from "assets/L&T.png";
 import Prestige from "assets/Prestige.png";
+import DilipParmarImage from "assets/Mr. Dilip Parmar.jpeg";
+import SanjayImage from "assets/sanjay.png";
+import AnkitImage from "assets/ankit.png";
+import GroupImage from "assets/GroupImage.png";
+import AdvisorBackImg from "assets/AdvisorBackImg.jpeg";
+import AdvisorFrontImg from "assets/AdvisorFrontImg.jpeg";
 const ArrowIcon = ({ size = 16 }: { size?: number }) => (
   <svg
     width={size}
@@ -231,7 +236,7 @@ export const AboutPage = () => {
             <div className="w-full h-full min-h-[300px] md:min-h-[450px]">
               <ScrollReveal direction="left" delay={400} className="w-full h-full relative">
                 <img
-                  src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
+                  src={GroupImage}
                   alt="Our Story"
                   className="w-full aspect-[4/3] object-cover transition-all duration-700 hover:scale-[1.02]"
                 />
@@ -276,10 +281,9 @@ export const AboutPage = () => {
               {/* Founder 2 (Staggered layout - medium offset) */}
               <div className="flex flex-col gap-6 md:mt-12">
                 <ScrollReveal delay={200} className="w-full aspect-[4/5] bg-neutral-100 relative overflow-hidden group">
-                  {/* PLACEHOLDER: Replace src with actual founder image */}
                   <img
-                    src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                    alt="Founder Name"
+                    src={SanjayImage}
+                    alt="Mr. Sanjay Dilip Parmar"
                     className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 border border-black/5 pointer-events-none"></div>
@@ -296,10 +300,9 @@ export const AboutPage = () => {
               {/* Founder 3 (Staggered layout - larger offset) */}
               <div className="flex flex-col gap-6 md:mt-24">
                 <ScrollReveal delay={300} className="w-full aspect-[4/5] bg-neutral-100 relative overflow-hidden group">
-                  {/* PLACEHOLDER: Replace src with actual founder image */}
                   <img
-                    src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                    alt="Founder Name"
+                    src={AnkitImage}
+                    alt="Mr. Jain Ankit Dilip Parmar"
                     className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 border border-black/5 pointer-events-none"></div>
@@ -321,10 +324,10 @@ export const AboutPage = () => {
           <div className="max-w-[1920px] mx-auto grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-8 lg:gap-12 items-center">
             <div className="order-2 lg:order-1 relative h-full min-h-[500px]">
               <ScrollReveal direction="right" delay={100} className="absolute top-0 left-0 w-[70%] aspect-[3/4] z-10">
-                <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Interior Details" className="w-full h-full object-cover" />
+                <img src={AdvisorBackImg} alt="Interior Details" className="w-full h-full object-cover" />
               </ScrollReveal>
               <ScrollReveal direction="up" delay={300} className="absolute bottom-0 right-0 w-[60%] aspect-square z-20 shadow-2xl">
-                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Luxury Architecture" className="w-full h-full object-cover" />
+                <img src={AdvisorFrontImg} alt="Luxury Architecture" className="w-full h-full object-cover" />
               </ScrollReveal>
             </div>
 

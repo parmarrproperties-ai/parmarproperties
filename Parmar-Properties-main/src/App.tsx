@@ -15,7 +15,7 @@ import { PrivacyPolicyPage } from "@/pages/PrivacyPolicyPage";
 import { TermsAndConditionsPage } from "@/pages/TermsAndConditionsPage";
 import { TestimonialVariationsPage } from "@/pages/TestimonialVariationsPage";
 import { SmoothScroll } from "@/components/SmoothScroll";
-
+import { ScrollToTopButton } from "@/components/ScrollToTopButton";
 import { Preloader } from "@/components/Preloader";
 
 const HomePage = () => (
@@ -28,6 +28,7 @@ const HomePage = () => (
       <Header />
       <Main />
       <Footer />
+      <ScrollToTopButton />
     </div>
   </>
 );
@@ -36,7 +37,8 @@ import { useLocation } from "react-router-dom";
 
 const GlobalPreloader = () => {
   const location = useLocation();
-  return <Preloader key={location.pathname} />;
+  if (location.pathname !== "/") return null;
+  return <Preloader />;
 };
 
 export const App = () => {
