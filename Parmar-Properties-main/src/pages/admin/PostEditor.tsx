@@ -1188,13 +1188,13 @@ export const PostEditor = () => {
             
             {activeTab === "preview" ? (
               <>
-                <div className="bg-white border border-black/8 rounded-2xl p-5 shadow-sm mb-4">
+                <div className="bg-white border border-black/8 rounded-2xl p-5 shadow-sm mb-4 italic">
                   <p className="text-[9px] font-semibold uppercase tracking-wider text-black/25 mb-4">
                     How it looks in the blog grid
                   </p>
                   <BlogPreviewCard post={previewPost} variant="grid" delay={0} />
                 </div>
-                <div className="bg-white border border-black/8 rounded-2xl p-5 shadow-sm">
+                <div className="bg-white border border-black/8 rounded-2xl p-5 shadow-sm italic">
                   <p className="text-[9px] font-semibold uppercase tracking-wider text-black/25 mb-4">
                     How it looks in More Articles
                   </p>
@@ -1202,7 +1202,7 @@ export const PostEditor = () => {
                 </div>
               </>
             ) : (
-              <div className="bg-white border border-black/8 rounded-2xl p-8 shadow-sm max-h-[85vh] overflow-y-auto">
+              <div className="bg-[#f3f1ed] text-black font-['Instrument_Sans'] border border-black/8 rounded-2xl p-8 shadow-sm max-h-[85vh] overflow-y-auto italic">
                 {/* Simplified BlogPostDetail preview */}
                 <time className="text-[16px] font-medium text-black/90 block mb-4 tracking-normal">
                   {new Date(previewPost.date).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}

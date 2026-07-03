@@ -1,4 +1,4 @@
-import logo from "assets/Parmar new  (1).png";
+import { brand } from "@/content/content";
 
 export const HeaderLogo = () => {
   return (
@@ -9,8 +9,8 @@ export const HeaderLogo = () => {
         aria-label="Go to home page"
       >
         <img
-          src={logo}
-          alt="Parmar Properties Logo"
+          src={brand.logoUrl}
+          alt={brand.name}
           className="h-[54px] md:h-[68px] md:ml-[80px] w-auto object-contain object-left pointer-events-none"
         />
       </a>

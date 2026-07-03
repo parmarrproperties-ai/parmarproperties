@@ -1,8 +1,6 @@
 import { SupportHeader } from "@/sections/SupportSection/components/SupportHeader";
 import { SupportCard } from "@/sections/SupportSection/components/SupportCard";
 import { support } from "@/content/content";
-import GridPhoto from "assets/grid photo.png";
-import CompleteSupport from "assets/Complete support.png";
 
 export const SupportSection = () => {
   return (
@@ -14,7 +12,7 @@ export const SupportSection = () => {
             <SupportCard
               key={card.title}
               imageAlt={card.title}
-              imageSrc={index === 2 ? CompleteSupport : card.title === "Exclusive Opportunities" ? GridPhoto : card.imageSrc}
+              imageSrc={card.imageSrc}
               title={card.title}
               description={card.description}
               buttonText={card.buttonText}

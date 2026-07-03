@@ -6,18 +6,21 @@ import { ScrollScrubRevealText } from "@/components/ScrollScrubRevealText";
 import { SplitTextReveal } from "@/components/SplitTextReveal";
 import { brand } from "@/content/content";
 
-import Sugee from "assets/sugee-Photoroom.webp";
-import Rustomjee from "assets/Rustomjee-Photoroom.webp";
+import Sugee from "assets/Sugee.webp";
+import Rustomjee from "assets/Rustomjee.webp";
 import RunwalWebp from "assets/Runwal.webp";
-import PeninsulaLand from "assets/Peninsula land-Photoroom.webp";
-import Lodha from "assets/lodha-500x328-Photoroom.webp";
+import PeninsulaLand from "assets/Peninsula Land.webp";
+import Lodha from "assets/Lodha.webp";
 import Bhoomi from "assets/bhoomi.webp";
-import Avighna from "assets/Avighna-Photoroom.webp";
-import Avhad from "assets/avhad-Photoroom.webp";
-import Godrej from "assets/godrejlogo.webp";
-import Kalpatru from "assets/kalpatruLogo-removebg-preview.png";
-import Piramal from "assets/Piramal Logo.png";
+import Avighna from "assets/Avighna.webp";
+import Avhad from "assets/Avhad.webp";
+import Godrej from "assets/Godrej.webp";
+import Kalpatru from "assets/Kalpataru.png";
+import Piramal from "assets/Piramal.png";
 import DilipParmarImage from "assets/Mr. Dilip Parmar.jpeg";
+import Birla from "assets/Birla.png";
+import LnT from "assets/L&T.png";
+import Prestige from "assets/Prestige.png";
 const ArrowIcon = ({ size = 16 }: { size?: number }) => (
   <svg
     width={size}
@@ -166,9 +169,9 @@ export const AboutPage = () => {
 
   const partners = [
 
-    { name: "Sugee", logo: Sugee, customClass: "scale-125 md:scale-150" },
-    { name: "Rustomjee", logo: Rustomjee, customClass: "scale-125 md:scale-150" },
-    { name: "Runwal", logo: RunwalWebp, customClass: "scale-125 md:scale-150" },
+    { name: "Sugee", logo: Sugee, customClass: "scale-125 md:scale-150 -ml-4 md:-ml-8" },
+    { name: "Rustomjee", logo: Rustomjee, customClass: "scale-125 md:scale-150 -ml-4 md:-ml-8" },
+    { name: "Runwal", logo: RunwalWebp, customClass: "scale-125 md:scale-150 -ml-4 md:-ml-8" },
     { name: "Peninsula Land", logo: PeninsulaLand, customClass: "scale-125 md:scale-150" },
     { name: "Lodha", logo: Lodha, customClass: "scale-125 md:scale-150" },
     { name: "Bhoomi", logo: Bhoomi, customClass: "scale-125 md:scale-150" },
@@ -177,6 +180,9 @@ export const AboutPage = () => {
     { name: "Godrej", logo: Godrej, customClass: "scale-[1.65] md:scale-[1.95]" },
     { name: "Kalpatru", logo: Kalpatru },
     { name: "Piramal", logo: Piramal, customClass: "scale-75 md:scale-[0.85]" },
+    { name: "Birla", logo: Birla, customClass: "scale-100" },
+    { name: "L&T", logo: LnT, customClass: "scale-100" },
+    { name: "Prestige", logo: Prestige, customClass: "scale-[1.3] md:scale-[1.5]" },
   ];
 
   return (
@@ -448,7 +454,7 @@ export const AboutPage = () => {
                     key={idx}
                     src={partner.logo}
                     alt={partner.name}
-                    className={`flex-none w-40 h-16 md:w-56 md:h-24 mx-0 object-contain cursor-default ${partner.customClass || ""}`}
+                    className={`flex-none w-32 h-16 md:w-48 md:h-24 mx-4 md:mx-8 object-contain cursor-default ${partner.customClass || ""}`}
                   />
                 ))}
               </div>

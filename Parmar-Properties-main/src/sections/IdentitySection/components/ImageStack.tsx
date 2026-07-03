@@ -1,13 +1,15 @@
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { identity } from "@/content/content";
-import ArrowLady from "assets/Arrow lady.png";
-import ArrowMan from "assets/Arrow Man.png";
+import ArrowLady from "assets/Arrow Lady.png";
+import Arrow2nd from "assets/Arrow 2nd.png";
+import Arrow3rd from "assets/Arrow 3rd.png";
+import ArrowMan from "assets/Arrow man.png";
 
 export const ImageStack = () => {
   const images = [
     ArrowLady,
-    identity.images[1],
-    identity.images[2],
+    Arrow2nd,
+    Arrow3rd,
     ArrowMan,
   ];
 

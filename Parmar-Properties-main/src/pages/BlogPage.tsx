@@ -51,20 +51,20 @@ export const BlogPage = () => {
   const categories = ["All", ...Array.from(new Set(posts.map(p => p.category).filter(Boolean))).sort()];
 
   return (
-    <div id="main-content" className="min-h-screen bg-white font-['Instrument_Sans']">
+    <div id="main-content" className="min-h-screen bg-[#f3f1ed] font-['Instrument_Sans'] text-black italic overflow-x-clip selection:bg-black selection:text-white">
       <Header />
 
-      <div className="pt-[64px] md:pt-[62px]">
-        <div className="px-5 md:px-12 pt-8 pb-6 text-center">
+      <div className="pt-[80px] md:pt-[100px] pb-6 md:pb-8">
+        <div className="px-6 md:px-16 pt-8 pb-6 text-center max-w-[1920px] mx-auto">
           <ScrollReveal direction="up" delay={0}>
-            <h1 className="font-['Instrument_Sans'] text-[32px] md:text-[50px] font-semibold tracking-[-0.06em] leading-[1.1] text-black">
+            <h1 className="font-['Instrument_Serif'] text-[36px] md:text-[48px] lg:text-[56px] font-normal italic tracking-[-0.04em] leading-[1.1] text-black">
               Blog & Resources
             </h1>
           </ScrollReveal>
         </div>
       </div>
 
-      <div className="px-5 md:px-12">
+      <div className="px-6 md:px-16 max-w-[1920px] mx-auto">
         <ScrollReveal direction="up" delay={120}>
           <div className="group relative flex items-center pb-2 border-b border-black/10 focus-within:border-black/60 transition-colors duration-500">
             <input
@@ -121,7 +121,7 @@ export const BlogPage = () => {
         </div>
       </div>
 
-      <div className="px-5 md:px-12 pb-12">
+      <div className="px-6 md:px-16 pb-12 max-w-[1920px] mx-auto">
         {/* Featured post — shown when not searching/filtering */}
         {search.trim() === "" && activeCategory === "All" && (
           loading ? (
@@ -144,12 +144,12 @@ export const BlogPage = () => {
                   className="w-full h-full object-cover"
                 />
               </ScrollReveal>
-              <ScrollReveal direction="right" delay={150} className="p-8 md:p-10 flex flex-col justify-center gap-4 bg-white">
+              <ScrollReveal direction="right" delay={150} className="p-8 md:p-10 flex flex-col justify-center gap-4 bg-[#f8f7f4]">
                 <time className="text-xs text-black/40 font-medium tracking-wide">{featuredPost.date}</time>
-                <h2 className="text-2xl md:text-3xl font-['Instrument_Serif'] font-normal leading-snug tracking-tight text-balance">
+                <h2 className="text-xl md:text-2xl font-['Instrument_Serif'] font-normal leading-snug tracking-tight text-balance">
                   {featuredPost.title}
                 </h2>
-                <p className="text-sm text-black/60 leading-relaxed">{featuredPost.excerpt}</p>
+                <p className="text-[14px] md:text-[15px] text-black/70 leading-[1.7] max-w-[500px]">{featuredPost.excerpt}</p>
                 <Link
                   to={featuredPost.href}
                   className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-black/20 text-black text-sm font-medium hover:bg-black hover:text-white hover:border-black transition-all duration-300 w-fit mt-2"

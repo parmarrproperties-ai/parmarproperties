@@ -1,16 +1,16 @@
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { ScrollScrubRevealText } from "@/components/ScrollScrubRevealText";
-import Sugee from "assets/sugee-Photoroom.webp";
-import Rustomjee from "assets/Rustomjee-Photoroom.webp";
+import Rustomjee from "assets/Rustomjee.webp";
 import RunwalWebp from "assets/Runwal.webp";
-import PeninsulaLand from "assets/Peninsula land-Photoroom.webp";
-import Lodha from "assets/lodha-500x328-Photoroom.webp";
+import PeninsulaLand from "assets/Peninsula Land.webp";
+import Lodha from "assets/Lodha.webp";
 import Bhoomi from "assets/bhoomi.webp";
-import Avighna from "assets/Avighna-Photoroom.webp";
-import Avhad from "assets/avhad-Photoroom.webp";
-import Godrej from "assets/godrejlogo.webp";
-import Kalpataru from "assets/kalpatruLogo-removebg-preview.png";
-import Piramal from "assets/Piramal Logo.png";
+import Avighna from "assets/Avighna.webp";
+import Avhad from "assets/Avhad.webp";
+import Godrej from "assets/Godrej.webp";
+import Kalpataru from "assets/Kalpataru.png";
+import Piramal from "assets/Piramal.png";
+import LnT from "assets/L&T.png";
 
 export const PartnersSection = () => {
   const row1Partners = [
@@ -24,7 +24,7 @@ export const PartnersSection = () => {
 
   const row2Partners = [
     { name: "Runwal", logo: RunwalWebp, customClass: "scale-110 md:scale-125" },
-    { name: "Sugee", logo: Sugee, customClass: "scale-110 md:scale-125" },
+    { name: "L&T", logo: LnT, customClass: "scale-[1.7] md:scale-[2.0]" },
     { name: "Bhoomi", logo: Bhoomi, customClass: "scale-110 md:scale-125" },
     { name: "Avighna", logo: Avighna },
     { name: "Avhad", logo: Avhad },
@@ -63,11 +63,13 @@ export const PartnersSection = () => {
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-x-8 gap-y-4 items-center justify-items-center w-full">
             {row1Partners.map((partner, idx) => (
               <ScrollReveal key={`row1-${idx}`} delay={idx * 50} direction="up" distance={20} className="flex justify-center items-center w-full">
-                <img
-                  src={partner.logo}
-                  alt={partner.name}
-                  className={`w-24 md:w-32 lg:w-36 object-contain mix-blend-multiply opacity-50 hover:opacity-100 hover:scale-105 transition-all duration-300 ${partner.customClass || ""}`}
-                />
+                <div className={`flex justify-center items-center ${partner.customClass || ""}`}>
+                  <img
+                    src={partner.logo}
+                    alt={partner.name}
+                    className="w-24 md:w-32 lg:w-36 object-contain mix-blend-multiply opacity-50 hover:opacity-100 hover:scale-110 transition-all duration-300"
+                  />
+                </div>
               </ScrollReveal>
             ))}
           </div>
@@ -75,11 +77,13 @@ export const PartnersSection = () => {
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-x-8 gap-y-4 items-center justify-items-center w-full lg:px-[5%]">
             {row2Partners.map((partner, idx) => (
               <ScrollReveal key={`row2-${idx}`} delay={idx * 50} direction="up" distance={20} className="flex justify-center items-center w-full">
-                <img
-                  src={partner.logo}
-                  alt={partner.name}
-                  className={`w-24 md:w-32 lg:w-36 object-contain mix-blend-multiply opacity-50 hover:opacity-100 hover:scale-105 transition-all duration-300 ${partner.customClass || ""}`}
-                />
+                <div className={`flex justify-center items-center ${partner.customClass || ""}`}>
+                  <img
+                    src={partner.logo}
+                    alt={partner.name}
+                    className="w-24 md:w-32 lg:w-36 object-contain mix-blend-multiply opacity-50 hover:opacity-100 hover:scale-110 transition-all duration-300"
+                  />
+                </div>
               </ScrollReveal>
             ))}
           </div>

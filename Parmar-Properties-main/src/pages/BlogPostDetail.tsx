@@ -42,24 +42,24 @@ export const BlogPostDetail = () => {
   // ─── Loading state ────────────────────────────────────────
   if (post === undefined) {
     return (
-      <div className="min-h-screen bg-white font-['Instrument_Sans']">
+      <div className="min-h-screen bg-[#f3f1ed] font-['Instrument_Sans'] text-black italic overflow-x-clip selection:bg-black selection:text-white">
         <Header />
         <main className="pt-[100px] md:pt-[140px] pb-20">
           <div className="max-w-[1920px] mx-auto px-6 md:px-16">
             <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.5fr] gap-12 lg:gap-24 items-start">
               <div className="lg:sticky lg:top-[140px] flex flex-col gap-8 animate-pulse">
-                <div className="h-4 w-32 bg-neutral-200 rounded" />
-                <div className="h-20 w-3/4 bg-neutral-200 rounded" />
-                <div className="h-16 w-full bg-neutral-200 rounded" />
+                <div className="h-4 w-32 bg-black/10 rounded" />
+                <div className="h-20 w-3/4 bg-black/10 rounded" />
+                <div className="h-16 w-full bg-black/10 rounded" />
                 <div className="flex gap-4 mt-12">
-                  <div className="w-12 h-12 rounded-full bg-neutral-200" />
-                  <div className="w-12 h-12 rounded-full bg-neutral-200" />
+                  <div className="w-12 h-12 rounded-full bg-black/10" />
+                  <div className="w-12 h-12 rounded-full bg-black/10" />
                 </div>
               </div>
               <div className="flex flex-col gap-12 animate-pulse">
-                <div className="h-5 w-full bg-neutral-200 rounded" />
-                <div className="h-5 w-4/5 bg-neutral-200 rounded" />
-                <div className="h-5 w-3/5 bg-neutral-200 rounded" />
+                <div className="h-5 w-full bg-black/10 rounded" />
+                <div className="h-5 w-4/5 bg-black/10 rounded" />
+                <div className="h-5 w-3/5 bg-black/10 rounded" />
               </div>
             </div>
           </div>
@@ -83,7 +83,7 @@ export const BlogPostDetail = () => {
 
   return (
     <>
-      <div id="main-content-wrapper" className="min-h-screen bg-white font-['Instrument_Sans'] relative z-10">
+      <div id="main-content-wrapper" className="min-h-screen bg-[#f3f1ed] text-black font-['Instrument_Sans'] italic overflow-x-clip selection:bg-black selection:text-white relative z-10">
         <Header />
 
         <main className="pt-[100px] md:pt-[140px] pb-20">
@@ -93,14 +93,14 @@ export const BlogPostDetail = () => {
               {/* Left Column: Meta */}
               <div className="lg:sticky lg:top-[140px] flex flex-col gap-8">
                 <ScrollReveal direction="up" delay={0}>
-                  <time className="text-[16px] font-medium text-black/90 block mb-6 tracking-normal">
+                  <time className="text-xs md:text-sm font-semibold tracking-[0.15em] uppercase text-black/40 mb-6 block">
                     {new Date(post.date).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
                   </time>
-                  <h1 className="text-[56px] md:text-[84px] font-['Instrument_Sans'] font-semibold leading-[0.95] tracking-[-0.06em] text-black">
+                  <h1 className="text-[32px] md:text-[42px] lg:text-[52px] font-['Instrument_Serif'] italic font-normal tracking-[-0.04em] leading-[1.1] text-black">
                     <ScrollScrubRevealText
                       text={post.title}
                       as="span"
-                      baseColorClass="text-neutral-200"
+                      baseColorClass="text-black/30"
                       revealColorClass="text-black"
                       scrubStart="top 90%"
                       scrubEnd="center 60%"
@@ -126,27 +126,27 @@ export const BlogPostDetail = () => {
                   </div>
 
                   {post.content?.intro.map((para, i) => (
-                    <p key={i} className="text-[18px] md:text-[21px] leading-[1.5] text-black/90 font-medium">
+                    <p key={i} className="text-[14px] md:text-[15px] leading-[1.7] text-black/90 font-medium">
                       {para}
                     </p>
                   ))}
                 </ScrollReveal>
 
                 {post.content?.sections.map((section, idx) => (
-                  <ScrollReveal key={section.id} direction="up" delay={150 + idx * 50} className={`flex flex-col gap-8 pb-8 ${(idx !== (post.content?.sections.length || 0) - 1) || (post.content?.downloads && post.content.downloads.length > 0) ? "border-b border-black/20" : ""}`}>
+                  <ScrollReveal key={section.id} direction="up" delay={150 + idx * 50} className={`flex flex-col gap-6 pb-8 ${(idx !== (post.content?.sections.length || 0) - 1) || (post.content?.downloads && post.content.downloads.length > 0) ? "border-b border-black/10" : ""}`}>
                     {section.title && (
-                      <h2 className="text-[32px] md:text-[42px] font-['Instrument_Sans'] font-semibold leading-tight tracking-[-0.04em]">
+                      <h2 className="text-[24px] md:text-[28px] font-['Instrument_Serif'] italic text-black mb-2">
                         {section.title}
                       </h2>
                     )}
                     {section.paragraphs.map((para, i) => (
-                      <p key={i} className="text-[16px] md:text-[18px] leading-[1.6] text-black/80">
+                      <p key={i} className="text-[14px] md:text-[15px] leading-[1.7] text-black/80">
                         {para}
                       </p>
                     ))}
                     {section.insight && (
                       <div className="pt-4 mt-2">
-                        <p className="text-[16px] md:text-[18px] leading-[1.6] text-black font-medium">
+                        <p className="text-[14px] md:text-[15px] leading-[1.7] text-black font-medium">
                           <span className="font-bold">Insight: </span>
                           {section.insight}
                         </p>
@@ -178,11 +178,11 @@ export const BlogPostDetail = () => {
           <section className="mt-32 pt-20">
             <div className="max-w-[1920px] mx-auto px-6 md:px-16">
               <ScrollReveal direction="up" delay={0} className="mb-12 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
-                <h2 className="text-[58px] md:text-[78px] font-['Instrument_Sans'] font-semibold tracking-[-0.06em] leading-[0.92]">
+                <h2 className="font-['Instrument_Serif'] text-[32px] md:text-[42px] font-normal italic leading-[1.1] tracking-tight text-black">
                   <ScrollScrubRevealText
                     text="More Articles"
                     as="span"
-                    baseColorClass="text-neutral-300"
+                    baseColorClass="text-black/30"
                     revealColorClass="text-black"
                     scrubStart="top 90%"
                     scrubEnd="center 60%"

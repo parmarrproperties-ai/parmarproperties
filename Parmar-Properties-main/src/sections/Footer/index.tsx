@@ -33,10 +33,10 @@ export const Footer = () => {
         style={{ transform: `translateY(${parallaxY}px)`, willChange: "transform" }}
       >
         <div className="w-full max-w-[1920px] mx-auto px-6 md:px-16 pt-16 pb-8">
-          
+
           {/* Top Section */}
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-10 mb-20">
-            
+
             {/* Logo & Tagline */}
             <div className="flex flex-col max-w-md">
               <a href="/" className="flex flex-col items-start justify-center transition-opacity hover:opacity-80 mb-6">
@@ -69,7 +69,7 @@ export const Footer = () => {
               <a href="#" className="text-white/80 hover:text-white transition-colors text-[15px] font-medium">Contact Us</a>
               <a href="#" className="text-white/80 hover:text-white transition-colors text-[15px] font-medium">Careers</a>
             </div>
-            
+
             <div className="flex flex-col gap-5">
               <h4 className="text-white font-bold text-[17px] mb-2 tracking-wide">SERVICES</h4>
               <a href="#" className="text-white/80 hover:text-white transition-colors text-[15px] font-medium">Residential</a>
@@ -84,9 +84,9 @@ export const Footer = () => {
             </div>
 
             <div className="flex flex-col gap-4 justify-start pt-1 md:pt-11">
-              <a href="tel:+919004849025" className="text-white/80 hover:text-white transition-colors text-[15px] font-medium">+91-9004849025</a>
-              <a href="tel:+918989520448" className="text-white/80 hover:text-white transition-colors text-[15px] font-medium">+91-8989520448</a>
-              <a href="tel:+919022179597" className="text-white/80 hover:text-white transition-colors text-[15px] font-medium">+91-9022179597</a>
+              <a href="tel:+919322232899" className="text-white/80 hover:text-white transition-colors text-[15px] font-medium">+91-9004849025</a>
+              <a href="tel:+919323041133" className="text-white/80 hover:text-white transition-colors text-[15px] font-medium">+91-8989520448</a>
+              <a href="tel:+919819120161" className="text-white/80 hover:text-white transition-colors text-[15px] font-medium">+91-9022179597</a>
             </div>
           </div>
 

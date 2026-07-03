@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import ParmarLogo from "assets/Parmar new  (1).png";
+import { brand } from "@/content/content";
 
 export const Preloader = () => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -37,7 +37,7 @@ export const Preloader = () => {
         }`}
       >
         <img 
-          src={ParmarLogo} 
+          src={brand.logoUrl} 
           alt="Parmar Properties" 
           className="w-[80vw] md:w-[765px] max-w-[90vw] object-contain"
         />

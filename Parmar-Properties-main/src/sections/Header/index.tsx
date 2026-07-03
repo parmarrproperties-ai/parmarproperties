@@ -67,7 +67,7 @@ export const Header = () => {
     <>
       <header
       data-mobile-menu-open={isMobileMenuOpen ? "true" : "false"}
-      className={`box-border caret-transparent text-sm min-h-[auto] min-w-[auto] fixed no-underline z-[100] top-0 inset-x-0 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+      className={`box-border caret-transparent text-sm min-h-[auto] min-w-[auto] fixed no-underline not-italic font-['Instrument_Sans'] z-[100] top-0 inset-x-0 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
         isHidden 
           ? "opacity-0 pointer-events-none -translate-y-4" 
           : "opacity-100 pointer-events-auto translate-y-0"
@@ -92,7 +92,7 @@ export const Header = () => {
 
       {/* Mobile Nav Drawer */}
       <div 
-        className={`fixed inset-0 bg-white z-[90] transition-all duration-300 md:hidden flex flex-col pt-28 px-8 pb-10 ${
+        className={`fixed inset-0 bg-white z-[90] transition-all duration-300 md:hidden flex flex-col pt-28 px-8 pb-10 not-italic ${
           isMobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
       >
