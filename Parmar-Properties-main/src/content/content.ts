@@ -55,16 +55,16 @@ export const navigation = {
     { label: "Services", href: "/#services", isDropdown: false },
     { label: "Expertise", href: "/#expertise", isDropdown: false },
     { label: "Blogs", href: "/blog", isDropdown: false },
-    { label: "Contact", href: "https://wa.me/1234567890", isDropdown: false },
+    { label: "Contact", href: "https://wa.me/919322232899?text=Hi%2C%20I%20would%20like%20to%20schedule%20a%20consultation.", isDropdown: false },
   ] as NavLink[],
-  ctaButton: { label: "Schedule Consultation", href: "https://parmar-properties-two.vercel.app/contact" } as CtaButton,
+  ctaButton: { label: "Schedule Consultation", href: "https://wa.me/919322232899?text=Hi%2C%20I%20would%20like%20to%20schedule%20a%20consultation." } as CtaButton,
 };
 
 // ─── Hero Section ───────────────────────────────────────────
 export const hero = {
   headline: "Access. Influence. Legacy",
   subHeadline: "SOUTH MUMBAI'S TRUSTED LUXURY REAL ESTATE ADVISORY SINCE 1981",
-  ctaButton: { label: "Find Properties", href: "https://parmar-properties-listing.vercel.app/" } as CtaButton,
+  ctaButton: { label: "Find Properties", href: "https://wa.me/919322232899?text=Hi%2C%20I%20am%20looking%20to%20find%20properties." } as CtaButton,
 };
 
 // ─── Identity Section ───────────────────────────────────────
@@ -126,7 +126,7 @@ export const services = {
     },
   ] as ServiceItem[],
   ctaSection: {
-    ctaButton: { label: "Talk to an Expert", href: "/contact" } as CtaButton,
+    ctaButton: { label: "Talk to an Expert", href: "https://wa.me/919322232899?text=Hi%2C%20I%20would%20like%20to%20talk%20to%20an%20expert." } as CtaButton,
   }
 };
 
@@ -134,7 +134,7 @@ export const services = {
 export const processSouthMumbai = {
   heading: "Real Estate,\nRewired.",
   subHeading: "Steps:",
-  ctaButton: { label: "Start Your Search", href: "https://parmar-properties-listing.vercel.app" },
+  ctaButton: { label: "Start Your Search", href: "https://wa.me/919322232899?text=Hi%2C%20I%20want%20to%20start%20my%20property%20search." },
   steps: [
     { stepNumber: "01", title: "Talk to a Real Human.", description: "We match you with an expert who actually listens." },
     { stepNumber: "02", title: "Get Clarity.", description: "We define what you really need, not just what's available." },
@@ -154,7 +154,7 @@ export const support = {
       imageSrc: investmentAdvisoryImg,
       iconSrc: "https://c.animaapp.com/mq3zczchi8fb7N/assets/icon-6.svg",
       buttonText: "Let's Connect",
-      href: "https://parmar-properties-two.vercel.app/services",
+      href: "https://wa.me/919322232899?text=Hi%2C%20I%20need%20investment%20advisory%20services.",
     },
     {
       title: "Exclusive Opportunities",
@@ -162,7 +162,7 @@ export const support = {
       imageSrc: exclusiveOpportunitiesImg,
       iconSrc: "https://c.animaapp.com/mq3zczchi8fb7N/assets/icon-6.svg",
       buttonText: "Let's Connect",
-      href: "https://parmar-properties-two.vercel.app/services",
+      href: "https://wa.me/919322232899?text=Hi%2C%20I%20am%20interested%20in%20exclusive%20opportunities.",
     },
     {
       title: "Complete Support",
@@ -170,7 +170,7 @@ export const support = {
       imageSrc: completeSupportImg,
       iconSrc: "https://c.animaapp.com/mq3zczchi8fb7N/assets/icon-6.svg",
       buttonText: "Let's Connect",
-      href: "https://parmar-properties-two.vercel.app/services",
+      href: "https://wa.me/919322232899?text=Hi%2C%20I%20would%20like%20to%20know%20more%20about%20your%20complete%20support.",
     },
   ] as SupportCard[],
 };
@@ -206,7 +206,7 @@ export const aboutSection = {
 export const blog = {
   heading: { main: "Blog &", accent: "Resources" },
   subheading: "See how we've helped clients achieve their real estate dreams, one successful move at a time.",
-  ctaButton: { label: "Visit Our Blog", href: "/blog" } as CtaButton,
+  ctaButton: { label: "Visit Our Blog", href: "https://wa.me/919322232899?text=Hi%2C%20I%20would%20like%20to%20know%20more%20about%20your%20blogs." } as CtaButton,
   categories: ["All", "Buying", "Investments", "Lifestyle", "News", "Real Estate", "Renting", "Selling"],
 };
 
@@ -227,7 +227,7 @@ export const agents = {
       baseColorClass: "text-neutral-200 font-medium",
     },
   ] as TextSegment[],
-  ctaButton: { label: "Connect With Us", href: "https://parmar-properties-two.vercel.app/join" } as CtaButton,
+  ctaButton: { label: "Connect With Us", href: "https://wa.me/919322232899?text=Hi%2C%20I%20want%20to%20join%20your%20team." } as CtaButton,
 };
 
 // ─── Testimonials Section ────────────────────────────────────
@@ -240,7 +240,7 @@ export const testimonials = {
   bottomBanner: {
     heading: "Are you The Next One!",
     subheading: "South Mumbai's Trusted Luxury Real Estate Advisory.",
-    cta: { label: "Let's Connect Now", href: "https://parmar-properties-two.vercel.app/contact" }
+    cta: { label: "Let's Connect Now", href: "https://wa.me/919322232899?text=Hi%2C%20I%20am%20ready%20to%20connect." }
   },
   items: [
     { quote: "Finding a home in South Mumbai is as much about patience as it is about access. The team at Parmar Properties secured our dream duplex in Malabar Hill before it even hit the open market. Absolutely professional and highly connected!", author: "Anonymous", rating: 5, imageUrl: t1 },
@@ -255,8 +255,8 @@ export const testimonials = {
 export const cta = {
   headline: "Parmar Properties. <br/> South Mumbai's Trusted Luxury Real Estate Advisory.",
   backgroundImageUrl: "https://c.animaapp.com/mq3zczchi8fb7N/assets/14.webp",
-  primaryButton: { label: "Let's Get Started", href: "https://parmar-properties-two.vercel.app/contact" } as CtaButton,
-  whatsapp: { label: "Chat on WhatsApp", phone: "1234567890" },
+  primaryButton: { label: "Let's Get Started", href: "https://wa.me/919322232899?text=Hi%2C%20I%20want%20to%20get%20started." } as CtaButton,
+  whatsapp: { label: "Chat on WhatsApp", phone: "919322232899" },
 };
 
 // ─── Footer ──────────────────────────────────────────────────
@@ -265,14 +265,14 @@ export const footer = {
     { label: "About", href: "https://parmar-properties-two.vercel.app/about" },
     { label: "Expertise", href: "/#expertise" },
     { label: "Opportunities", href: "/#services" },
-    { label: "Contact", href: "https://parmar-properties-two.vercel.app/contact" },
+    { label: "Contact", href: "https://wa.me/919322232899?text=Hi%2C%20I%20would%20like%20to%20contact%20you." },
   ] as FooterLink[],
   socialLinks: [
     { label: "Facebook", href: "https://www.facebook.com/people/Parmar-Properties/61556751864965/" },
     { label: "Instagram", href: "https://www.instagram.com/parmar_properties?igsh=Y3B6amlmMHRydmpl" },
     { label: "Youtube", href: "https://www.youtube.com/@parmarpropertiesofficial" },
     { label: "Linkedin", href: "https://www.linkedin.com/company/parmar-properties-and-infrastructure-pvt-ltd/" },
-    { label: "Whatsapp", href: "https://wa.me/1234567890" },
+    { label: "Whatsapp", href: "https://wa.me/919322232899?text=Hi%2C%20I%20would%20like%20to%20connect." },
   ] as FooterLink[],
   legalLinks: [
     { label: "Terms & Conditions", href: "/terms-of-service" },

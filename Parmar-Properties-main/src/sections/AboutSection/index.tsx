@@ -47,8 +47,10 @@ export const AboutSection = () => {
           </ScrollReveal>
 
           <ScrollReveal direction="up" delay={300}>
-            <Link
-              to="/about"
+            <a
+              href="https://wa.me/919322232899?text=Hi%2C%20I%20would%20like%20to%20learn%20more%20about%20Parmar%20Properties."
+              target="_blank"
+              rel="noopener noreferrer"
               className="mt-8 inline-flex items-center gap-3 bg-black text-white text-sm md:text-base font-medium leading-[1.1] px-6 py-3.5 rounded-full hover:bg-black/85 transition-colors duration-300 shadow-sm"
             >
               <span>{aboutSection.buttonLabel}</span>
@@ -57,7 +59,7 @@ export const AboutSection = () => {
                   <path d="M5 12h14m-7-7 7 7-7 7" />
                 </svg>
               </span>
-            </Link>
+            </a>
           </ScrollReveal>
         </div>
       </div>

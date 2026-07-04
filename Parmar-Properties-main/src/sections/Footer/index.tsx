@@ -84,9 +84,9 @@ export const Footer = () => {
             </div>
 
             <div className="flex flex-col gap-4 justify-start pt-1 md:pt-11">
-              <a href="tel:+919322232899" className="text-white/80 hover:text-white transition-colors text-[15px] font-medium">+91-9004849025</a>
-              <a href="tel:+919323041133" className="text-white/80 hover:text-white transition-colors text-[15px] font-medium">+91-8989520448</a>
-              <a href="tel:+919819120161" className="text-white/80 hover:text-white transition-colors text-[15px] font-medium">+91-9022179597</a>
+              <a href="tel:+919322232899" className="text-white/80 hover:text-white transition-colors text-[15px] font-medium">+91 9322232899</a>
+              <a href="tel:+919819120161" className="text-white/80 hover:text-white transition-colors text-[15px] font-medium">+91 9819120161</a>
+              <a href="tel:+919323041133" className="text-white/80 hover:text-white transition-colors text-[15px] font-medium">+91 9323041133</a>
             </div>
           </div>
 

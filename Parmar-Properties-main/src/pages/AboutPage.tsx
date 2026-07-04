@@ -480,7 +480,7 @@ export const AboutPage = () => {
             </ScrollReveal>
             <ScrollReveal direction="up" delay={300}>
               <a
-                href="https://parmarproperties.in/contact"
+                href="https://www.parmarproperties.in/contact"
                 className="inline-flex items-center gap-3 bg-black text-white text-sm md:text-base font-semibold leading-none px-8 py-4 rounded-full hover:bg-black/80 hover:-translate-y-0.5 hover:scale-105 transition-all duration-300 shadow-md"
               >
                 <span>Schedule a Private Consultation</span>

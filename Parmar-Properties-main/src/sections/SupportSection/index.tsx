@@ -16,6 +16,7 @@ export const SupportSection = () => {
               title={card.title}
               description={card.description}
               buttonText={card.buttonText}
+              href={card.href}
               iconSrc={card.iconSrc}
               iconAlt="Icon"
               delay={index * 100}
