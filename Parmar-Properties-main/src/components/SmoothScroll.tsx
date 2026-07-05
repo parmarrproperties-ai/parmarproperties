@@ -13,6 +13,9 @@ export const SmoothScroll = () => {
       touchMultiplier: 2,
     });
 
+    // Make lenis globally available for manual scroll triggers
+    (window as any).lenis = lenis;
+
     function raf(time: number) {
       lenis.raf(time);
       requestAnimationFrame(raf);
@@ -22,6 +25,7 @@ export const SmoothScroll = () => {
 
     return () => {
       lenis.destroy();
+      delete (window as any).lenis;
     };
   }, []);
 

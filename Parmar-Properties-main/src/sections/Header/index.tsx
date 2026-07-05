@@ -29,8 +29,13 @@ export const Header = () => {
       if (location.pathname === '/') {
         const element = document.querySelector(hash);
         if (element) {
-          const y = element.getBoundingClientRect().top + window.scrollY - 80;
-          window.scrollTo({ top: y, behavior: 'smooth' });
+          const lenis = (window as any).lenis;
+          if (lenis) {
+            lenis.scrollTo(element, { offset: -80 });
+          } else {
+            const y = element.getBoundingClientRect().top + window.scrollY - 80;
+            window.scrollTo({ top: y, behavior: 'smooth' });
+          }
           window.history.pushState(null, '', targetHref);
         }
       } else {
