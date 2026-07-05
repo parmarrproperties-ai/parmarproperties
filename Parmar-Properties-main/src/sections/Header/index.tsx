@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { HeaderLogo } from "@/sections/Header/components/HeaderLogo";
 import { DesktopNavigation } from "@/sections/Header/components/DesktopNavigation";
 import { MobileMenuButton } from "@/sections/Header/components/MobileMenuButton";
@@ -7,6 +7,7 @@ import { navigation } from "@/content/content";
 
 export const Header = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isAtTop, setIsAtTop] = useState(true);
   const [isHidden, setIsHidden] = useState(false);
@@ -18,6 +19,26 @@ export const Header = () => {
       ...prev,
       [label]: !prev[label]
     }));
+  };
+
+  const handleMobileNavigation = (e: React.MouseEvent<HTMLAnchorElement>, targetHref: string) => {
+    if (targetHref.startsWith('/#')) {
+      e.preventDefault();
+      setIsMobileMenuOpen(false);
+      const hash = targetHref.replace('/', '');
+      if (location.pathname === '/') {
+        const element = document.querySelector(hash);
+        if (element) {
+          const y = element.getBoundingClientRect().top + window.scrollY - 80;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+          window.history.pushState(null, '', targetHref);
+        }
+      } else {
+        navigate(targetHref);
+      }
+    } else {
+      setIsMobileMenuOpen(false);
+    }
   };
 
   const isHomePage = location.pathname === "/";
@@ -144,7 +165,7 @@ export const Header = () => {
                       isMobileMenuOpen ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
                     }`}
                     style={{ transitionDelay: `${isMobileMenuOpen ? 100 + index * 50 : 0}ms`, fontFamily: "'Inter', sans-serif" }}
-                    onClick={() => setIsMobileMenuOpen(false)}
+                    onClick={(e) => handleMobileNavigation(e, link.href)}
                   >
                     <span>{link.label}</span>
                   </a>

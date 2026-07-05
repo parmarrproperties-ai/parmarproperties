@@ -1,3 +1,5 @@
+import { useNavigate, useLocation } from "react-router-dom";
+
 export type NavigationItemProps = {
   label: string;
   href: string;
@@ -7,6 +9,25 @@ export type NavigationItemProps = {
 };
 
 export const NavigationItem = ({ label, href, itemVariant, isDropdown, dropdownItems }: NavigationItemProps) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, targetHref: string) => {
+    if (targetHref.startsWith('/#')) {
+      e.preventDefault();
+      const hash = targetHref.replace('/', '');
+      if (location.pathname === '/') {
+        const element = document.querySelector(hash);
+        if (element) {
+          const y = element.getBoundingClientRect().top + window.scrollY - 80;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+          window.history.pushState(null, '', targetHref);
+        }
+      } else {
+        navigate(targetHref);
+      }
+    }
+  };
   const customStyle = {
     fontFamily: '"Instrument Sans", "Instrument Sans", sans-serif',
   };
@@ -57,6 +78,7 @@ export const NavigationItem = ({ label, href, itemVariant, isDropdown, dropdownI
       ) : (
         <a
           href={href}
+          onClick={(e) => handleClick(e, href)}
           target={href.startsWith('http') ? "_blank" : undefined}
           rel={href.startsWith('http') ? "noopener noreferrer" : undefined}
           className="block text-base font-semibold text-neutral-900 transition-colors duration-200 py-2"
