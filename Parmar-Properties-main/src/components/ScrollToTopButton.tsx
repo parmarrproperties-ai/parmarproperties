@@ -1,14 +1,19 @@
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 export const ScrollToTopButton = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
-      // Check if user is near the bottom of the page (within 800px of the end)
-      const isNearBottom =
-        window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 800;
-      setIsVisible(isNearBottom);
+      if (location.pathname === "/") {
+        const heroSection = document.getElementById("hero-section");
+        const threshold = heroSection ? heroSection.offsetHeight - window.innerHeight : window.innerHeight;
+        setIsVisible(window.scrollY >= threshold);
+      } else {
+        setIsVisible(true);
+      }
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -16,7 +21,7 @@ export const ScrollToTopButton = () => {
     handleScroll();
 
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [location.pathname]);
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -28,7 +33,7 @@ export const ScrollToTopButton = () => {
   return (
     <button
       onClick={scrollToTop}
-      className={`fixed bottom-6 right-6 md:bottom-8 md:right-8 z-[9999] p-3 md:p-4 rounded-full bg-black text-white shadow-xl transition-all duration-500 hover:bg-neutral-800 hover:-translate-y-2 ${
+      className={`fixed bottom-6 right-6 md:bottom-8 md:right-8 z-[9999] flex items-center justify-center w-11 h-11 rounded-full bg-black text-white shadow-xl transition-all duration-500 hover:bg-neutral-800 hover:-translate-y-2 ${
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10 pointer-events-none"
       }`}
       aria-label="Scroll to top"
@@ -42,7 +47,7 @@ export const ScrollToTopButton = () => {
         strokeWidth="2.5"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="md:w-6 md:h-6"
+        className="w-5 h-5"
       >
         <path d="m18 15-6-6-6 6" />
       </svg>

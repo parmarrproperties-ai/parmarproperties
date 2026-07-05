@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { brand, footer } from "@/content/content";
-import { Facebook, Instagram, Youtube, Linkedin, MessageCircle, ArrowRight } from "lucide-react";
+import { Facebook, Instagram, Youtube, Linkedin, MessageCircle, ArrowRight, Phone } from "lucide-react";
 
 export const Footer = () => {
   const footerRef = useRef<HTMLElement>(null);
@@ -35,10 +35,10 @@ export const Footer = () => {
         <div className="w-full max-w-[1920px] mx-auto px-6 md:px-16 pt-16 pb-8">
 
           {/* Top Section */}
-          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-10 mb-20">
+          <div className="flex flex-col lg:flex-row justify-between items-start gap-10 mb-20">
 
             {/* Logo & Tagline */}
-            <div className="flex flex-col max-w-md">
+            <div className="flex flex-col w-full">
               <a href="/" className="flex flex-col items-start justify-center transition-opacity hover:opacity-80 mb-6">
                 <span className="text-[72px] md:text-[120px] font-bold tracking-tight leading-[1.1]">PARMAR</span>
                 <span className="text-[24px] md:text-[36px] font-medium tracking-[0.3em] text-white/70 leading-[1.1] mt-1">PROPERTIES</span>
@@ -51,42 +51,28 @@ export const Footer = () => {
 
 
 
-            {/* Socials */}
-            <div className="flex items-center gap-6 text-white">
-              <a href={footer.socialLinks.find(l => l.label === "Facebook")?.href || "#"} target="_blank" rel="noopener noreferrer" className="hover:text-white/70 transition-colors"><Facebook size={20} strokeWidth={2.5} /></a>
-              <a href={footer.socialLinks.find(l => l.label === "Instagram")?.href || "#"} target="_blank" rel="noopener noreferrer" className="hover:text-white/70 transition-colors"><Instagram size={20} strokeWidth={2.5} /></a>
-              <a href={footer.socialLinks.find(l => l.label === "Youtube")?.href || "#"} target="_blank" rel="noopener noreferrer" className="hover:text-white/70 transition-colors"><Youtube size={22} strokeWidth={2.5} /></a>
-              <a href={footer.socialLinks.find(l => l.label === "Linkedin")?.href || "#"} target="_blank" rel="noopener noreferrer" className="hover:text-white/70 transition-colors"><Linkedin size={20} strokeWidth={2.5} /></a>
-            </div>
-          </div>
-
-          {/* Middle Section - Links Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-12 mb-20">
-            <div className="flex flex-col gap-5">
-              <h4 className="text-white font-bold text-[17px] mb-2 tracking-wide">ABOUT US</h4>
-              <a href="#" className="text-white/80 hover:text-white transition-colors text-[15px] font-medium">Who we are</a>
-              <a href="#" className="text-white/80 hover:text-white transition-colors text-[15px] font-medium">Client Testimonials</a>
-              <a href="#" className="text-white/80 hover:text-white transition-colors text-[15px] font-medium">Contact Us</a>
-              <a href="#" className="text-white/80 hover:text-white transition-colors text-[15px] font-medium">Careers</a>
-            </div>
-
-            <div className="flex flex-col gap-5">
-              <h4 className="text-white font-bold text-[17px] mb-2 tracking-wide">SERVICES</h4>
-              <a href="#" className="text-white/80 hover:text-white transition-colors text-[15px] font-medium">Residential</a>
-              <a href="#" className="text-white/80 hover:text-white transition-colors text-[15px] font-medium">Commercial</a>
-              <a href="#" className="text-white/80 hover:text-white transition-colors text-[15px] font-medium">NRI Concierge</a>
-              <a href="#" className="text-white/80 hover:text-white transition-colors text-[15px] font-medium">Interior Design Advisory</a>
-            </div>
-
-            <div className="flex flex-col gap-5">
-              <h4 className="text-white font-bold text-[17px] mb-2 tracking-wide">INSIGHTS</h4>
-              <a href="#" className="text-white/80 hover:text-white transition-colors text-[15px] font-medium">Blogs</a>
-            </div>
-
-            <div className="flex flex-col gap-4 justify-start pt-1 md:pt-11">
-              <a href="tel:+919322232899" className="text-white/80 hover:text-white transition-colors text-[15px] font-medium">+91 9322232899</a>
-              <a href="tel:+919819120161" className="text-white/80 hover:text-white transition-colors text-[15px] font-medium">+91 9819120161</a>
-              <a href="tel:+919323041133" className="text-white/80 hover:text-white transition-colors text-[15px] font-medium">+91 9323041133</a>
+            {/* Right Column: Socials & Numbers */}
+            <div className="flex flex-col gap-8 lg:items-start min-w-[200px]">
+              {/* Socials */}
+              <div className="flex items-center gap-6 text-white">
+                <a href={footer.socialLinks.find(l => l.label === "Facebook")?.href || "#"} target="_blank" rel="noopener noreferrer" className="hover:text-white/70 transition-colors"><Facebook size={20} strokeWidth={2.5} /></a>
+                <a href={footer.socialLinks.find(l => l.label === "Instagram")?.href || "#"} target="_blank" rel="noopener noreferrer" className="hover:text-white/70 transition-colors"><Instagram size={20} strokeWidth={2.5} /></a>
+                <a href={footer.socialLinks.find(l => l.label === "Youtube")?.href || "#"} target="_blank" rel="noopener noreferrer" className="hover:text-white/70 transition-colors"><Youtube size={22} strokeWidth={2.5} /></a>
+                <a href={footer.socialLinks.find(l => l.label === "Linkedin")?.href || "#"} target="_blank" rel="noopener noreferrer" className="hover:text-white/70 transition-colors"><Linkedin size={20} strokeWidth={2.5} /></a>
+              </div>
+              
+              {/* Numbers */}
+              <div className="flex flex-col gap-4">
+                <a href="tel:+919322232899" className="text-white/80 hover:text-white transition-colors text-[15px] font-medium flex items-center gap-2">
+                  <Phone size={16} /> +91 9322232899
+                </a>
+                <a href="tel:+919819120161" className="text-white/80 hover:text-white transition-colors text-[15px] font-medium flex items-center gap-2">
+                  <Phone size={16} /> +91 9819120161
+                </a>
+                <a href="tel:+919323041133" className="text-white/80 hover:text-white transition-colors text-[15px] font-medium flex items-center gap-2">
+                  <Phone size={16} /> +91 9323041133
+                </a>
+              </div>
             </div>
           </div>
 
@@ -100,8 +86,6 @@ export const Footer = () => {
                   {index < footer.legalLinks.length - 1 && <span>|</span>}
                 </span>
               ))}
-              <span>|</span>
-              <a href="#" className="hover:text-white transition-colors">Site Map</a>
             </div>
             <div>Built by Parmar Properties</div>
           </div>

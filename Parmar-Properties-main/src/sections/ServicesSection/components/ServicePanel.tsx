@@ -10,8 +10,14 @@ export type ServicePanelProps = {
 
 export const ServicePanel = ({ imageUrl, description, label, number, delay = 0 }: ServicePanelProps) => {
   return (
-    <ScrollReveal delay={delay} direction="up" distance={40} className="group relative w-full border-t border-white/20 bg-black overflow-hidden flex flex-col md:flex-row items-start md:items-center pt-10 pb-5 md:pt-24 md:pb-[76px] px-6 md:px-16 transition-all duration-500 cursor-pointer">
-      {/* Background Image (appears on hover on desktop, always visible on mobile) */}
+    <ScrollReveal delay={delay} direction="up" distance={40} className="w-full">
+      <a
+        href="https://wa.me/919322232899?text=Hi%2C%20I%20would%20like%20to%20know%20more%20about%20your%20services."
+        target="_blank"
+        rel="noopener noreferrer"
+        className="group relative w-full border-t border-white/20 bg-black overflow-hidden flex flex-col md:flex-row items-start md:items-center pt-10 pb-5 md:pt-24 md:pb-[76px] px-6 md:px-16 transition-all duration-500 cursor-pointer block"
+      >
+        {/* Background Image (appears on hover on desktop, always visible on mobile) */}
       <div className="absolute inset-0 opacity-40 md:opacity-0 md:group-hover:opacity-40 transition-opacity duration-700 pointer-events-none z-0 overflow-hidden">
         <img
           src={imageUrl}
@@ -47,6 +53,7 @@ export const ServicePanel = ({ imageUrl, description, label, number, delay = 0 }
           </svg>
         </div>
       </div>
+      </a>
     </ScrollReveal>
   );
 };

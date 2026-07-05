@@ -546,13 +546,7 @@ export const HeroSection = () => {
             </a>
           </div>
 
-          {/* ── Layer 10: Scroll hint ── */}
-          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none select-none z-30"
-            style={{ opacity: Math.max(0, 1 - p1 * 4) }}>
-            <span className="text-[10px] tracking-[0.3em] uppercase text-white/60"
-              style={{ fontFamily: "'Instrument Sans', sans-serif" }}>Scroll</span>
-            <div className="w-px h-8 bg-gradient-to-b from-white/50 to-transparent animate-pulse" />
-          </div>
+
 
         </div>
       </section>

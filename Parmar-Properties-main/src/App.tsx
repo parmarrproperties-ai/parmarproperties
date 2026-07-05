@@ -17,6 +17,7 @@ import { TestimonialVariationsPage } from "@/pages/TestimonialVariationsPage";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { ScrollToTopButton } from "@/components/ScrollToTopButton";
 import { Preloader } from "@/components/Preloader";
+import { FloatingWhatsApp } from "@/components/FloatingWhatsApp";
 
 const HomePage = () => (
   <>
@@ -28,7 +29,6 @@ const HomePage = () => (
       <Header />
       <Main />
       <Footer />
-      <ScrollToTopButton />
     </div>
   </>
 );
@@ -46,6 +46,8 @@ export const App = () => {
     <>
       <BrowserRouter>
         <GlobalPreloader />
+        <FloatingWhatsApp />
+        <ScrollToTopButton />
         <Routes>
           {/* Public routes */}
           <Route path="/" element={<HomePage />} />
