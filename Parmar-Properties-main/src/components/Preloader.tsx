@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react";
 import { brand } from "@/content/content";
 
+let hasShownPreloader = false;
+
 export const Preloader = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isAnimatingOut, setIsAnimatingOut] = useState(false);
-  const [isUnmounted, setIsUnmounted] = useState(() => {
-    return sessionStorage.getItem("preloaderShown") === "true";
-  });
+  const [isUnmounted, setIsUnmounted] = useState(() => hasShownPreloader);
 
   useEffect(() => {
     if (isUnmounted) return;
 
-    // Mark as shown so it doesn't appear on navigation/reload in same session
-    sessionStorage.setItem("preloaderShown", "true");
+    // Mark as shown so it doesn't appear on client-side route navigation
+    hasShownPreloader = true;
 
     // Trigger the text fade-in immediately on mount
     const loadTimer = setTimeout(() => setIsLoaded(true), 50);

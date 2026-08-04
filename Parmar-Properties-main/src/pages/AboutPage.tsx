@@ -23,7 +23,7 @@ import Prestige from"assets/Prestige.png";
 import DilipParmarImage from"assets/Mr. Dilip Parmar.jpeg";
 import SanjayImage from"assets/sanjay.png";
 import AnkitImage from"assets/ankit.png";
-import GroupImage from"assets/GroupImage.png";
+import GroupImage from"assets/GroupImage.jpg";
 import AdvisorBackImg from"assets/AdvisorBackImg.jpeg";
 import AdvisorFrontImg from"assets/AdvisorFrontImg.jpeg";
 const ArrowIcon = ({ size = 16}: { size?: number}) => (
@@ -322,14 +322,16 @@ export const AboutPage = () => {
  {/* 3. Editorial Narrative ("Who We Are") */}
  <section className="bg-[#f8f7f4] py-12 md:py-16 px-6 md:px-16 border-b border-black/5">
  <div className="max-w-[1920px] mx-auto grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-8 lg:gap-12 items-center">
- <div className="order-2 lg:order-1 relative h-full min-h-[500px]">
- <ScrollReveal direction="right"delay={100} className="absolute top-0 left-0 w-[70%] aspect-[3/4] z-10">
- <img src={AdvisorBackImg} alt="Interior Details"className="w-full h-full object-cover"/>
- </ScrollReveal>
- <ScrollReveal direction="up"delay={300} className="absolute bottom-0 right-0 w-[60%] aspect-square z-20 shadow-2xl">
- <img src={AdvisorFrontImg} alt="Luxury Architecture"className="w-full h-full object-cover"/>
- </ScrollReveal>
- </div>
+  <div className="order-2 lg:order-1 w-full">
+  <ScrollReveal direction="up"delay={200} className="w-full relative overflow-hidden">
+  <img 
+  src={AdvisorFrontImg} 
+  alt="Parmar Properties" 
+  className="w-full aspect-[4/3] object-cover transition-all duration-700 hover:scale-[1.02] shadow-lg"
+  />
+  <div className="absolute inset-0 border border-black/5 pointer-events-none"></div>
+  </ScrollReveal>
+  </div>
 
  <div className="order-1 lg:order-2 flex flex-col justify-center">
  <ScrollReveal direction="up"delay={100}>
