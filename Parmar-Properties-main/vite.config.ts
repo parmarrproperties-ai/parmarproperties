@@ -7,7 +7,8 @@ import path from "path";
 export default defineConfig({
   plugins: [react()],
   publicDir: "./static",
-  base: "/",
+  // GitHub Pages project site: https://parmarrproperties-ai.github.io/parmarproperties/
+  base: process.env.GITHUB_PAGES === "true" ? "/parmarproperties/" : "/",
   server: {
     host: true, // Expose on LAN — use the Network URL printed in terminal to open on phone
   },
