@@ -194,9 +194,9 @@ export const aboutSection = {
   buttonLabel: "LEARN MORE",
   stats: [
     { value: "40+", label: "Years in Business" },
-    { value: "535+", label: "Families Helped" },
-    { value: "372+", label: "Residential Deals" },
-    { value: "47+", label: "Commercial Deals" },
+    { value: "5124+", label: "Families Helped" },
+    { value: "1289+", label: "Residential Deals" },
+    { value: "328+", label: "Commercial Deals" },
   ],
 };
 

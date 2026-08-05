@@ -13,7 +13,6 @@ import { Agentation } from "agentation";
 import { NewsletterConfirmedPage } from "@/pages/NewsletterConfirmedPage";
 import { PrivacyPolicyPage } from "@/pages/PrivacyPolicyPage";
 import { TermsAndConditionsPage } from "@/pages/TermsAndConditionsPage";
-import { TestimonialVariationsPage } from "@/pages/TestimonialVariationsPage";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { ScrollToTopButton } from "@/components/ScrollToTopButton";
 import { Preloader } from "@/components/Preloader";
@@ -58,7 +57,6 @@ export const App = () => {
           <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
           <Route path="/terms-of-service" element={<TermsAndConditionsPage />} />
           <Route path="/newsletter-confirmed" element={<NewsletterConfirmedPage />} />
-          <Route path="/testimonial-variations" element={<TestimonialVariationsPage />} />
 
           {/* Admin routes */}
           <Route path="/admin/login" element={<LoginPage />} />

@@ -11,6 +11,9 @@ import Godrej from "assets/Godrej.webp";
 import Kalpataru from "assets/Kalpataru.png";
 import Piramal from "assets/Piramal.png";
 import LnT from "assets/L&T.png";
+import Adani from "assets/Adani.png";
+import ShapoorjiPallonji from "assets/ShapoorjiPallonji.png";
+import Marathon from "assets/Marathon.png";
 
 export const PartnersSection = () => {
   const row1Partners = [
@@ -26,9 +29,29 @@ export const PartnersSection = () => {
     { name: "Runwal", logo: RunwalWebp, customClass: "scale-110 md:scale-125" },
     { name: "L&T", logo: LnT, customClass: "scale-[1.7] md:scale-[2.0]" },
     { name: "Bhoomi", logo: Bhoomi, customClass: "scale-110 md:scale-125" },
-    { name: "Avighna", logo: Avighna },
+    { name: "Avighna", logo: Avighna, customClass: "scale-125 md:scale-150" },
+    { name: "Adani Realty", logo: Adani, customClass: "scale-110 md:scale-125" },
+  ];
+
+  const row3Partners = [
+    { name: "Marathon", logo: Marathon, customClass: "scale-110 md:scale-125" },
+    { name: "Shapoorji Pallonji", logo: ShapoorjiPallonji, customClass: "scale-[1.45] md:scale-[1.6]" },
     { name: "Avhad", logo: Avhad },
   ];
+
+  const allPartners = [...row1Partners, ...row2Partners, ...row3Partners];
+
+  const renderPartner = (partner: (typeof allPartners)[number], key: string, delay: number) => (
+    <ScrollReveal key={key} delay={delay} direction="up" distance={20} className="flex justify-center items-center w-full">
+      <div className={`flex justify-center items-center ${partner.customClass || ""}`}>
+        <img
+          src={partner.logo}
+          alt={partner.name}
+          className="w-24 md:w-32 lg:w-36 object-contain mix-blend-multiply opacity-50 hover:opacity-100 hover:scale-110 transition-all duration-300"
+        />
+      </div>
+    </ScrollReveal>
+  );
 
   return (
     <section className="bg-white py-12 md:py-24 px-6 md:px-16 w-full">
@@ -59,33 +82,23 @@ export const PartnersSection = () => {
           </p>
         </ScrollReveal>
 
-        <div className="flex flex-col gap-4 md:gap-8 w-full">
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-x-8 gap-y-4 items-center justify-items-center w-full">
-            {row1Partners.map((partner, idx) => (
-              <ScrollReveal key={`row1-${idx}`} delay={idx * 50} direction="up" distance={20} className="flex justify-center items-center w-full">
-                <div className={`flex justify-center items-center ${partner.customClass || ""}`}>
-                  <img
-                    src={partner.logo}
-                    alt={partner.name}
-                    className="w-24 md:w-32 lg:w-36 object-contain mix-blend-multiply opacity-50 hover:opacity-100 hover:scale-110 transition-all duration-300"
-                  />
-                </div>
-              </ScrollReveal>
-            ))}
+        {/* Mobile: single 2-column grid — exactly 2 logos per row */}
+        <div className="grid grid-cols-2 gap-x-6 gap-y-6 items-center justify-items-center w-full md:hidden">
+          {allPartners.map((partner, idx) => renderPartner(partner, `mobile-${idx}`, idx * 40))}
+        </div>
+
+        {/* Desktop / tablet: original multi-row layout */}
+        <div className="hidden md:flex flex-col gap-4 md:gap-8 w-full">
+          <div className="grid grid-cols-3 lg:grid-cols-6 gap-x-8 gap-y-4 items-center justify-items-center w-full">
+            {row1Partners.map((partner, idx) => renderPartner(partner, `row1-${idx}`, idx * 50))}
           </div>
-          
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-x-8 gap-y-4 items-center justify-items-center w-full lg:px-[5%]">
-            {row2Partners.map((partner, idx) => (
-              <ScrollReveal key={`row2-${idx}`} delay={idx * 50} direction="up" distance={20} className="flex justify-center items-center w-full">
-                <div className={`flex justify-center items-center ${partner.customClass || ""}`}>
-                  <img
-                    src={partner.logo}
-                    alt={partner.name}
-                    className="w-24 md:w-32 lg:w-36 object-contain mix-blend-multiply opacity-50 hover:opacity-100 hover:scale-110 transition-all duration-300"
-                  />
-                </div>
-              </ScrollReveal>
-            ))}
+
+          <div className="grid grid-cols-3 lg:grid-cols-5 gap-x-8 gap-y-4 items-center justify-items-center w-full lg:px-[5%]">
+            {row2Partners.map((partner, idx) => renderPartner(partner, `row2-${idx}`, idx * 50))}
+          </div>
+
+          <div className="grid grid-cols-3 gap-x-8 gap-y-4 items-center justify-items-center w-full lg:px-[20%] mt-6 md:mt-10">
+            {row3Partners.map((partner, idx) => renderPartner(partner, `row3-${idx}`, idx * 50))}
           </div>
         </div>
       </div>
