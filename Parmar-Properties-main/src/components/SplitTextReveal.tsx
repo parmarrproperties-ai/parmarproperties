@@ -1,5 +1,6 @@
 import React, { ElementType, Fragment } from "react";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 interface SplitTextRevealProps {
   text: string;
@@ -20,6 +21,7 @@ export const SplitTextReveal = ({
 }: SplitTextRevealProps) => {
   const { ref, isVisible } = useScrollReveal();
   const words = text.split(" ");
+  const isMobile = useIsMobile();
 
   return (
     <Component ref={ref} className={className}>
@@ -27,7 +29,6 @@ export const SplitTextReveal = ({
         if (word === "<br/>") {
           return <br key={index} />;
         }
-        const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
         const activeDuration = isMobile ? duration * 0.5 : duration;
         const activeDelayPerWord = isMobile ? delayPerWord * 0.5 : delayPerWord;
         const activeInitialDelay = isMobile ? initialDelay * 0.5 : initialDelay;

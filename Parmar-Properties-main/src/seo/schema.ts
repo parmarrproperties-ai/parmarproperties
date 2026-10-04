@@ -4,6 +4,7 @@
 
 import { site, absoluteUrl, SITE_URL } from "./site";
 import type { BlogPost } from "@/lib/types";
+import { servicePages } from "@/content/services";
 
 export type JsonLd = Record<string, unknown>;
 export type Faq = { question: string; answer: string };
@@ -41,7 +42,19 @@ export const organizationSchema = (): JsonLd => ({
     { "@type": "ContactPoint", telephone: site.officePhone, contactType: "customer service", areaServed: "IN", availableLanguage: ["English", "Hindi", "Marathi", "Gujarati"] },
     ...site.phones.map((telephone) => ({ "@type": "ContactPoint", telephone, contactType: "sales", areaServed: ["IN", "AE", "GB", "US", "SG"] })),
   ],
-  ...(site.rera ? { identifier: { "@type": "PropertyValue", propertyID: "MahaRERA", value: site.rera } } : {}),
+  identifier: [
+    ...(site.cin ? [{ "@type": "PropertyValue", propertyID: "CIN", value: site.cin }] : []),
+    ...(site.rera ? [{ "@type": "PropertyValue", propertyID: "MahaRERA", value: site.rera }] : []),
+  ],
+  foundingLocation: { "@type": "Place", name: "Mumbai, Maharashtra, India" },
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Real estate services in South Mumbai",
+    itemListElement: servicePages.map((s) => ({
+      "@type": "Offer",
+      itemOffered: { "@type": "Service", name: s.name, serviceType: s.serviceType, url: absoluteUrl(`/services/${s.slug}`) },
+    })),
+  },
   sameAs: site.sameAs,
 });
 

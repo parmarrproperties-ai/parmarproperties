@@ -51,7 +51,7 @@ export const AboutSection = () => {
               href="/about"
               className="mt-8 inline-flex items-center gap-3 bg-black text-white text-sm md:text-base font-medium leading-[1.1] px-6 py-3.5 rounded-full hover:bg-black/85 transition-colors duration-300 shadow-sm"
             >
-              <span>{aboutSection.buttonLabel}</span>
+              <span>{aboutSection.buttonLabel}<span className="sr-only"> about Parmar Properties</span></span>
               <span className="flex items-center justify-center w-5 h-5">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-full h-full">
                   <path d="M5 12h14m-7-7 7 7-7 7" />
@@ -65,7 +65,7 @@ export const AboutSection = () => {
       {/* Decorative Image (positioned middle right) */}
       <div className="absolute top-[65%] md:top-[50%] lg:top-[35%] right-0 w-[110%] md:w-[600px] lg:w-[750px] xl:w-[900px] pointer-events-none z-0 transform translate-x-8 lg:translate-x-24 opacity-80">
         <ScrollReveal direction="left" delay={500}>
-          <img
+          <img loading="lazy" decoding="async"
             src={AboutUsImg}
             alt="" aria-hidden="true"
             className="w-full h-auto object-cover rounded-tl-[3rem] shadow-2xl"

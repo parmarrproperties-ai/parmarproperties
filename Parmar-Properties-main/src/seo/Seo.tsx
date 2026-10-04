@@ -46,6 +46,11 @@ export function renderHeadTags(p: SeoProps): string {
     meta("name", "description", p.description),
     meta("name", "robots", p.noindex ? "noindex, follow" : "index, follow, max-image-preview:large, max-snippet:-1"),
     p.noindex ? "" : `<link data-seo rel="canonical" href="${esc(url)}">`,
+    // Single-language site for India: declare it so Google serves it for en-IN searches.
+    p.noindex ? "" : `<link data-seo rel="alternate" hreflang="en-IN" href="${esc(url)}">`,
+    p.noindex ? "" : `<link data-seo rel="alternate" hreflang="x-default" href="${esc(url)}">`,
+    meta("name", "geo.region", "IN-MH"),
+    meta("name", "geo.placename", "Mumbai"),
     meta("property", "og:site_name", site.name),
     meta("property", "og:locale", "en_IN"),
     meta("property", "og:type", p.type || "website"),

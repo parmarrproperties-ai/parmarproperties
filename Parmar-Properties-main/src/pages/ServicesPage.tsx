@@ -30,7 +30,7 @@ export const ServicesPage = () => (
             <h2 className="text-[24px] md:text-[28px] tracking-[-0.03em]">{s.h1}</h2>
             <p className="text-[15px] leading-[1.7] text-black/70">{s.summary}</p>
             <span className="mt-2 inline-flex items-center gap-2 text-sm font-semibold">
-              Learn more <ArrowIcon size={14} />
+              Learn more<span className="sr-only"> about {s.h1}</span> <ArrowIcon size={14} />
             </span>
           </div>
         </Link>

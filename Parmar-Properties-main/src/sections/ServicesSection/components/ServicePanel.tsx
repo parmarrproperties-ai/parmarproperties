@@ -21,7 +21,7 @@ export const ServicePanel = ({ imageUrl, description, label, number, delay = 0 }
       <div className="absolute inset-0 opacity-40 md:opacity-0 md:group-hover:opacity-40 transition-opacity duration-700 pointer-events-none z-0 overflow-hidden">
         <img
           src={imageUrl}
-          alt={label}
+          alt={`${label} luxury property in South Mumbai with Parmar Properties`}
           loading="lazy"
           className="w-full h-full object-cover transition-transform duration-700 translate-y-0 md:translate-y-12 md:group-hover:translate-y-0"
         />

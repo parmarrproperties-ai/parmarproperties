@@ -21,7 +21,7 @@ import completeSupportImg from "assets/Complete support.webp";
 import buyImg from "assets/Buy image.webp";
 import sellImg from "assets/Sell image.webp";
 import leaseImg from "assets/Lease image.webp";
-import parmarPropertiesLogo from "assets/Parmar Properties Logo.png";
+import parmarPropertiesLogo from "assets/Parmar Properties Logo.webp";
 
 // ─── Types ──────────────────────────────────────────────────
 type NavLink = {

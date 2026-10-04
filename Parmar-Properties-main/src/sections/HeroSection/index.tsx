@@ -392,7 +392,7 @@ export const HeroSection = () => {
             <div className="animate-layer-entrance" style={{ transformOrigin: "bottom center" }}>
               <img
                 src={heroBuilding}
-                alt="Luxury real estate building"
+                alt="Luxury residential building with landscaped terraces"
                 className="block w-full"
                 style={{
                   // Mobile: explicit height so object-fit: cover actually works. Reduced scale further.

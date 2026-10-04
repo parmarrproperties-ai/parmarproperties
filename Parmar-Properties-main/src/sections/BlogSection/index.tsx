@@ -25,6 +25,7 @@ export const BlogSection = () => {
             <h2 className="font-['Instrument_Sans'] text-[58px] md:text-[78px] font-semibold tracking-[-0.06em] leading-[0.92] text-balance">
               <ScrollScrubRevealText
                 text={blog.heading.main}
+                as="span"
                 className="inline"
                 baseColorClass="text-neutral-300"
                 revealColorClass="text-black"
@@ -34,6 +35,7 @@ export const BlogSection = () => {
               {" "}
               <ScrollScrubRevealText
                 text={blog.heading.accent}
+                as="span"
                 className="inline"
                 baseColorClass="text-neutral-300/55"
                 revealColorClass="text-neutral-400"

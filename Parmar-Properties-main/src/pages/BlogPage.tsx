@@ -169,7 +169,7 @@ export const BlogPage = () => {
  to={featuredPost.href}
  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-black/20 text-black text-sm font-medium hover:bg-black hover:text-white hover:border-black transition-all duration-300 w-fit mt-2"
  >
- Read More <ArrowIcon size={14} />
+ Read More<span className="sr-only"> about {featuredPost.title}</span> <ArrowIcon size={14} />
  </Link>
  </ScrollReveal>
  </ScrollReveal>

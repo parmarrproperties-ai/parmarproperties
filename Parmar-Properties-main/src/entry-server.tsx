@@ -15,6 +15,7 @@ export { site, absoluteUrl } from "@/seo/site";
 export { mapPost } from "@/lib/types";
 export { postTitle, postDescription } from "@/seo/blog";
 export { servicePages } from "@/content/services";
+export { faqGroups } from "@/content/faqs";
 
 export function render(path: string, data: InitialData, basename = "") {
   globalThis.__PP_DATA__ = data;

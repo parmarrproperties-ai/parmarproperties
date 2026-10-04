@@ -1,5 +1,6 @@
 import React, { ElementType } from "react";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 interface ScrollRevealProps {
   children: React.ReactNode;
@@ -26,7 +27,7 @@ export const ScrollReveal = ({
 }: ScrollRevealProps) => {
   const { ref, isVisible } = useScrollReveal({ triggerOnce });
 
-  const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+  const isMobile = useIsMobile();
   const activeDuration = isMobile ? duration * 0.5 : duration;
   const activeDelay = isMobile ? delay * 0.5 : delay;
 

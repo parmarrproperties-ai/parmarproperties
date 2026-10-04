@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from "react";
+import { useIsMobile } from "./useIsMobile";
 
 export function useScrollReveal<T extends Element>(options: {
     threshold?: number;
     rootMargin?: string;
     triggerOnce?: boolean;
 } = {}) {
-    const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+    const isMobile = useIsMobile();
     const { 
         threshold = options.threshold ?? 0, 
         rootMargin = options.rootMargin ?? (isMobile ? "0px 0px 15% 0px" : "0px 0px 50px 0px"), 

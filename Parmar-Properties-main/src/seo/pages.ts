@@ -12,9 +12,9 @@ export type PageMeta = { path: string; title: string; description: string; h1?: 
 export const pages = {
   home: {
     path: "/",
-    title: "South Mumbai Luxury Real Estate Advisors | Parmar Properties",
+    title: "South Mumbai Luxury Property & Real Estate | Parmar Properties",
     description:
-      "Since 1981, Parmar Properties has helped 5,124+ families buy, sell and lease luxury homes in Worli, Malabar Hill and across South Mumbai. Talk to an advisor.",
+      "Buy, sell or lease luxury flats and property in Worli, Malabar Hill and South Mumbai with Parmar Properties, trusted real estate advisors since 1981.",
   },
   about: {
     path: "/about",

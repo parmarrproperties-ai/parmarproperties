@@ -247,7 +247,7 @@ export const AboutPage = () => {
 
  <div className="w-full h-full min-h-[300px] md:min-h-[450px]">
  <ScrollReveal direction="left"delay={400} className="w-full h-full relative">
- <img
+ <img fetchPriority="high"
  src={GroupImage}
  alt="The Parmar family, founders of Parmar Properties"
  className="w-full aspect-[4/3] object-cover transition-all duration-700 hover:scale-[1.02]"
@@ -274,7 +274,7 @@ export const AboutPage = () => {
  {/* Founder 1 */}
  <div className="flex flex-col gap-6">
  <ScrollReveal delay={100} className="w-full aspect-[4/5] bg-neutral-100 relative overflow-hidden group">
- <img
+ <img loading="lazy" decoding="async"
  src={DilipParmarImage}
  alt="Mr. Jain Dilip P. Parmar"
  className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
@@ -293,7 +293,7 @@ export const AboutPage = () => {
  {/* Founder 2 (Staggered layout - medium offset) */}
  <div className="flex flex-col gap-6 md:mt-12">
  <ScrollReveal delay={200} className="w-full aspect-[4/5] bg-neutral-100 relative overflow-hidden group">
- <img
+ <img loading="lazy" decoding="async"
  src={SanjayImage}
  alt="Mr. Sanjay Dilip Parmar"
  className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
@@ -312,7 +312,7 @@ export const AboutPage = () => {
  {/* Founder 3 (Staggered layout - larger offset) */}
  <div className="flex flex-col gap-6 md:mt-24">
  <ScrollReveal delay={300} className="w-full aspect-[4/5] bg-neutral-100 relative overflow-hidden group">
- <img
+ <img loading="lazy" decoding="async"
  src={AnkitImage}
  alt="Mr. Jain Ankit Dilip Parmar"
  className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
@@ -336,7 +336,7 @@ export const AboutPage = () => {
  <div className="max-w-[1920px] mx-auto grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-8 lg:gap-12 items-center">
   <div className="order-2 lg:order-1 w-full">
   <ScrollReveal direction="up"delay={200} className="w-full relative overflow-hidden">
-  <img 
+  <img loading="lazy" decoding="async" 
   src={AdvisorFrontImg} 
   alt="Parmar Properties" 
   className="w-full aspect-[4/3] object-cover transition-all duration-700 hover:scale-[1.02] shadow-lg"
@@ -467,7 +467,7 @@ export const AboutPage = () => {
 
  <div className="flex w-max animate-marquee items-center h-24 md:h-32">
  {[...partners, ...partners, ...partners, ...partners].map((partner, idx) => (
- <img
+ <img loading="lazy" decoding="async"
  key={idx}
  src={partner.logo}
  alt={partner.name}

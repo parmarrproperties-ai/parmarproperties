@@ -34,7 +34,7 @@ export const TestimonialsGridCards = () => {
                 </div>
                 <p className="text-gray-600 text-base leading-relaxed mb-8 italic flex-1">"{t.quote}"</p>
                 <div className="flex items-center gap-4 pt-6 border-t border-gray-100">
-                  <img src={t.imageUrl} alt={t.author} className="w-12 h-12 rounded-full object-cover" />
+                  <img loading="lazy" decoding="async" src={t.imageUrl} alt="Parmar Properties client" className="w-12 h-12 rounded-full object-cover" />
                   <p className="text-black font-semibold text-sm tracking-wider uppercase">{t.author}</p>
                 </div>
               </div>

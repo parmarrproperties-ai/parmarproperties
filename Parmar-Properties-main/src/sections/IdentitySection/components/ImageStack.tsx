@@ -6,6 +6,13 @@ import Arrow3rd from "assets/Arrow 3rd.webp";
 import ArrowMan from "assets/Arrow Man.webp";
 
 export const ImageStack = () => {
+  // Alt text describes each image for search engines and screen readers.
+  const imageAlts = [
+    "Property advisor outside a modern Mumbai office tower",
+    "Living and dining area of a luxury apartment",
+    "Bedroom of a luxury apartment with city views",
+    "Client outside a premium office building at dusk",
+  ];
   const images = [
     ArrowLady,
     Arrow2nd,
@@ -43,9 +50,9 @@ export const ImageStack = () => {
                 WebkitClipPath: chevronClipPath,
               }}
             >
-              <img
+              <img loading="lazy" decoding="async"
                 src={src}
-                alt={`Identity visual ${index + 1}`}
+                alt={imageAlts[index] ?? "Luxury real estate in Mumbai"}
                 className={`w-full h-full object-cover select-none ${isSpecial ? "scale-[1.15]" : ""}`}
                 draggable={false}
               />

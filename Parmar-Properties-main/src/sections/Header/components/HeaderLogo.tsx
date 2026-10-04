@@ -10,6 +10,8 @@ export const HeaderLogo = () => {
       >
         <img
           src={brand.logoUrl}
+          width={1308}
+          height={508}
           alt={brand.name}
           className="h-[54px] md:h-[68px] md:ml-[80px] w-auto object-contain object-left pointer-events-none"
         />

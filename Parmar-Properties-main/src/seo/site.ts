@@ -31,6 +31,12 @@ export const site = {
   },
   /** MahaRERA agent registration number — add it here to show it in the footer and schema. */
   rera: "",
+  /** Corporate Identification Number (Ministry of Corporate Affairs). Confirm against your incorporation certificate. */
+  cin: "U70109MH2011PTC214909",
+  /** Optional search-engine verification codes (also settable via env at build time). */
+  verification: { google: "", bing: "" },
+  /** IndexNow key (file static/<key>.txt). Production builds ping Bing/Yandex/Seznam with every URL. */
+  indexNowKey: "ea67eb5c76b26a6b57224ba7b378ff0d",
   /** Google Maps search link for the office (no API key needed). */
   mapsUrl:
     "https://www.google.com/maps/search/?api=1&query=Peninsula+Centre+Dr+S+S+Rao+Road+Parel+Mumbai+400012",
