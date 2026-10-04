@@ -47,7 +47,29 @@ export interface PostRow {
   more_articles_override: string[] | null;
   created_at: string;
   updated_at: string;
+  // Optional SEO / AEO fields — added by supabase/migrations/20261004_post_seo_fields.sql.
+  // Absent on databases that have not run the migration yet.
+  seo_title?: string | null;
+  seo_description?: string | null;
+  author_name?: string | null;
+  author_role?: string | null;
+  og_image_url?: string | null;
+  faqs?: PostFaq[] | null;
+  sources?: PostSource[] | null;
 }
+
+export type PostFaq = { question: string; answer: string };
+export type PostSource = { label: string; url: string };
+
+export type PostSeo = {
+  title?: string;
+  description?: string;
+  authorName?: string;
+  authorRole?: string;
+  ogImageUrl?: string;
+  faqs: PostFaq[];
+  sources: PostSource[];
+};
 
 export interface PostSectionRow {
   id: string;
@@ -74,6 +96,8 @@ export type BlogPost = {
   status: "draft" | "published";
   gridOrder: number;
   moreArticlesOverride: string[] | null;
+  updatedAt?: string;
+  seo?: PostSeo;
   // Rich content
   content?: {
     intro: string[];
@@ -108,6 +132,16 @@ export function mapPost(
     status: row.status,
     gridOrder: row.grid_order,
     moreArticlesOverride: row.more_articles_override,
+    updatedAt: row.updated_at,
+    seo: {
+      title: row.seo_title || undefined,
+      description: row.seo_description || undefined,
+      authorName: row.author_name || undefined,
+      authorRole: row.author_role || undefined,
+      ogImageUrl: row.og_image_url || undefined,
+      faqs: (row.faqs ?? []).filter((f) => f?.question && f?.answer),
+      sources: (row.sources ?? []).filter((s) => s?.label && s?.url),
+    },
     content: {
       intro: row.intro ?? [],
       sections: sections

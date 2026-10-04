@@ -521,16 +521,16 @@ export const HeroSection = () => {
           {/* ── Layer 9: Hero content — z-10, BELOW building (z-25) so building rises over text ── */}
           <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6"
             style={{ zIndex: 10, opacity: contentOpacity, transform: `translateY(${contentTranslateY})`, pointerEvents: contentOpacity < 0.05 ? "none" : "auto" }}>
-            <h1 className="text-black font-bold leading-[1.05] mb-1 pb-4 overflow-hidden flex flex-wrap justify-center"
+            <p className="text-black font-bold leading-[1.05] mb-1 pb-4 overflow-hidden flex flex-wrap justify-center"
               style={{ fontFamily: "'Instrument Sans', sans-serif", fontSize: "clamp(46px, 6vw, 260px)", letterSpacing: "-0.02em", textShadow: "none" }}>
               <span className="animate-hero-letter" style={{ animationDelay: "300ms" }}>
                 {hero.headline}
               </span>
-            </h1>
-            <p className="text-black/85 mb-3 max-w-[90vw] leading-relaxed animate-hero-strong"
+            </p>
+            <h1 className="text-black/85 mb-3 max-w-[90vw] leading-relaxed animate-hero-strong"
               style={{ fontFamily: "'Instrument Sans', sans-serif", fontSize: "clamp(13px, 1.4vw, 50px)", textAlign: "center", marginTop: "clamp(0px, 1vw, 20px)", marginBottom: "clamp(12px, 2vw, 40px)" }}>
               <strong className="font-semibold text-black">{hero.subHeadline}</strong>
-            </p>
+            </h1>
             <a href={hero.ctaButton.href} target="_blank"
               className="group inline-flex items-center bg-gray-900 text-white font-semibold rounded-full hover:bg-gray-800 hover:scale-105 transition-all duration-300 shadow-md hover:shadow-xl animate-hero-button"
               style={{

@@ -1,4 +1,4 @@
-import React, { ElementType } from "react";
+import React, { ElementType, Fragment } from "react";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 interface SplitTextRevealProps {
@@ -42,8 +42,8 @@ export const SplitTextReveal = ({
         };
 
         return (
+          <Fragment key={index}>
           <span
-            key={index}
             style={{
               overflow: "hidden",
               display: "inline-block",
@@ -56,6 +56,10 @@ export const SplitTextReveal = ({
           >
             <span style={style}>{word}</span>
           </span>
+          {/* Zero-width real space (visual gap comes from the margin above) so the
+              text reads "Access. Influence." not "Access.Influence." */}
+          {index < words.length - 1 && words[index + 1] !== "<br/>" ? <span style={{ fontSize: 0 }}> </span> : null}
+          </Fragment>
         );
       })}
     </Component>

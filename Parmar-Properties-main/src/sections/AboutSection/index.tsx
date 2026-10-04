@@ -13,9 +13,9 @@ export const AboutSection = () => {
         {/* Left Column */}
         <div className="w-full lg:w-[45%] flex flex-col gap-12 pt-4">
           <ScrollReveal direction="up" delay={0}>
-            <h2 className="text-[#333] font-['Instrument_Sans'] text-xl md:text-2xl font-medium tracking-wide leading-relaxed max-w-sm">
+            <p className="text-[#333] font-['Instrument_Sans'] text-xl md:text-2xl font-medium tracking-wide leading-relaxed max-w-sm">
               {aboutSection.eyebrow}
-            </h2>
+            </p>
           </ScrollReveal>
 
           <div className="grid grid-cols-2 gap-x-8 gap-y-12 w-full mt-4">
@@ -31,9 +31,9 @@ export const AboutSection = () => {
         {/* Right Column */}
         <div className="w-full lg:w-[55%] flex flex-col pt-8 lg:pt-0 pb-12 lg:pb-0">
           <ScrollReveal direction="up" delay={100}>
-            <h1 className="text-[100px] md:text-[140px] lg:text-[180px] font-black text-[#222] leading-[0.8] tracking-tighter mb-10 font-['Inter',sans-serif]">
+            <h2 className="text-[100px] md:text-[140px] lg:text-[180px] font-black text-[#222] leading-[0.8] tracking-tighter mb-10 font-['Inter',sans-serif]">
               {aboutSection.heading}
-            </h1>
+            </h2>
           </ScrollReveal>
 
           <ScrollReveal direction="up" delay={200}>
@@ -48,9 +48,7 @@ export const AboutSection = () => {
 
           <ScrollReveal direction="up" delay={300}>
             <a
-              href="https://wa.me/919322232899?text=Hi%2C%20I%20would%20like%20to%20learn%20more%20about%20Parmar%20Properties."
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/about"
               className="mt-8 inline-flex items-center gap-3 bg-black text-white text-sm md:text-base font-medium leading-[1.1] px-6 py-3.5 rounded-full hover:bg-black/85 transition-colors duration-300 shadow-sm"
             >
               <span>{aboutSection.buttonLabel}</span>
@@ -69,7 +67,7 @@ export const AboutSection = () => {
         <ScrollReveal direction="left" delay={500}>
           <img
             src={AboutUsImg}
-            alt="Architecture"
+            alt="" aria-hidden="true"
             className="w-full h-auto object-cover rounded-tl-[3rem] shadow-2xl"
             style={{ WebkitMaskImage: 'linear-gradient(to top, transparent 5%, black 100%)', maskImage: 'linear-gradient(to top, transparent 5%, black 100%)' }}
           />

@@ -38,8 +38,10 @@ jobs:
       - name: Build
         run: npm run build:gh-pages
 
+      # Pre-rendered pages are served as-is; any other path falls back to the
+      # client-side app shell (GitHub Pages serves 404.html for unknown paths).
       - name: Add SPA 404 fallback
-        run: cp dist/index.html dist/404.html
+        run: cp dist/spa.html dist/404.html
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
