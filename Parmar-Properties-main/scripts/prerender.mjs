@@ -12,7 +12,9 @@
 //   /about       → dist/about.html
 //   /blog/<slug> → dist/blog/<slug>.html
 //   unknown URLs → dist/404.html (real 404 status)
-//   /admin, new posts not yet pre-rendered → dist/spa.html (client-side app)
+//   /admin, new posts not yet pre-rendered → dist/spa.html (client-side app),
+//   reached through vercel.json rewrites to "/spa" — with cleanUrls, rewrite
+//   destinations must use the clean path, never "/spa.html".
 // ============================================================
 
 import fs from "node:fs";
