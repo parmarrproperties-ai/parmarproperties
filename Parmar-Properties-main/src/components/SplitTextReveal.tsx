@@ -1,5 +1,6 @@
-import React, { ElementType } from "react";
+import React, { ElementType, Fragment } from "react";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 interface SplitTextRevealProps {
   text: string;
@@ -20,6 +21,7 @@ export const SplitTextReveal = ({
 }: SplitTextRevealProps) => {
   const { ref, isVisible } = useScrollReveal();
   const words = text.split(" ");
+  const isMobile = useIsMobile();
 
   return (
     <Component ref={ref} className={className}>
@@ -27,7 +29,6 @@ export const SplitTextReveal = ({
         if (word === "<br/>") {
           return <br key={index} />;
         }
-        const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
         const activeDuration = isMobile ? duration * 0.5 : duration;
         const activeDelayPerWord = isMobile ? delayPerWord * 0.5 : delayPerWord;
         const activeInitialDelay = isMobile ? initialDelay * 0.5 : initialDelay;
@@ -42,8 +43,8 @@ export const SplitTextReveal = ({
         };
 
         return (
+          <Fragment key={index}>
           <span
-            key={index}
             style={{
               overflow: "hidden",
               display: "inline-block",
@@ -56,6 +57,10 @@ export const SplitTextReveal = ({
           >
             <span style={style}>{word}</span>
           </span>
+          {/* Zero-width real space (visual gap comes from the margin above) so the
+              text reads "Access. Influence." not "Access.Influence." */}
+          {index < words.length - 1 && words[index + 1] !== "<br/>" ? <span style={{ fontSize: 0 }}> </span> : null}
+          </Fragment>
         );
       })}
     </Component>

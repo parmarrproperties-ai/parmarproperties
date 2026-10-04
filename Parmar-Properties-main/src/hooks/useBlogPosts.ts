@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import { mapPost } from "@/lib/types";
 import type { BlogPost, PostRow } from "@/lib/types";
+import { getInitialData } from "@/lib/initialData";
 
 // ─── useBlogPosts ──────────────────────────────────────────
 // Returns all published posts ordered by grid_order, with their sections.
@@ -15,15 +16,17 @@ export function useBlogPosts(): {
   loading: boolean;
   error: string | null;
 } {
-  const [posts, setPosts] = useState<BlogPost[]>([]);
-  const [loading, setLoading] = useState(true);
+  // Pre-rendered pages ship the post list, so the first render has content.
+  const [posts, setPosts] = useState<BlogPost[]>(() => getInitialData().posts ?? []);
+  const [loading, setLoading] = useState(() => !getInitialData().posts);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     let cancelled = false;
 
     async function load() {
-      setLoading(true);
+      // Refresh in the background when pre-rendered data is already shown.
+      if (!getInitialData().posts) setLoading(true);
       setError(null);
 
       // Fetch all published posts

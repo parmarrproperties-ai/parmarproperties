@@ -7,6 +7,10 @@ import { ScrollScrubRevealText} from"@/components/ScrollScrubRevealText";
 import { fetchPostBySlug, fetchMoreArticles} from"@/hooks/useBlogPosts";
 import { BlogPreviewCard, BlogPreviewCardSkeleton} from"@/components/BlogPreviewCard";
 import type { BlogPost} from"@/lib/types";
+import { getInitialData} from"@/lib/initialData";
+import { Seo} from"@/seo/Seo";
+import { pages} from"@/seo/pages";
+import { postSeoProps, postAuthor} from"@/seo/blog";
 
 const ArrowIcon = ({ size = 16}: { size?: number}) => (
  <svg width={size} height={size} viewBox="0 0 24 24"fill="none"stroke="currentColor"strokeWidth="2"strokeLinecap="round"strokeLinejoin="round">
@@ -14,11 +18,20 @@ const ArrowIcon = ({ size = 16}: { size?: number}) => (
  </svg>
 );
 
+const formatDate = (date: string) =>
+ new Date(date).toLocaleDateString("en-IN", { month:"long", day:"numeric", year:"numeric", timeZone:"Asia/Kolkata"});
+
+/** Pre-rendered pages embed the post, so the first render already shows the article. */
+const initialPost = (slug?: string) => {
+ const data = getInitialData();
+ return data.post && data.post.slug === slug ? data.post : undefined;
+};
+
 export const BlogPostDetail = () => {
  const { slug} = useParams();
- const [post, setPost] = useState<BlogPost | null | undefined>(undefined); // undefined=loading, null=not found
- const [moreArticles, setMoreArticles] = useState<BlogPost[]>([]);
- const [moreLoading, setMoreLoading] = useState(true);
+ const [post, setPost] = useState<BlogPost | null | undefined>(() => initialPost(slug)); // undefined=loading, null=not found
+ const [moreArticles, setMoreArticles] = useState<BlogPost[]>(() => (initialPost(slug) ? getInitialData().moreArticles ?? [] : []));
+ const [moreLoading, setMoreLoading] = useState(() => !initialPost(slug));
 
  useEffect(() => {
  window.scrollTo(0, 0);
@@ -26,10 +39,15 @@ export const BlogPostDetail = () => {
 
  useEffect(() => {
  if (!slug) { setPost(null); return;}
+ const prerendered = initialPost(slug);
+ if (!prerendered) {
  setPost(undefined);
  setMoreLoading(true);
+}
 
  fetchPostBySlug(slug).then(async (found) => {
+ // Keep the pre-rendered article if the live fetch fails (e.g. offline).
+ if (!found && prerendered) { setMoreLoading(false); return;}
  setPost(found);
  if (found) {
  const more = await fetchMoreArticles(found);
@@ -73,6 +91,7 @@ export const BlogPostDetail = () => {
  if (!post) {
  return (
  <div className="min-h-screen flex items-center justify-center">
+ <Seo {...pages.notFound} path={`/blog/${slug ??""}`} noindex />
  <div className="text-center">
  <h1 className="text-4xl mb-4">Post not found</h1>
  <Link to="/blog"className="text-black hover:underline">Back to Blog</Link>
@@ -81,20 +100,36 @@ export const BlogPostDetail = () => {
 );
 }
 
+ const author = postAuthor(post);
+ const faqs = post.seo?.faqs ?? [];
+ const sources = post.seo?.sources ?? [];
+ const updated = post.updatedAt && post.updatedAt.slice(0, 10) > post.date ? post.updatedAt : null;
+
  return (
  <>
+ <Seo {...postSeoProps(post)} />
  <div id="main-content-wrapper"className="min-h-screen bg-[#f3f1ed] text-black overflow-x-clip selection:bg-black selection:text-white relative z-10">
  <Header />
 
  <main className="pt-[100px] md:pt-[140px] pb-20">
- <div className="max-w-[1920px] mx-auto px-6 md:px-16">
+ <article className="max-w-[1920px] mx-auto px-6 md:px-16">
+ {/* Breadcrumbs */}
+ <nav aria-label="Breadcrumb" className="mb-8 text-[12px] font-medium uppercase tracking-widest text-black/40">
+ <ol className="flex flex-wrap items-center gap-2">
+ <li><Link to="/" className="hover:text-black">Home</Link></li>
+ <li aria-hidden="true">/</li>
+ <li><Link to="/blog" className="hover:text-black">Blog</Link></li>
+ {post.category && (<><li aria-hidden="true">/</li><li className="text-black/60">{post.category}</li></>)}
+ </ol>
+ </nav>
+
  <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.5fr] gap-12 lg:gap-24 items-start">
 
  {/* Left Column: Meta */}
- <div className="lg:sticky lg:top-[140px] flex flex-col gap-8">
+ <header className="lg:sticky lg:top-[140px] flex flex-col gap-8">
  <ScrollReveal direction="up"delay={0}>
- <time className="text-xs md:text-sm font-semibold tracking-[0.15em] uppercase text-black/40 mb-6 block">
- {new Date(post.date).toLocaleDateString("en-US", { month:"long", day:"numeric", year:"numeric"})}
+ <time dateTime={post.date} className="text-xs md:text-sm font-semibold tracking-[0.15em] uppercase text-black/40 mb-6 block">
+ {formatDate(post.date)}
  </time>
  <h1 className="text-[32px] md:text-[42px] lg:text-[52px] font-normal tracking-[-0.04em] leading-[1.1] text-black">
  <ScrollScrubRevealText
@@ -106,18 +141,29 @@ export const BlogPostDetail = () => {
  scrubEnd="center 60%"
  />
  </h1>
+ {/* Byline */}
+ <p className="mt-8 text-[14px] leading-[1.6] text-black/60">
+ By{" "}
+ <Link to="/about" rel="author" className="font-semibold text-black hover:underline">{author.name}</Link>
+ <span className="block text-black/40">{author.role}</span>
+ {updated && (
+ <span className="block mt-2 text-black/40">
+ Updated <time dateTime={updated}>{formatDate(updated)}</time>
+ </span>
+)}
+ </p>
  </ScrollReveal>
 
- </div>
+ </header>
 
  {/* Right Column: Content */}
  <div className="flex flex-col gap-12">
  <ScrollReveal direction="up"delay={100} className="flex flex-col gap-8 pb-8 border-b border-black/20">
  {/* Right side title and optional sub-tags (from design) */}
  <div className="flex flex-col gap-2 mb-2">
- <h2 className="text-[32px] md:text-[42px] font-semibold leading-tight tracking-[-0.04em]">
+ <p aria-hidden="true" className="text-[32px] md:text-[42px] font-semibold leading-tight tracking-[-0.04em]">
  {post.title}
- </h2>
+ </p>
  {post.category && (
  <p className="text-[12px] font-medium text-black/50 uppercase tracking-widest">
  {post.category}
@@ -126,26 +172,27 @@ export const BlogPostDetail = () => {
  </div>
 
  {post.content?.intro.map((para, i) => (
- <div 
- key={i} 
+ <div
+ key={i}
+ data-speakable={i === 0 ? true : undefined}
  className="text-[14px] md:text-[15px] leading-[1.7] text-black/90 font-medium prose prose-sm max-w-none prose-p:my-0 prose-ul:my-0 prose-ol:my-0"
- dangerouslySetInnerHTML={{ __html: para}} 
+ dangerouslySetInnerHTML={{ __html: para}}
  />
 ))}
  </ScrollReveal>
 
  {post.content?.sections.map((section, idx) => (
- <ScrollReveal key={section.id} direction="up"delay={150 + idx * 50} className={`flex flex-col gap-6 pb-8 ${(idx !== (post.content?.sections.length || 0) - 1) || (post.content?.downloads && post.content.downloads.length > 0) ?"border-b border-black/10":""}`}>
+ <ScrollReveal key={section.id} direction="up"delay={150 + idx * 50} className="flex flex-col gap-6 pb-8 border-b border-black/10">
  {section.title && (
  <h2 className="text-[24px] md:text-[28px] text-black mb-2">
  {section.title}
  </h2>
 )}
  {section.paragraphs.map((para, i) => (
- <div 
- key={i} 
+ <div
+ key={i}
  className="text-[14px] md:text-[15px] leading-[1.7] text-black/80 prose prose-sm max-w-none prose-p:my-0 prose-ul:my-0 prose-ol:my-0"
- dangerouslySetInnerHTML={{ __html: para}} 
+ dangerouslySetInnerHTML={{ __html: para}}
  />
 ))}
  {section.insight && (
@@ -159,11 +206,38 @@ export const BlogPostDetail = () => {
  </ScrollReveal>
 ))}
 
+ {faqs.length > 0 && (
+ <ScrollReveal direction="up"delay={200} className="flex flex-col gap-6 pb-8 border-b border-black/10">
+ <h2 className="text-[24px] md:text-[28px] text-black mb-2">Frequently Asked Questions</h2>
+ <dl className="flex flex-col gap-6">
+ {faqs.map((faq, i) => (
+ <div key={i} className="flex flex-col gap-2">
+ <dt className="text-[16px] md:text-[18px] font-semibold text-black">{faq.question}</dt>
+ <dd className="text-[14px] md:text-[15px] leading-[1.7] text-black/80">{faq.answer}</dd>
+ </div>
+))}
+ </dl>
+ </ScrollReveal>
+)}
+
+ {sources.length > 0 && (
+ <ScrollReveal direction="up"delay={250} className="flex flex-col gap-4 pb-8 border-b border-black/10">
+ <h2 className="text-[20px] md:text-[22px] text-black">Sources</h2>
+ <ul className="flex flex-col gap-2 list-disc pl-5 text-[14px] text-black/70">
+ {sources.map((source, i) => (
+ <li key={i}>
+ <a href={source.url} target="_blank" rel="noopener" className="underline underline-offset-2 hover:text-black">{source.label}</a>
+ </li>
+))}
+ </ul>
+ </ScrollReveal>
+)}
+
  {post.content?.downloads && post.content.downloads.length > 0 && (
  <ScrollReveal direction="up"delay={300} className="mt-8 pt-12">
- <h3 className="text-[24px] md:text-[32px] font-semibold mb-6 tracking-tight">
+ <h2 className="text-[24px] md:text-[32px] font-semibold mb-6 tracking-tight">
  Download the Full Reports
- </h3>
+ </h2>
  <p className="text-black/60 mb-8">For a deeper breakdown of the data, download the full reports below:</p>
  <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-12">
  {post.content.downloads.map((link, i) => (
@@ -174,9 +248,25 @@ export const BlogPostDetail = () => {
  </div>
  </ScrollReveal>
 )}
+
+ {/* Advisor call-to-action */}
+ <ScrollReveal direction="up"delay={300} className="flex flex-col gap-4 rounded-none bg-white p-8">
+ <h2 className="text-[22px] md:text-[26px] text-black">Talk to a South Mumbai property advisor</h2>
+ <p className="text-[14px] md:text-[15px] leading-[1.7] text-black/70">
+ Parmar Properties has advised buyers, sellers and investors in South Mumbai since 1981. Tell us what you are looking for and we will share options that fit.
+ </p>
+ <div className="flex flex-wrap gap-3">
+ <Link to="/contact" className="inline-flex items-center gap-2 bg-black text-white text-sm font-medium px-5 py-3 rounded-full hover:bg-black/85 transition-colors">
+ Contact us <ArrowIcon size={14} />
+ </Link>
+ <Link to="/services" className="inline-flex items-center gap-2 border border-black/20 text-black text-sm font-medium px-5 py-3 rounded-full hover:bg-black hover:text-white transition-colors">
+ Our services
+ </Link>
+ </div>
+ </ScrollReveal>
  </div>
  </div>
- </div>
+ </article>
 
  {/* More Articles Section */}
  <section className="mt-32 pt-20">
@@ -192,7 +282,6 @@ export const BlogPostDetail = () => {
  scrubEnd="center 60%"
  />
  </h2>
- {/*"See All Blogs"link — new per implementation plan */}
  <Link
  to="/blog"
  className="inline-flex items-center gap-2 text-sm font-medium text-black/60 hover:text-black transition-colors duration-200 shrink-0 mb-4 md:mb-6 group"

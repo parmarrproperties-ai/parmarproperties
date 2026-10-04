@@ -5,6 +5,9 @@ import { ScrollReveal} from"@/components/ScrollReveal";
 import { ScrollScrubRevealText} from"@/components/ScrollScrubRevealText";
 import { SplitTextReveal} from"@/components/SplitTextReveal";
 import { brand} from"@/content/content";
+import { Seo } from "@/seo/Seo";
+import { pages } from "@/seo/pages";
+import { breadcrumbSchema, personSchemas, webPageSchema, organizationSchema } from "@/seo/schema";
 
 import Sugee from"assets/Sugee.webp";
 import Rustomjee from"assets/Rustomjee.webp";
@@ -21,8 +24,8 @@ import Birla from"assets/Birla.png";
 import LnT from"assets/L&T.png";
 import Prestige from"assets/Prestige.png";
 import DilipParmarImage from"assets/Mr. Dilip Parmar.jpeg";
-import SanjayImage from"assets/sanjay.png";
-import AnkitImage from"assets/ankit.png";
+import SanjayImage from"assets/sanjay.webp";
+import AnkitImage from"assets/ankit.webp";
 import GroupImage from"assets/GroupImage.jpg";
 import AdvisorBackImg from"assets/AdvisorBackImg.jpeg";
 import AdvisorFrontImg from"assets/AdvisorFrontImg.jpeg";
@@ -183,7 +186,7 @@ export const AboutPage = () => {
  { name:"Avighna", logo: Avighna},
  { name:"Avhad", logo: Avhad},
  { name:"Godrej", logo: Godrej, customClass:"scale-[1.65] md:scale-[1.95]"},
- { name:"Kalpatru", logo: Kalpatru},
+ { name:"Kalpataru", logo: Kalpatru},
  { name:"Piramal", logo: Piramal, customClass:"scale-75 md:scale-[0.85]"},
  { name:"Birla", logo: Birla, customClass:"scale-100"},
  { name:"L&T", logo: LnT, customClass:"scale-100"},
@@ -192,6 +195,15 @@ export const AboutPage = () => {
 
  return (
  <>
+ <Seo
+ {...pages.about}
+ jsonLd={[
+ webPageSchema({ type:"AboutPage", ...pages.about }),
+ organizationSchema(),
+ ...personSchemas(),
+ breadcrumbSchema([{ name:"About", path:"/about"}]),
+ ]}
+ />
  <div id="main-content-wrapper"className="min-h-screen bg-[#f3f1ed] text-black overflow-x-clip selection:bg-black selection:text-white relative z-10">
  <style>{`
  @keyframes marquee {
@@ -215,16 +227,16 @@ export const AboutPage = () => {
  <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-8 lg:gap-12 items-center">
  <div className="flex flex-col items-start text-left">
  <ScrollReveal direction="up"delay={0}>
- <p className="text-xs md:text-sm font-semibold tracking-[0.15em] uppercase text-black/40 mb-6">
- Est. {brand.tagline.match(/\d{4}/)?.[0] ||'1981'} &mdash; South Mumbai
- </p>
+ <h1 className="text-xs md:text-sm font-semibold tracking-[0.15em] uppercase text-black/40 mb-6">
+ About Parmar Properties &middot; Est. {brand.tagline.match(/\d{4}/)?.[0] ||'1981'} &mdash; South Mumbai
+ </h1>
  </ScrollReveal>
 
- <h1 className="text-[48px] md:text-[64px] lg:text-[80px] font-normal tracking-[-0.04em] text-black max-w-[800px] mb-8 flex flex-col gap-0 leading-[0.85]">
- <span><SplitTextReveal text="Access."initialDelay={100} /></span>
- <span><SplitTextReveal text="Influence."initialDelay={300} /></span>
- <span><SplitTextReveal text="Legacy."initialDelay={500} /></span>
- </h1>
+ <p className="text-[48px] md:text-[64px] lg:text-[80px] font-normal tracking-[-0.04em] text-black max-w-[800px] mb-8 flex flex-col gap-0 leading-[0.85]">
+ <span><SplitTextReveal as="span" text="Access."initialDelay={100} /></span><span style={{ fontSize: 0}}> </span>
+ <span><SplitTextReveal as="span" text="Influence."initialDelay={300} /></span><span style={{ fontSize: 0}}> </span>
+ <span><SplitTextReveal as="span" text="Legacy."initialDelay={500} /></span>
+ </p>
 
  <ScrollReveal direction="up"delay={700}>
  <p className="text-[18px] md:text-[22px] font-medium tracking-[-0.03em] leading-[1.3] text-black/60 max-w-[540px]">
@@ -235,9 +247,9 @@ export const AboutPage = () => {
 
  <div className="w-full h-full min-h-[300px] md:min-h-[450px]">
  <ScrollReveal direction="left"delay={400} className="w-full h-full relative">
- <img
+ <img fetchPriority="high"
  src={GroupImage}
- alt="Our Story"
+ alt="The Parmar family, founders of Parmar Properties"
  className="w-full aspect-[4/3] object-cover transition-all duration-700 hover:scale-[1.02]"
  />
  <div className="absolute inset-0 border border-black/5 pointer-events-none"></div>
@@ -262,7 +274,7 @@ export const AboutPage = () => {
  {/* Founder 1 */}
  <div className="flex flex-col gap-6">
  <ScrollReveal delay={100} className="w-full aspect-[4/5] bg-neutral-100 relative overflow-hidden group">
- <img
+ <img loading="lazy" decoding="async"
  src={DilipParmarImage}
  alt="Mr. Jain Dilip P. Parmar"
  className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
@@ -281,7 +293,7 @@ export const AboutPage = () => {
  {/* Founder 2 (Staggered layout - medium offset) */}
  <div className="flex flex-col gap-6 md:mt-12">
  <ScrollReveal delay={200} className="w-full aspect-[4/5] bg-neutral-100 relative overflow-hidden group">
- <img
+ <img loading="lazy" decoding="async"
  src={SanjayImage}
  alt="Mr. Sanjay Dilip Parmar"
  className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
@@ -300,7 +312,7 @@ export const AboutPage = () => {
  {/* Founder 3 (Staggered layout - larger offset) */}
  <div className="flex flex-col gap-6 md:mt-24">
  <ScrollReveal delay={300} className="w-full aspect-[4/5] bg-neutral-100 relative overflow-hidden group">
- <img
+ <img loading="lazy" decoding="async"
  src={AnkitImage}
  alt="Mr. Jain Ankit Dilip Parmar"
  className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
@@ -324,7 +336,7 @@ export const AboutPage = () => {
  <div className="max-w-[1920px] mx-auto grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-8 lg:gap-12 items-center">
   <div className="order-2 lg:order-1 w-full">
   <ScrollReveal direction="up"delay={200} className="w-full relative overflow-hidden">
-  <img 
+  <img loading="lazy" decoding="async" 
   src={AdvisorFrontImg} 
   alt="Parmar Properties" 
   className="w-full aspect-[4/3] object-cover transition-all duration-700 hover:scale-[1.02] shadow-lg"
@@ -455,7 +467,7 @@ export const AboutPage = () => {
 
  <div className="flex w-max animate-marquee items-center h-24 md:h-32">
  {[...partners, ...partners, ...partners, ...partners].map((partner, idx) => (
- <img
+ <img loading="lazy" decoding="async"
  key={idx}
  src={partner.logo}
  alt={partner.name}
@@ -482,7 +494,7 @@ export const AboutPage = () => {
  </ScrollReveal>
  <ScrollReveal direction="up"delay={300}>
  <a
- href="https://www.parmarproperties.in/contact"
+ href="/contact"
  className="inline-flex items-center gap-3 bg-black text-white text-sm md:text-base font-semibold leading-none px-8 py-4 rounded-full hover:bg-black/80 hover:-translate-y-0.5 hover:scale-105 transition-all duration-300 shadow-md"
  >
  <span>Schedule a Private Consultation</span>

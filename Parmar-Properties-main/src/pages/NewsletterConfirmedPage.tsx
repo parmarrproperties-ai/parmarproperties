@@ -1,9 +1,12 @@
 import { Header } from "@/sections/Header/index";
 import { Footer } from "@/sections/Footer/index";
+import { Seo } from "@/seo/Seo";
+import { pages } from "@/seo/pages";
 
 export const NewsletterConfirmedPage = () => {
   return (
     <div className="w-full min-h-screen flex flex-col text-black font-instrument_sans">
+      <Seo {...pages.newsletter} noindex />
       <Header />
       <main className="flex-1 flex items-center justify-center pt-32 pb-20 px-6">
         <div className="max-w-2xl mx-auto text-center">

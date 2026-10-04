@@ -43,7 +43,7 @@ describe('BlogSection — with posts', () => {
   });
 
   it('renders at most 3 posts even when more are available', () => {
-    const fourPosts = [...allMockPosts, { ...allMockPosts[0], id: 'p4', title: 'Fourth Post', gridOrder: 99 }];
+    const fourPosts = [...allMockPosts, { ...allMockPosts[0], id: 'p4', title: 'Fourth Post', featured: false, gridOrder: 99 }];
     mockUseBlogPosts.mockReturnValue({ posts: fourPosts, loading: false, error: null });
     renderSection();
     expect(screen.queryByText('Fourth Post')).not.toBeInTheDocument();

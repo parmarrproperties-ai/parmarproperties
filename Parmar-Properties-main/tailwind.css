@@ -1,19 +1,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-  font-family: 'Instrument Sans';
-  src: url('https://findrealestate.com/_next/static/media/26d0ba92e140f0dc-s.p.woff2') format('woff2');
-  font-weight: 400 700;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Lora';
-  src: url('https://findrealestate.com/_next/static/media/5c0c2bcbaa4149ca-s.p.woff2') format('woff2');
-  font-weight: 400 700;
-  font-style: normal;
-}
+/* Instrument Sans and Lora are loaded from Google Fonts in index.html. */
 
 @tailwind base;
 
@@ -115,4 +103,10 @@
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* ScrollScrubRevealText: the coloured overlay draws its word from data-text,
+   so each word exists only once in the page text (SEO + screen readers). */
+.reveal-word-fg::before {
+  content: attr(data-text);
 }

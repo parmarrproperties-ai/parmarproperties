@@ -15,6 +15,8 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
+      // Same alias as vite.config.ts, for `import img from "assets/..."`
+      assets: path.resolve(__dirname, './assets'),
     },
   },
 });

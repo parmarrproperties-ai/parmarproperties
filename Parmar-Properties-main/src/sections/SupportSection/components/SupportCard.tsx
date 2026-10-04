@@ -21,7 +21,7 @@ export const SupportCard = (props: SupportCardProps) => {
         >
           {/* Background Image */}
           <div className="absolute inset-0 z-0">
-            <img
+            <img loading="lazy" decoding="async"
               alt={props.imageAlt}
               src={props.imageSrc}
               className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"

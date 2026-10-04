@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { brand, footer } from "@/content/content";
-import { Facebook, Instagram, Youtube, Linkedin, MessageCircle, ArrowRight, Phone } from "lucide-react";
+import { Facebook, Instagram, Youtube, Linkedin, Phone, Mail, MapPin } from "lucide-react";
+import { site } from "@/seo/site";
 
 export const Footer = () => {
   const footerRef = useRef<HTMLElement>(null);
@@ -43,7 +44,7 @@ export const Footer = () => {
                 <span className="text-[72px] md:text-[120px] font-bold tracking-tight leading-[1.1]">PARMAR</span>
                 <span className="text-[24px] md:text-[36px] font-medium tracking-[0.3em] text-white/70 leading-[1.1] mt-1">PROPERTIES</span>
               </a>
-              <h3 className="text-white font-semibold text-[18px] md:text-[22px] mb-2 tracking-wide">Building Relationships. Creating Value.</h3>
+              <p className="text-white font-semibold text-[18px] md:text-[22px] mb-2 tracking-wide">Building Relationships. Creating Value.</p>
               <p className="text-white/70 text-sm md:text-base leading-relaxed max-w-sm">
                 Helping families, investors, and business leaders make confident real estate decisions through trusted advice and meaningful relationships.
               </p>
@@ -51,18 +52,43 @@ export const Footer = () => {
 
 
 
+            {/* Site links */}
+            <nav aria-label="Footer" className="min-w-[180px]">
+              <ul className="grid grid-cols-2 lg:grid-cols-1 gap-x-8 gap-y-3 text-[15px] font-medium text-white/80">
+                {footer.primaryLinks.map((link) => (
+                  <li key={link.label}>
+                    <a href={link.href} className="hover:text-white transition-colors">{link.label}</a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+
             {/* Right Column: Socials & Numbers */}
             <div className="flex flex-col gap-8 lg:items-start min-w-[200px]">
               {/* Socials */}
               <div className="flex items-center gap-6 text-white">
-                <a href={footer.socialLinks.find(l => l.label === "Facebook")?.href || "#"} target="_blank" rel="noopener noreferrer" className="hover:text-white/70 transition-colors"><Facebook size={20} strokeWidth={2.5} /></a>
-                <a href={footer.socialLinks.find(l => l.label === "Instagram")?.href || "#"} target="_blank" rel="noopener noreferrer" className="hover:text-white/70 transition-colors"><Instagram size={20} strokeWidth={2.5} /></a>
-                <a href={footer.socialLinks.find(l => l.label === "Youtube")?.href || "#"} target="_blank" rel="noopener noreferrer" className="hover:text-white/70 transition-colors"><Youtube size={22} strokeWidth={2.5} /></a>
-                <a href={footer.socialLinks.find(l => l.label === "Linkedin")?.href || "#"} target="_blank" rel="noopener noreferrer" className="hover:text-white/70 transition-colors"><Linkedin size={20} strokeWidth={2.5} /></a>
+                <a href={footer.socialLinks.find(l => l.label === "Facebook")?.href || "#"} target="_blank" rel="noopener noreferrer" aria-label="Parmar Properties on Facebook" className="hover:text-white/70 transition-colors"><Facebook size={20} strokeWidth={2.5} /></a>
+                <a href={footer.socialLinks.find(l => l.label === "Instagram")?.href || "#"} target="_blank" rel="noopener noreferrer" aria-label="Parmar Properties on Instagram" className="hover:text-white/70 transition-colors"><Instagram size={20} strokeWidth={2.5} /></a>
+                <a href={footer.socialLinks.find(l => l.label === "Youtube")?.href || "#"} target="_blank" rel="noopener noreferrer" aria-label="Parmar Properties on YouTube" className="hover:text-white/70 transition-colors"><Youtube size={22} strokeWidth={2.5} /></a>
+                <a href={footer.socialLinks.find(l => l.label === "Linkedin")?.href || "#"} target="_blank" rel="noopener noreferrer" aria-label="Parmar Properties on LinkedIn" className="hover:text-white/70 transition-colors"><Linkedin size={20} strokeWidth={2.5} /></a>
               </div>
               
+              {/* Office address (NAP) */}
+              <address className="not-italic flex flex-col gap-4 text-[15px] text-white/80 max-w-[280px]">
+                <a href={site.mapsUrl} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors flex items-start gap-2">
+                  <MapPin size={16} className="mt-1 shrink-0" />
+                  <span>{site.address.streetAddress}, {site.address.addressLocality} {site.address.postalCode}</span>
+                </a>
+                <a href={`mailto:${site.email}`} className="hover:text-white transition-colors flex items-center gap-2">
+                  <Mail size={16} /> {site.email}
+                </a>
+              </address>
+
               {/* Numbers */}
               <div className="flex flex-col gap-4">
+                <a href="tel:+912266669733" className="text-white/80 hover:text-white transition-colors text-[15px] font-medium flex items-center gap-2">
+                  <Phone size={16} /> +91 22 6666 9733 (office)
+                </a>
                 <a href="tel:+919322232899" className="text-white/80 hover:text-white transition-colors text-[15px] font-medium flex items-center gap-2">
                   <Phone size={16} /> +91 9322232899
                 </a>
@@ -78,7 +104,10 @@ export const Footer = () => {
 
           {/* Bottom Section */}
           <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6 text-[13px] font-medium text-white/50 tracking-wide">
-            <div>© {brand.name} Pvt. Ltd. All Rights Reserved {brand.copyrightYear}</div>
+            <div>
+              © {site.legalName}. All Rights Reserved {brand.copyrightYear}
+              {site.rera && <span className="block md:inline md:ml-3">MahaRERA: {site.rera}</span>}
+            </div>
             <div className="flex gap-2">
               {footer.legalLinks.map((link, index) => (
                 <span key={link.label} className="flex gap-2">

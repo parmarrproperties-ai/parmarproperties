@@ -11,17 +11,17 @@
 // continues to compile without changes.
 export type { BlogPost } from "@/lib/types";
 
-import t1 from "assets/testimonial1.png";
-import t2 from "assets/testimonial2.png";
-import t3 from "assets/testimonial3.png";
-import sideImg from "assets/Indian family.png";
-import investmentAdvisoryImg from "assets/Investment advisory.png";
-import exclusiveOpportunitiesImg from "assets/Exclusive Opportunities.png";
-import completeSupportImg from "assets/Complete support.png";
-import buyImg from "assets/Buy image.png";
-import sellImg from "assets/Sell image.png";
-import leaseImg from "assets/Lease image.png";
-import parmarPropertiesLogo from "assets/Parmar Properties Logo.png";
+import t1 from "assets/testimonial1.webp";
+import t2 from "assets/testimonial2.webp";
+import t3 from "assets/testimonial3.webp";
+import sideImg from "assets/Indian family.webp";
+import investmentAdvisoryImg from "assets/Investment advisory.webp";
+import exclusiveOpportunitiesImg from "assets/Exclusive Opportunities.webp";
+import completeSupportImg from "assets/Complete support.webp";
+import buyImg from "assets/Buy image.webp";
+import sellImg from "assets/Sell image.webp";
+import leaseImg from "assets/Lease image.webp";
+import parmarPropertiesLogo from "assets/Parmar Properties Logo.webp";
 
 // ─── Types ──────────────────────────────────────────────────
 type NavLink = {
@@ -51,11 +51,11 @@ export const brand = {
 export const navigation = {
   links: [
     { label: "Home", href: "/", isDropdown: false },
-    { label: "About Us", href: "/About", isDropdown: false },
-    { label: "Services", href: "/#services", isDropdown: false },
+    { label: "About Us", href: "/about", isDropdown: false },
+    { label: "Services", href: "/services", isDropdown: false },
     { label: "Expertise", href: "/#expertise", isDropdown: false },
     { label: "Blogs", href: "/blog", isDropdown: false },
-    { label: "Contact", href: "https://wa.me/919322232899?text=Hi%2C%20I%20would%20like%20to%20schedule%20a%20consultation.", isDropdown: false },
+    { label: "Contact", href: "/contact", isDropdown: false },
   ] as NavLink[],
   ctaButton: { label: "Schedule Consultation", href: "https://wa.me/919322232899?text=Hi%2C%20I%20would%20like%20to%20schedule%20a%20consultation." } as CtaButton,
 };
@@ -121,7 +121,7 @@ export const services = {
     {
       number: 3,
       label: "Lease",
-      description: "Strategic wealth planning for HNIs, NRIs, and Family Businesses. Get zero-pressure advisory, negotiation leverage, and long-term capital appreciation.",
+      description: "Lease premium homes, offices and retail spaces across South Mumbai. We match landlords with quality tenants and negotiate rent, deposit and lock-in terms.",
       imageUrl: leaseImg,
     },
   ] as ServiceItem[],
@@ -206,7 +206,7 @@ export const aboutSection = {
 export const blog = {
   heading: { main: "Blog &", accent: "Resources" },
   subheading: "See how we've helped clients achieve their real estate dreams, one successful move at a time.",
-  ctaButton: { label: "Visit Our Blog", href: "https://wa.me/919322232899?text=Hi%2C%20I%20would%20like%20to%20know%20more%20about%20your%20blogs." } as CtaButton,
+  ctaButton: { label: "Visit Our Blog", href: "/blog" } as CtaButton,
   categories: ["All", "Buying", "Investments", "Lifestyle", "News", "Real Estate", "Renting", "Selling"],
 };
 
@@ -262,14 +262,19 @@ export const cta = {
 // ─── Footer ──────────────────────────────────────────────────
 export const footer = {
   primaryLinks: [
-    { label: "About", href: "https://parmar-properties-two.vercel.app/about" },
-    { label: "Expertise", href: "/#expertise" },
-    { label: "Opportunities", href: "/#services" },
-    { label: "Contact", href: "https://wa.me/919322232899?text=Hi%2C%20I%20would%20like%20to%20contact%20you." },
+    { label: "About", href: "/about" },
+    { label: "Services", href: "/services" },
+    { label: "Buy", href: "/services/buy" },
+    { label: "Sell", href: "/services/sell" },
+    { label: "Lease", href: "/services/lease" },
+    { label: "NRI Investment", href: "/services/nri" },
+    { label: "Blog", href: "/blog" },
+    { label: "FAQ", href: "/faq" },
+    { label: "Contact", href: "/contact" },
   ] as FooterLink[],
   socialLinks: [
     { label: "Facebook", href: "https://www.facebook.com/people/Parmar-Properties/61556751864965/" },
-    { label: "Instagram", href: "https://www.instagram.com/parmar_properties?igsh=Y3B6amlmMHRydmpl" },
+    { label: "Instagram", href: "https://www.instagram.com/parmar_properties" },
     { label: "Youtube", href: "https://www.youtube.com/@parmarpropertiesofficial" },
     { label: "Linkedin", href: "https://www.linkedin.com/company/parmar-properties-and-infrastructure-pvt-ltd/" },
     { label: "Whatsapp", href: "https://wa.me/919322232899?text=Hi%2C%20I%20would%20like%20to%20connect." },
@@ -279,8 +284,8 @@ export const footer = {
     { label: "Privacy policy", href: "/privacy-policy" },
   ] as FooterLink[],
   contact: [
-    { label: "Head Office", value: "208, Parmar Properties, Peninsula Centre", href: "geo://40.75104385252497,-73.98395637414475" },
+    { label: "Head Office", value: "208, Peninsula Centre, Dr. S S Rao Road, Parel, Mumbai 400012", href: "https://www.google.com/maps/search/?api=1&query=Peninsula+Centre+Dr+S+S+Rao+Road+Parel+Mumbai+400012" },
     { label: "Email Us", value: "office@parmarproperties.in", href: "mailto:office@parmarproperties.in" },
-    { label: "Call Us", value: "+022 6666 9733", href: "tel:+02266669733" },
+    { label: "Call Us", value: "+91 22 6666 9733", href: "tel:+912266669733" },
   ] as ContactInfo[],
 };

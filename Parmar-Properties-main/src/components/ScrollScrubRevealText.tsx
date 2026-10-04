@@ -1,4 +1,4 @@
-import React, { ElementType, useEffect, useRef, useMemo } from "react";
+import React, { ElementType, Fragment, useEffect, useRef, useMemo } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
@@ -86,24 +86,29 @@ export const ScrollScrubRevealText = ({
   return (
     <Component ref={containerRef} className={className}>
       {wordsList.map((item, index) => (
-        <span
-          key={index}
-          className="relative inline-block whitespace-nowrap"
-          style={{ marginRight: "0.25em", marginBottom: "0.1em" }}
-        >
-          {/* Base Layer (Lightest Gray) */}
-          <span className={`inline-block text-transparent ${item.baseClass}`}>
-            {item.word}
-          </span>
-          {/* Reveal Overlay Layer (Black or Gray) */}
+        <Fragment key={index}>
           <span
-            className={`reveal-word-fg absolute top-0 left-0 inline-block ${item.revealClass}`}
-            style={{ clipPath: "inset(0% 100% 0% 0%)" }}
-            aria-hidden="true"
+            className="relative inline-block whitespace-nowrap"
+            style={{ marginRight: "0.25em", marginBottom: "0.1em" }}
           >
-            {item.word}
+            {/* Base Layer (Lightest Gray) — the only real copy of the word in the DOM */}
+            <span className={`inline-block text-transparent ${item.baseClass}`}>
+              {item.word}
+            </span>
+            {/* Reveal Overlay Layer (Black or Gray). The word is drawn by CSS
+                (::before { content: attr(data-text) }) so search engines and
+                screen readers don't read every word twice. */}
+            <span
+              className={`reveal-word-fg absolute top-0 left-0 inline-block ${item.revealClass}`}
+              style={{ clipPath: "inset(0% 100% 0% 0%)" }}
+              data-text={item.word}
+              aria-hidden="true"
+            />
           </span>
-        </span>
+          {/* Zero-width real space: keeps the original 0.25em visual gap (margin above)
+              while extracted text reads "Who We Are", not "WhoWeAre". */}
+          {index < wordsList.length - 1 ? <span style={{ fontSize: 0 }}> </span> : null}
+        </Fragment>
       ))}
     </Component>
   );

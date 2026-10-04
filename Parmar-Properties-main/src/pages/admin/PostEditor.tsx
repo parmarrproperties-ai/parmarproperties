@@ -21,7 +21,8 @@ import { supabase} from"@/lib/supabase";
 import { fetchPostBySlugAdmin, useAllPostsAdmin, useCategoriesAdmin, deleteCategoryAdmin, editCategoryAdmin} from"@/hooks/useBlogPosts";
 import { BlogPreviewCard} from"@/components/BlogPreviewCard";
 import { blog} from"@/content/content";
-import type { BlogPost} from"@/lib/types";
+import type { BlogPost, PostFaq, PostSource} from"@/lib/types";
+import { SeoPanel, emptySeo, type EditorSeo} from"./SeoPanel";
 import ReactQuill from"react-quill";
 import"react-quill/dist/quill.snow.css";
 
@@ -58,6 +59,7 @@ type EditorState = {
  downloads: Download[];
  featured: boolean;
  moreArticlesOverride: string[];
+ seo: EditorSeo;
 };
 
 // ─── Helpers ──────────────────────────────────────────────
@@ -86,6 +88,7 @@ function defaultState(): EditorState {
  downloads: [],
  featured: false,
  moreArticlesOverride: [],
+ seo: emptySeo(),
 };
 }
 
@@ -110,6 +113,15 @@ function postToEditorState(post: BlogPost): EditorState {
  downloads: post.content?.downloads ?? [],
  featured: post.featured,
  moreArticlesOverride: post.moreArticlesOverride ?? [],
+ seo: {
+ title: post.seo?.title ??"",
+ description: post.seo?.description ??"",
+ authorName: post.seo?.authorName ??"",
+ authorRole: post.seo?.authorRole ??"",
+ ogImageUrl: post.seo?.ogImageUrl ??"",
+ faqs: post.seo?.faqs ?? [],
+ sources: post.seo?.sources ?? [],
+},
 };
 }
 
@@ -128,6 +140,15 @@ function editorStateToPreviewPost(state: EditorState): BlogPost {
  status:"published",
  gridOrder: 0,
  moreArticlesOverride: state.moreArticlesOverride,
+ seo: {
+ title: state.seo.title || undefined,
+ description: state.seo.description || undefined,
+ authorName: state.seo.authorName || undefined,
+ authorRole: state.seo.authorRole || undefined,
+ ogImageUrl: state.seo.ogImageUrl || undefined,
+ faqs: state.seo.faqs,
+ sources: state.seo.sources,
+},
  content: {
  intro: state.intro,
  sections: state.sections.map((s) => ({
@@ -571,11 +592,28 @@ export const PostEditor = () => {
  setSaveError(null);
 
  try {
+ // SEO / AEO columns exist only after supabase/migrations/20261004_post_seo_fields.sql has run.
+ const clean = (v: string) => v.trim() || null;
+ const seoColumns = {
+ seo_title: clean(editorState.seo.title),
+ seo_description: clean(editorState.seo.description),
+ author_name: clean(editorState.seo.authorName),
+ author_role: clean(editorState.seo.authorRole),
+ og_image_url: clean(editorState.seo.ogImageUrl),
+ faqs: editorState.seo.faqs
+ .map((f: PostFaq) => ({ question: f.question.trim(), answer: f.answer.trim()}))
+ .filter((f: PostFaq) => f.question && f.answer),
+ sources: editorState.seo.sources
+ .map((x: PostSource) => ({ label: x.label.trim(), url: x.url.trim()}))
+ .filter((x: PostSource) => x.label && x.url),
+};
+
  // Upsert the post row
- const { data: postRow, error: postErr} = await supabase
+ const upsertPost = (extra: object) => supabase
  .from("posts")
  .upsert(
  {
+ ...extra,
  slug: editorState.slug,
  title: editorState.title,
  date: editorState.date,
@@ -594,6 +632,14 @@ export const PostEditor = () => {
 )
  .select()
  .single();
+
+ let { data: postRow, error: postErr} = await upsertPost(seoColumns);
+ let seoNotSaved = false;
+ if (postErr && /seo_title|seo_description|author_name|author_role|og_image_url|faqs|sources/.test(postErr.message)) {
+ // Database has not been migrated yet: save everything else.
+ ({ data: postRow, error: postErr} = await upsertPost({}));
+ seoNotSaved = true;
+}
 
  if (postErr) throw postErr;
  if (!postRow) throw new Error("Save succeeded but no post row was returned.");
@@ -614,6 +660,9 @@ export const PostEditor = () => {
 }
 
  setSavedState(editorState);
+ if (seoNotSaved) {
+ setSaveError("Post saved, but the SEO & AEO fields were not: run supabase/migrations/20261004_post_seo_fields.sql in the Supabase SQL editor first.");
+}
  if (isNew) {
  navigate(`/admin/post/${editorState.slug}`, { replace: true});
 }
@@ -1193,6 +1242,12 @@ export const PostEditor = () => {
  </button>
 )}
  </div>
+
+ <SeoPanel
+ seo={editorState.seo}
+ onChange={(seo) => update("seo", seo)}
+ post={editorStateToPreviewPost(editorState)}
+ />
  </>
 )}
  </div>

@@ -44,7 +44,7 @@ export const PartnersSection = () => {
   const renderPartner = (partner: (typeof allPartners)[number], key: string, delay: number) => (
     <ScrollReveal key={key} delay={delay} direction="up" distance={20} className="flex justify-center items-center w-full">
       <div className={`flex justify-center items-center ${partner.customClass || ""}`}>
-        <img
+        <img loading="lazy" decoding="async"
           src={partner.logo}
           alt={partner.name}
           className="w-24 md:w-32 lg:w-36 object-contain mix-blend-multiply opacity-50 hover:opacity-100 hover:scale-110 transition-all duration-300"

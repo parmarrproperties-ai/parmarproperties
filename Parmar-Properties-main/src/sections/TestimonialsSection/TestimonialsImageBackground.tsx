@@ -25,7 +25,7 @@ export const TestimonialsImageBackground = () => {
     <section className="relative py-32 px-6 md:px-16 overflow-hidden min-h-[600px]">
       {/* Background image */}
       <div className="absolute inset-0 z-0">
-        <img
+        <img loading="lazy" decoding="async"
           key={current.imageUrl}
           src={current.imageUrl}
           alt="Testimonial background"

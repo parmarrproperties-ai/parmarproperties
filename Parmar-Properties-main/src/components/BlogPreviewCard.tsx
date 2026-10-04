@@ -90,7 +90,7 @@ const RowCard = ({
               to={post.href}
               className="mt-6 inline-flex items-center gap-3 w-fit rounded-full border border-black/15 bg-white/70 px-5 py-3 text-sm font-medium text-black shadow-[0_1px_0_rgba(0,0,0,0.04)] transition-all duration-300 hover:bg-black hover:text-white hover:border-black"
             >
-              Read More
+              Read More<span className="sr-only"> about {post.title}</span>
               <ArrowIcon size={14} />
             </Link>
           </>
@@ -161,7 +161,7 @@ const GridCard = ({
             to={post.href}
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-black/20 text-black text-xs font-medium hover:bg-black hover:text-white hover:border-black transition-all duration-300 w-fit mt-1"
           >
-            Read More <ArrowIcon size={12} />
+            Read More<span className="sr-only"> about {post.title}</span> <ArrowIcon size={12} />
           </Link>
         </>
       )}
@@ -188,7 +188,7 @@ const ArticleCard = ({
       {loading ? (
         <Shimmer className="w-full h-full" />
       ) : (
-        <img
+        <img loading="lazy" decoding="async"
           src={post.imageUrl}
           alt={post.title}
           className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"

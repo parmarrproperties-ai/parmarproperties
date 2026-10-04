@@ -2,11 +2,15 @@ import { useEffect, useState} from"react";
 import { Link} from"react-router-dom";
 import { blog} from"@/content/content";
 import { Header} from"@/sections/Header/index";
+import { Footer} from"@/sections/Footer/index";
 import { ScrollReveal} from"@/components/ScrollReveal";
 import { ScrollScrubRevealText} from"@/components/ScrollScrubRevealText";
 import { useBlogPosts} from"@/hooks/useBlogPosts";
 import { BlogPreviewCard, BlogPreviewCardSkeleton} from"@/components/BlogPreviewCard";
 import type { BlogPost} from"@/lib/types";
+import { Seo } from "@/seo/Seo";
+import { pages } from "@/seo/pages";
+import { blogSchema, breadcrumbSchema, webPageSchema } from "@/seo/schema";
 
 const ArrowIcon = ({ size = 16}: { size?: number}) => (
  <svg width={size} height={size} viewBox="0 0 24 24"fill="none"stroke="currentColor"strokeWidth="2"strokeLinecap="round"strokeLinejoin="round">
@@ -52,6 +56,14 @@ export const BlogPage = () => {
 
  return (
  <div id="main-content"className="min-h-screen bg-[#f3f1ed] text-black overflow-x-clip selection:bg-black selection:text-white">
+ <Seo
+ {...pages.blog}
+ jsonLd={[
+ webPageSchema({ type:"CollectionPage", ...pages.blog }),
+ blogSchema(posts),
+ breadcrumbSchema([{ name:"Blog", path:"/blog"}]),
+ ]}
+ />
  <Header />
 
  <div className="pt-[80px] md:pt-[100px] pb-6 md:pb-8">
@@ -60,6 +72,9 @@ export const BlogPage = () => {
  <h1 className="text-[36px] md:text-[48px] lg:text-[56px] font-normal tracking-[-0.04em] leading-[1.1] text-black">
  Blog & Resources
  </h1>
+ <p data-speakable className="mt-4 text-[15px] md:text-[17px] text-black/60 max-w-[640px] mx-auto leading-[1.6]">
+ Market insights, location guides and buyer checklists for luxury real estate in Mumbai, written by the Parmar Properties advisory team.
+ </p>
  </ScrollReveal>
  </div>
  </div>
@@ -145,7 +160,7 @@ export const BlogPage = () => {
  />
  </ScrollReveal>
  <ScrollReveal direction="right"delay={150} className="p-8 md:p-10 flex flex-col justify-center gap-4 bg-[#f8f7f4]">
- <time className="text-xs text-black/40 font-medium tracking-wide">{featuredPost.date}</time>
+ <time dateTime={featuredPost.date} className="text-xs text-black/40 font-medium tracking-wide">{featuredPost.date}</time>
  <h2 className="text-xl md:text-2xl font-normal leading-snug tracking-tight text-balance">
  {featuredPost.title}
  </h2>
@@ -154,7 +169,7 @@ export const BlogPage = () => {
  to={featuredPost.href}
  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-black/20 text-black text-sm font-medium hover:bg-black hover:text-white hover:border-black transition-all duration-300 w-fit mt-2"
  >
- Read More <ArrowIcon size={14} />
+ Read More<span className="sr-only"> about {featuredPost.title}</span> <ArrowIcon size={14} />
  </Link>
  </ScrollReveal>
  </ScrollReveal>
@@ -183,6 +198,7 @@ export const BlogPage = () => {
  </ScrollReveal>
 )}
  </div>
+ <Footer />
  </div>
 );
 };

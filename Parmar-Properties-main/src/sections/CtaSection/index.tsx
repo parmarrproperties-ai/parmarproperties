@@ -1,7 +1,7 @@
 import { SplitTextReveal } from "@/components/SplitTextReveal";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { cta } from "@/content/content";
-import IndianFamily from "assets/Indian family.png";
+import IndianFamily from "assets/Indian family.webp";
 
 export const CtaSection = () => {
   return (

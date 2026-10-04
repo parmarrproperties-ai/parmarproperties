@@ -22,9 +22,9 @@ export function TestimonialsSection() {
           <div className="w-full lg:w-[50%] relative flex flex-col items-center lg:items-start justify-center">
             <ScrollReveal direction="right" className="w-full h-full relative z-0 flex items-stretch">
               <div className="w-full h-full min-h-[300px] max-h-[450px] lg:max-h-[none] rounded-[1.5rem] overflow-hidden relative bg-neutral-100 flex-1">
-                <img
+                <img loading="lazy" decoding="async"
                   src={mainImage}
-                  alt="Testimonials"
+                  alt="Family at home in their new Mumbai apartment"
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -50,9 +50,9 @@ export function TestimonialsSection() {
                     </p>
                     <div className="flex items-center gap-3 mt-1">
                       <div className={`w-8 h-8 rounded-full overflow-hidden ${isFirst ? 'bg-black border border-neutral-700' : ''}`}>
-                        <img
+                        <img loading="lazy" decoding="async"
                           src={testimonial.imageUrl}
-                          alt={testimonial.author}
+                          alt="Parmar Properties client"
                           className="w-full h-full object-cover grayscale scale-[1.35]"
                         />
                       </div>

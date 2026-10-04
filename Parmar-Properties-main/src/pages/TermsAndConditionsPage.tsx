@@ -3,6 +3,9 @@ import { Header} from"@/sections/Header/index";
 import { Footer} from"@/sections/Footer/index";
 import { ScrollReveal} from"@/components/ScrollReveal";
 import { SmoothScroll} from"@/components/SmoothScroll";
+import { Seo } from "@/seo/Seo";
+import { pages } from "@/seo/pages";
+import { breadcrumbSchema } from "@/seo/schema";
 
 export const TermsAndConditionsPage = () => {
  useEffect(() => {
@@ -11,6 +14,7 @@ export const TermsAndConditionsPage = () => {
 
  return (
  <>
+ <Seo {...pages.terms} jsonLd={[breadcrumbSchema([{ name:"Terms and Conditions", path: pages.terms.path}])]} />
  <SmoothScroll />
  <div className="min-h-screen bg-[#f3f1ed] text-black overflow-x-clip selection:bg-black selection:text-white relative z-10 flex flex-col">
  <Header />
