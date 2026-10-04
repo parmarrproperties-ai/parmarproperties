@@ -4,10 +4,10 @@
 // and AI assistants can lift the answer directly (AEO).
 // ============================================================
 
-import buyImg from "assets/Buy image.png";
-import sellImg from "assets/Sell image.png";
-import leaseImg from "assets/Lease image.png";
-import nriImg from "assets/Investment advisory.png";
+import buyImg from "assets/Buy image.webp";
+import sellImg from "assets/Sell image.webp";
+import leaseImg from "assets/Lease image.webp";
+import nriImg from "assets/Investment advisory.webp";
 import type { Faq } from "@/seo/schema";
 
 export type ServiceSection = { question: string; answer: string[]; bullets?: string[] };

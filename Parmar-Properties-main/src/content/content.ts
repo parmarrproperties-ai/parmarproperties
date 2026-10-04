@@ -11,16 +11,16 @@
 // continues to compile without changes.
 export type { BlogPost } from "@/lib/types";
 
-import t1 from "assets/testimonial1.png";
-import t2 from "assets/testimonial2.png";
-import t3 from "assets/testimonial3.png";
-import sideImg from "assets/Indian family.png";
-import investmentAdvisoryImg from "assets/Investment advisory.png";
-import exclusiveOpportunitiesImg from "assets/Exclusive Opportunities.png";
-import completeSupportImg from "assets/Complete support.png";
-import buyImg from "assets/Buy image.png";
-import sellImg from "assets/Sell image.png";
-import leaseImg from "assets/Lease image.png";
+import t1 from "assets/testimonial1.webp";
+import t2 from "assets/testimonial2.webp";
+import t3 from "assets/testimonial3.webp";
+import sideImg from "assets/Indian family.webp";
+import investmentAdvisoryImg from "assets/Investment advisory.webp";
+import exclusiveOpportunitiesImg from "assets/Exclusive Opportunities.webp";
+import completeSupportImg from "assets/Complete support.webp";
+import buyImg from "assets/Buy image.webp";
+import sellImg from "assets/Sell image.webp";
+import leaseImg from "assets/Lease image.webp";
 import parmarPropertiesLogo from "assets/Parmar Properties Logo.png";
 
 // ─── Types ──────────────────────────────────────────────────

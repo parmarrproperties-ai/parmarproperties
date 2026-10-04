@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { ScrollScrubRevealText } from "@/components/ScrollScrubRevealText";
 import { aboutSection } from "@/content/content";
-import AboutUsImg from "assets/AboutUsImg.png";
+import AboutUsImg from "assets/AboutUsImg.webp";
 
 export const AboutSection = () => {
 

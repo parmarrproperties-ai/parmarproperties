@@ -55,7 +55,7 @@ export const faqGroups: FaqGroup[] = [
       {
         question: "What does a 20:80 payment plan mean?",
         answer:
-          "In a 20:80 plan, the buyer pays about 20% of the price at booking and the remaining 80% at possession, instead of in construction-linked instalments. It eases cash flow during construction, but terms vary by developer, so read the agreement carefully and compare the total cost with other plans.",
+          "A 20:80 plan typically means about 20% of the price is paid in the early stage and the remaining 80% at a later milestone, often possession, subject to the developer's exact terms. It eases cash flow during construction, but it is not a discount — compare the total cost and read the agreement wording.",
       },
       {
         question: "Is Worli or Malabar Hill better for a luxury home?",

@@ -30,9 +30,9 @@ build. **Trigger a Vercel redeploy after publishing a post** (a Vercel Deploy Ho
 | 1 | SEO core: `src/seo/` site config, `<Seo>` component, JSON-LD builders | Identical titles, no canonical, no OG, no schema | Done |
 | 2 | Build-time pre-rendering, sitemap.xml, robots.txt, llms.txt, real 404s | JS-only HTML, no sitemap/robots, soft 404s, AI crawler visibility | Done |
 | 3 | On-page fixes: split-text renders each word once, one H1 per page, `/About` → `/about`, broken links | Doubled words, 2 H1s, duplicate URL, dead `/contact`, footer link to vercel.app | Done |
-| 4 | Per-blog SEO: SEO title/description, author byline, FAQs, sources, breadcrumbs, Article + FAQPage schema, admin SEO panel | No bylines, no Article/FAQ schema, no per-post meta | Done (needs DB migration) |
+| 4 | Per-blog SEO: SEO title/description, author byline, FAQs, sources, breadcrumbs, Article + FAQPage schema, admin SEO panel with checklist | No bylines, no Article/FAQ schema, no per-post meta | Done — run the DB migration + seed to switch on FAQs/sources |
 | 5 | New pages: `/contact`, `/faq`, `/services` + Buy / Sell / Lease / NRI pages | No contact page, no FAQ, no service pages, wrong Lease copy | Done |
-| 6 | Performance: compress the 43 MB video and 2 MB PNGs | Page weight / Core Web Vitals | Done |
+| 6 | Performance: video 43 MB → 6 MB, PNGs → WebP (22 MB → 1 MB), admin code split out, fonts from Google Fonts instead of a third-party site | Page weight / Core Web Vitals | Done (build output 65 MB → 11 MB) |
 | 7 | Owner actions (see below) | Trust signals that only the business can supply | **Waiting on you** |
 
 ## Per-page SEO (static pages)
@@ -66,8 +66,14 @@ Optional per-post fields (set in **Admin → Post editor → SEO & AEO** after r
 `seo_title`, `seo_description`, `author_name`, `author_role`, `faqs`, `sources`, `og_image_url`.
 
 Run `supabase/migrations/20261004_post_seo_fields.sql` once in the Supabase SQL editor to add them.
-`supabase/seed/20261004_post_faqs_sources.sql` then fills in FAQs and source links for the 10 existing
-posts, drafted from each post's own content. Review them before running it.
+`supabase/seed/20261004_post_faqs_sources.sql` then fills in search titles, descriptions, FAQs and source
+links for the 10 existing posts, drafted only from facts in each post. Review them first (edit
+`supabase/seed/post_seo_seed.py` and re-run it to regenerate the SQL). It only fills empty fields.
+Source links point to the organisations each post cites (CRE Matrix, Knight Frank, CBRE, MahaRERA, RBI);
+swap in the exact report URLs if you have them.
+
+The editor's SEO & AEO panel shows a Google preview and a checklist per post (title and description
+length, word count, question headings, FAQs, sources, named author, share image).
 
 ## Owner actions needed for 10/10
 
@@ -81,3 +87,14 @@ These can't be done in code. Each one is a strong trust signal:
 6. **Deploy hook.** Redeploy after publishing posts so they get pre-rendered.
 7. **Content depth.** Grow pillar posts (e.g. the South Mumbai guide) to 1,500+ words and add locality pages (Worli, Malabar Hill, Mahalaxmi) over time.
 8. **Backlinks and PR.** Get mentions from developer partners, press, and property portals.
+
+## Verification (4 Oct 2026, local build)
+
+- 23 pre-rendered pages, each with a unique title, description, canonical URL and JSON-LD; 0 broken internal links
+- Raw HTML of a blog post: ~950 words of article text, no duplicated words (was an empty `<div id="app">`)
+- Unknown URLs return HTTP 404; `/robots.txt`, `/sitemap.xml` (22 URLs) and `/llms.txt` are real files
+- No JavaScript errors in the browser; titles and canonicals update on client-side navigation
+- 100 unit tests passing (`npm run test:run`)
+
+Copy to review: the service pages (`src/content/services.ts`) and FAQ page (`src/content/faqs.ts`) were
+written from facts already on the site, but statements about fees and process should be checked by the team.

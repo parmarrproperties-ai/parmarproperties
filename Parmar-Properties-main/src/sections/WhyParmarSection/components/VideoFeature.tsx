@@ -1,5 +1,5 @@
 import { useScrollReveal } from "@/hooks/useScrollReveal";
-import whyParmarVideo from "assets/WhyParmarSectionVideo.mp4";
+import whyParmarVideo from "assets/WhyParmarSectionVideo-web.mp4";
 
 export const VideoFeature = () => {
   const { ref, isVisible } = useScrollReveal<HTMLDivElement>({ triggerOnce: true });
