@@ -1,6 +1,6 @@
 # Parmar Properties — Project State & System Status
 
-> **Last Updated:** October 4, 2026  
+> **Last Updated:** October 18, 2026 (South Mumbai import: 100 listings published; design-review fixes merged in PR #1; migrations 016-017 applied on project `khrxatoccwoacgzsxsry`)  
 > **Layout (2026-10-13):** ONE Next.js 16 app at the repo root: public site `(site)` + admin `/admin` `(admin)`. Sections below that say `/backend` or `/Frontend` describe the same code in its old folders (see the path note in `AGENTS.md`).
 > **Status:** Backend Admin Complete | Frontend UI Complete | Home CMS sections wired (Locations/Hero/Why/Insights) | RLS publication_status migration authored (010, not yet applied)  
 > 🛑 **Before you code, read [`READ_FIRST.md`](./READ_FIRST.md)** (migrations 012-015 are required).  
@@ -65,6 +65,8 @@
   13. `013_leads_policy.sql`: public lead inserts must be unverified (applied to the new project).
   14. `014_listing_fixes.sql`: `price_on_request`, Apartment type, OC-received status, Mahalaxmi draft page (applied to the new project).
   15. `015_ppc_lead_source.sql`: lead source `google_ppc_landing` (applied to the new project).
+  16. `016_leads_rpc_and_indexes.sql`: `lead_rate_events` table + rate-limited `submit_lead(jsonb, text)` SECURITY DEFINER function, plus catalogue indexes (applied 2026-10-18 on `khrxatoccwoacgzsxsry`).
+  17. `017_leads_rpc_only.sql`: drops the public direct insert policy on `leads`; visitors can only write through `submit_lead()` (applied 2026-10-18).
   - Note: migrations 001-015 are applied on a separate Supabase project used for the audit work. Other developers must apply 012-015 to their own project (see READ_FIRST.md).
   - Removed: the fake client login (`Frontend/store/auth.ts`, `/saved` auth gate). `/api/enquire` removed (it only logged and returned success).
   - `seed_master.sql`: Populates master catalogues and baseline page content.
@@ -101,6 +103,8 @@ Supabase serves as the direct, secure data layer with Row Level Security:
 ---
 
 ## 4. Environment Variables Configuration
+
+**Current (2026-10-18):** one app, one `.env.local` at the repo root (see `.env.example`). Required: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`. Optional (lead emails via Resend): `RESEND_API_KEY`, `LEAD_NOTIFY_EMAIL`, `LEAD_FROM_EMAIL`, `LEAD_IP_SALT`. New packages: `@vercel/analytics`, `@vercel/speed-insights`. Live site: `parmarproperties-lisitng.vercel.app`; repo `parmarrproperties-ai/parmarproperties-lisitng` (`main` is protected; merge via PR). The notes below describe the older two-app setup.
 
 Both Frontend and Backend share the same Supabase project (`wmnptubgyikrwpbsckdn`).
 

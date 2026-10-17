@@ -28,6 +28,24 @@
 
 ## 📜 Activity Stream
 
+### [2026-10-18 12:00] — Claude (AI) & Parmar Properties — South Mumbai import, faster listings, protected enquiries
+- **Branch:** `perf-leads-hardening` → merged to `main` as PR #1 (`76851fb`). This log entry: `brain-update-perf-leads`.
+- **What Was Done:**
+  - **Data (via the admin, not in git):** listed SB-001 Lodha Elise by hand, then bulk-imported SB-002 to SB-100 from `South_Mumbai_100_Properties.md` / the media zip with a temporary admin page (since deleted). All 100 are **Published**. Defaults were used where research had no value: RERA "On request" (39), possession "On request" (52), status "Under Construction" when unknown (45), config area "On request". 12 new `lookup_locations` were added (Dadar West, Parel, Girgaon, …). Full report: `IMPORT_REPORT.md` (local, not committed).
+  - **Speed:** home and `/properties` fetch on the server (`page.tsx` → `HomePageClient` / `PropertiesPageClient` with `initialProperties`); first 3 cards `priority`; detail gallery has `sizes`; `images.minimumCacheTTL` 31 days; uploads use a 1-year cache header.
+  - **Slim catalogue:** `fetchPropertyCards()` (in `src/site/lib/supabase/properties.ts`) replaces `fetchPublishedProperties()` on every list page and for "similar" listings: 563 KB → 160 KB.
+  - **Enquiries:** `submitLead()` now posts to `POST /api/leads` (zod validation, same-origin check, burst limit) → `submit_lead()` DB function (migration 016: 5 per IP per hour, 3 per phone per 10 min). Optional Resend email to staff, also sent if the DB save fails. Migration 017 removed the public direct insert on `leads`.
+  - **Admin:** photos are compressed to WebP (≤1600 px, plans ≤2400 px) before upload (`src/lib/image-compress.ts`). Settings has an **Optimize stored images** card for older files. A failed Add Property purges the half-created row. Any admin write calls `POST /api/revalidate` (active admins only), so the site updates in about 2 s. `/ads-manager` requires sign-in.
+  - **Observability:** `@vercel/analytics` and `@vercel/speed-insights` in the site layout.
+  - **Docs:** design review `docs/design/parmar-properties.md`; implementation plan and owner checklist `docs/design/implementation-plan.md`.
+- **Files Touched / Created:** [`src/app/api/leads/route.ts`](../src/app/api/leads/route.ts), [`src/app/api/revalidate/route.ts`](../src/app/api/revalidate/route.ts), [`src/site/lib/supabase/leads.ts`](../src/site/lib/supabase/leads.ts), [`src/site/lib/supabase/properties.ts`](../src/site/lib/supabase/properties.ts), [`src/site/components/home/HomePageClient.tsx`](../src/site/components/home/HomePageClient.tsx), [`src/site/components/property/PropertiesPageClient.tsx`](../src/site/components/property/PropertiesPageClient.tsx), [`src/site/components/property/PropertyCard.tsx`](../src/site/components/property/PropertyCard.tsx), [`src/site/components/property/PropertyDetailClient.tsx`](../src/site/components/property/PropertyDetailClient.tsx), [`src/lib/image-compress.ts`](../src/lib/image-compress.ts), [`src/lib/api/storage.ts`](../src/lib/api/storage.ts), [`src/lib/supabase/client.ts`](../src/lib/supabase/client.ts), [`src/lib/supabase/middleware.ts`](../src/lib/supabase/middleware.ts), [`src/proxy.ts`](../src/proxy.ts), [`src/components/properties/property-form.tsx`](../src/components/properties/property-form.tsx), [`src/components/settings/image-optimizer-card.tsx`](../src/components/settings/image-optimizer-card.tsx), [`supabase/migrations/016_leads_rpc_and_indexes.sql`](../supabase/migrations/016_leads_rpc_and_indexes.sql), [`supabase/migrations/017_leads_rpc_only.sql`](../supabase/migrations/017_leads_rpc_only.sql), [`next.config.ts`](../next.config.ts), [`.env.example`](../.env.example).
+- **Current State:** `tsc` and `next build` pass; all 100 property pages pre-render. Live site checked 2026-10-18: `/api/revalidate` → 401, `/api/leads` invalid → 400, `/ads-manager` → login redirect, listings render on the server. `submit_lead()` exists (016 applied) and the public direct insert is gone (017 applied). NOT tested: a real enquiry end-to-end, resize-on-upload, the optimizer button, Resend email.
+- **Next Steps for Next Developer:**
+  - Submit one real test enquiry on the live site and confirm it appears in Admin › Leads (the only write path is now `/api/leads`).
+  - Click Admin › Settings › Optimize stored images once (86 photos over 500 KB).
+  - Data clean-up: Lodha Elise still shows a placeholder 3 BHK area (1500 - 2000). SB-058 The Odyssey's config price is cut off. 39 listings show RERA "On request": add the numbers or unpublish them.
+  - Owner: confirm Vercel plan (Hobby is non-commercial), Supabase plan/backups, Auth sign-ups off, staff MFA; set Resend env vars if lead emails are wanted.
+
 ### [2026-10-13 15:00] — Claude (AI) & Parmar Properties — Merged Frontend and backend into ONE app (single deployment)
 - **Branch:** `merge/single-app` (local only, not pushed)
 - **What Was Done:**
