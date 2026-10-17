@@ -33,6 +33,7 @@ import { PageHeader } from "@/components/shared/page-header";
 import { Field, FieldGrid } from "@/components/shared/field";
 import { ErrorState, LoadingBlock, Spinner } from "@/components/shared/states";
 import { SiteBrandingForm } from "@/components/settings/site-branding-form";
+import { ImageOptimizerCard } from "@/components/settings/image-optimizer-card";
 
 type SettingsValues = z.input<typeof businessSettingsSchema>;
 type SettingsOutput = z.output<typeof businessSettingsSchema>;
@@ -113,6 +114,7 @@ export function SettingsView() {
 
         <TabsContent value="branding" className="space-y-4">
           <SiteBrandingForm />
+          <ImageOptimizerCard />
         </TabsContent>
 
         <form onSubmit={form.handleSubmit(onSubmit)} noValidate>

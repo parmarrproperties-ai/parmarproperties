@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { Scale, X, ArrowRight, Trash2 } from 'lucide-react';
 import { useCompareStore } from '@/site/store/compare';
 import type { Property } from '@/site/types/property';
-import { fetchPublishedProperties } from '@/site/lib/supabase/properties';
+import { fetchPropertyCards } from '@/site/lib/supabase/properties';
 
 export const CompareBar: React.FC = () => {
   const [mounted, setMounted] = useState(false);
@@ -17,7 +17,7 @@ export const CompareBar: React.FC = () => {
 
   useEffect(() => {
     setMounted(true);
-    fetchPublishedProperties().then(setCatalog);
+    fetchPropertyCards().then(setCatalog);
   }, []);
 
   if (!mounted || compareIds.length === 0) {

@@ -23,6 +23,7 @@ import { PUBLICATION_STATUSES, getVariantLabel } from "@/lib/constants";
 import {
   createMasterProperty,
   isSlugAvailable,
+  purgeProperty,
   updateMasterProperty,
   updatePropertyMedia,
 } from "@/lib/api/properties";
@@ -481,9 +482,11 @@ export function PropertyForm({ property, onSaved }: PropertyFormProps) {
             : Promise.resolve(),
         ]);
       } catch (error) {
-        // Storage is outside DB transactions: remove only files uploaded in this
-        // attempt. Property row may remain for the admin to finish/edit.
+        // All-or-nothing: a half-saved listing (row without its images or
+        // configurations) is worse than none. Remove the row with everything
+        // attached to it, plus any files uploaded in this attempt.
         await deleteFiles(uploadedPaths);
+        await purgeProperty(created.id).catch(() => undefined);
         throw error;
       }
 

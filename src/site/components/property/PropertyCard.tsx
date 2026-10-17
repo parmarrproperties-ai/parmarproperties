@@ -8,9 +8,11 @@ import { Property } from '@/site/types/property';
 
 interface PropertyCardProps {
   property: Property;
+  /** Load the cover immediately; set for cards visible on first paint. */
+  priority?: boolean;
 }
 
-export const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
+export const PropertyCard: React.FC<PropertyCardProps> = ({ property, priority = false }) => {
   const [imgError, setImgError] = useState(false);
 
   return (
@@ -25,6 +27,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
             src={property.coverImage}
             alt={property.title}
             fill
+            priority={priority}
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
             onError={() => setImgError(true)}

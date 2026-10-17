@@ -1,4 +1,5 @@
 import { STORAGE_BUCKET } from "@/lib/constants";
+import { compressImage } from "@/lib/image-compress";
 
 import { getSupabase } from "./client";
 
@@ -60,16 +61,20 @@ export function resolvePublicUrl(
 }
 
 export async function uploadFile(
-  file: File,
+  original: File,
   folder: string
 ): Promise<UploadedFile> {
   const supabase = getSupabase();
+  // Floor plans and layouts keep more pixels so dimensions stay legible.
+  const isPlan = /\/(floor-plans|layouts)$/.test(folder);
+  const file = await compressImage(original, { maxEdge: isPlan ? 2400 : 1600 });
   const path = `${folder}/${buildObjectName(file.name)}`;
 
   const { error } = await supabase.storage
     .from(STORAGE_BUCKET)
     .upload(path, file, {
-      cacheControl: "3600",
+      // Object names are unique per upload, so the file at a URL never changes.
+      cacheControl: "31536000",
       upsert: false,
       contentType: file.type || undefined,
     });

@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Plus_Jakarta_Sans } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import { SiteChrome } from "@/site/components/layout/SiteChrome";
 
@@ -32,6 +34,8 @@ export default function RootLayout({
     <html lang="en" className={`${playfair.variable} ${plusJakarta.variable} scroll-smooth`}>
       <body className="min-h-screen flex flex-col bg-mineral text-ink">
         <SiteChrome>{children}</SiteChrome>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

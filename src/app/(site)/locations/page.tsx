@@ -18,7 +18,7 @@ import { ScrollProgressBar } from '@/site/components/ui/ScrollProgressBar';
 import { PrivateOpportunities } from '@/site/components/property/PrivateOpportunities';
 import { LOCATIONS_PAGE_CONTENT } from '@/site/data/content/locations.content';
 import { fetchLocations, fetchLocationFilterNames } from '@/site/lib/supabase/locations';
-import { fetchPublishedProperties } from '@/site/lib/supabase/properties';
+import { fetchPropertyCards } from '@/site/lib/supabase/properties';
 
 interface LocationDirectoryItem {
   name: string;
@@ -57,7 +57,7 @@ function LocationsContent() {
 
   React.useEffect(() => {
     let isMounted = true;
-    fetchPublishedProperties()
+    fetchPropertyCards()
       .then((data) => {
         if (isMounted) setProperties(data);
       })

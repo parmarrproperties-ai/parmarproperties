@@ -13,7 +13,7 @@ import {
   fetchLocationBySlug,
   type LocationInfo as CmsLocationInfo,
 } from '@/site/lib/supabase/locations';
-import { fetchPublishedProperties } from '@/site/lib/supabase/properties';
+import { fetchPropertyCards } from '@/site/lib/supabase/properties';
 
 interface LocationInfo {
   name: string;
@@ -170,7 +170,7 @@ export default function LocationPropertiesPage() {
     fetchCorridorSwitcherLocations(slug).then((rows) => {
       if (isMounted) setCorridorLocations(rows);
     });
-    fetchPublishedProperties()
+    fetchPropertyCards()
       .then((rows) => {
         if (isMounted) setProperties(rows);
       })

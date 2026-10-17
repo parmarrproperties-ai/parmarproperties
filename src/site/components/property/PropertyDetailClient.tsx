@@ -283,6 +283,8 @@ export const PropertyDetailClient: React.FC<PropertyDetailClientProps> = ({
             src={images[0]}
             alt={property.title}
             fill
+            priority
+            sizes="(max-width: 768px) 100vw, 66vw"
             className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
           />
           <span className="absolute bottom-4 left-4 px-3.5 py-1.5 bg-[#15181A]/90 text-white text-xs uppercase tracking-wider font-medium backdrop-blur-sm">
@@ -304,6 +306,8 @@ export const PropertyDetailClient: React.FC<PropertyDetailClientProps> = ({
                 src={img}
                 alt={`${property.title} perspective ${idx + 2}`}
                 fill
+                priority
+                sizes="(max-width: 768px) 50vw, 33vw"
                 className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
               />
             </div>
@@ -483,6 +487,7 @@ export const PropertyDetailClient: React.FC<PropertyDetailClientProps> = ({
                           src={property.reraQrImage}
                           alt={`MahaRERA QR Code for ${property.title}`}
                           fill
+                          sizes="64px"
                           className="object-contain p-1"
                         />
                       ) : (
@@ -613,8 +618,8 @@ export const PropertyDetailClient: React.FC<PropertyDetailClientProps> = ({
                   }
                   alt={`${property.title} - ${floorPlanTab === 'individual' ? currentVariant.title : floorPlanTab}`}
                   fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
                   className="object-contain filter blur-[5px] scale-105 opacity-85 pointer-events-none select-none"
-                  priority
                 />
 
                 {/* Subtle dark backdrop overlay */}
@@ -740,6 +745,7 @@ export const PropertyDetailClient: React.FC<PropertyDetailClientProps> = ({
                   src="/mumbai-map.jpg"
                   alt={`${property.location} Location Map`}
                   fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
                   className="object-cover filter blur-[6px] scale-110 opacity-75 pointer-events-none select-none"
                 />
                 <div className="absolute inset-0 bg-black/40 backdrop-blur-[1px]" />

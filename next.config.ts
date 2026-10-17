@@ -22,6 +22,9 @@ const nextConfig: NextConfig = {
   allowedDevOrigins: ["192.168.1.188"],
   images: {
     remotePatterns,
+    // Uploaded photos never change at the same URL, so keep resized copies for 31 days
+    // instead of re-optimising them from the (large) originals every few hours.
+    minimumCacheTTL: 2678400,
   },
 };
 
