@@ -28,6 +28,21 @@
 
 ## 📜 Activity Stream
 
+### [2026-10-18 02:45] — Claude (AI) & Parmar Properties — Per-page SEO
+- **Branch:** `seo-per-page` (based on `brain-update-perf-leads`)
+- **What Was Done:**
+  - `src/site/lib/seo.ts`: `SITE_URL` / `ALLOW_INDEXING` from env, `pageMetadata()` (absolute branded title, description clamped to ~158 chars, canonical, Open Graph, Twitter), schema.org helpers (RealEstateAgent, WebSite, BreadcrumbList, ItemList). `JsonLd` component escapes `<`.
+  - Site layout: `metadataBase`, title template, default OG image, `lang="en-IN"`, Organization + WebSite JSON-LD on every page. **Robots is `noindex` unless `NEXT_PUBLIC_ALLOW_INDEXING=true`.**
+  - Per page: home, `/properties`, every property (title like "Lodha Park, Worli: 2, 3, 4 & 5 BHK Apartments", description built from location/developer/BHK/status/price/RERA, cover image as OG, RealEstateListing + Breadcrumb JSON-LD), `/locations` + each location (Place + Breadcrumb), `/market-intelligence` + each article (Article + Breadcrumb), `/commercials`, `/about`. `/compare`, `/saved`, `/ads-manager`, PPC pages are noindex.
+  - `src/app/sitemap.ts` (121 URLs, 96 property images) and `src/app/robots.ts` (blocks everything until indexing is allowed; then disallows admin/api/tools and points to the sitemap).
+  - **Content in HTML:** location detail and both Market Intelligence pages now fetch on the server (`LocationPageClient`, `MarketIntelligenceClient`, `ArticleDetailClient` take initial data). `/properties` and `/locations` keep `useSearchParams`, so they render a server-side `ListingFallback` (real h1, intro, all cards/links) instead of "Loading…". Unknown location/article slugs now return a real 404.
+- **Files Touched / Created:** [`src/site/lib/seo.ts`](../src/site/lib/seo.ts), [`src/site/components/seo/`](../src/site/components/seo/JsonLd.tsx), [`src/app/sitemap.ts`](../src/app/sitemap.ts), [`src/app/robots.ts`](../src/app/robots.ts), [`src/app/(site)/layout.tsx`](../src/app/(site)/layout.tsx), page/layout files under `src/app/(site)/` (home, properties, locations, market-intelligence, commercials, compare, saved, about, ads-manager), moved clients in [`src/site/components/location/`](../src/site/components/location/LocationPageClient.tsx) and [`src/site/components/insights/`](../src/site/components/insights/ArticleDetailClient.tsx), [`.env.example`](../.env.example).
+- **Current State:** `tsc` clean, `next build` passes (132 pages). Checked on a production build with indexing on: every page has a unique branded title, description, canonical and OG image; JSON-LD parses; robots.txt and sitemap.xml correct; unknown slugs 404. NOT checked: Google Rich Results Test / Search Console (needs the public domain); the default (indexing-off) build was not re-run after the last change.
+- **Next Steps for Next Developer:**
+  - When the site moves to its final domain: set `NEXT_PUBLIC_SITE_URL` and `NEXT_PUBLIC_ALLOW_INDEXING=true` in Vercel, redeploy, submit `/sitemap.xml` in Google Search Console and Bing Webmaster Tools.
+  - Write real per-listing meta title/description in the admin for key listings (the generated ones are a fallback).
+  - Optional: separate routes for New Launches / Luxury Collection (today they are `?tab=` on `/properties` and share its canonical); OG images per page; Google Business Profile.
+
 ### [2026-10-18 12:00] — Claude (AI) & Parmar Properties — South Mumbai import, faster listings, protected enquiries
 - **Branch:** `perf-leads-hardening` → merged to `main` as PR #1 (`76851fb`). This log entry: `brain-update-perf-leads`.
 - **What Was Done:**

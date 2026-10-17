@@ -25,6 +25,11 @@
 - [ ] Switch Vercel to ONE project for the merged app (Root Directory = repo root), then delete the `parmar-admin` project; add `/admin/**` to Supabase redirect URLs; smoke-test the admin (sign in, edit a property, upload an image).
 - [ ] Optional: tidy ESLint for `src/site` (it was never linted) and re-check the 1 to 2px paragraph line-height difference left by the Tailwind 4 upgrade.
 
+#### SEO follow-ups (2026-10-18)
+- [ ] Final domain: set `NEXT_PUBLIC_SITE_URL` + `NEXT_PUBLIC_ALLOW_INDEXING=true` in Vercel, then submit the sitemap in Google Search Console and Bing Webmaster Tools.
+- [ ] Admin: write real meta title/description for priority listings.
+- [ ] Optional: dedicated `/new-launches` and `/luxury-collection` routes; per-page OG images; Google Business Profile for the Parel office.
+
 #### Design-review follow-ups (2026-10-18, see `docs/design/implementation-plan.md`)
 - [ ] Submit one real test enquiry on the live site; confirm it reaches Admin › Leads (only path is now `/api/leads` → `submit_lead()`).
 - [ ] Admin › Settings › **Optimize stored images**: click once (86 photos over 500 KB).
@@ -53,6 +58,8 @@
 ---
 
 ### 3. Completed Tasks ✅
+
+- [x] **Per-page SEO** (Done: 2026-10-18, branch `seo-per-page`) — metadata, canonicals, OG, JSON-LD, sitemap, robots, server-rendered content for location/insight pages. Indexing is OFF until `NEXT_PUBLIC_ALLOW_INDEXING=true`.
 
 - [x] **South Mumbai import: 100 listings published** (Done: 2026-10-18) — SB-001 by hand, SB-002 to SB-100 bulk-imported via a temporary admin page; defaults listed in TEAM_LOG.
 - [x] **Design-review fixes** (Done: 2026-10-18, PR #1) — server-rendered listings, slim card query, image sizing/caching, compress-on-upload, `/api/leads` + `submit_lead()` (016) and RPC-only leads (017, applied), rollback on failed create, instant revalidation, `/ads-manager` behind login, Vercel Analytics.

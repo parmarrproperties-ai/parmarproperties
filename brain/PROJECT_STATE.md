@@ -104,7 +104,7 @@ Supabase serves as the direct, secure data layer with Row Level Security:
 
 ## 4. Environment Variables Configuration
 
-**Current (2026-10-18):** one app, one `.env.local` at the repo root (see `.env.example`). Required: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`. Optional (lead emails via Resend): `RESEND_API_KEY`, `LEAD_NOTIFY_EMAIL`, `LEAD_FROM_EMAIL`, `LEAD_IP_SALT`. New packages: `@vercel/analytics`, `@vercel/speed-insights`. Live site: `parmarproperties-lisitng.vercel.app`; repo `parmarrproperties-ai/parmarproperties-lisitng` (`main` is protected; merge via PR). The notes below describe the older two-app setup.
+**Current (2026-10-18):** one app, one `.env.local` at the repo root (see `.env.example`). Required: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`. Optional (lead emails via Resend): `RESEND_API_KEY`, `LEAD_NOTIFY_EMAIL`, `LEAD_FROM_EMAIL`, `LEAD_IP_SALT`. SEO: `NEXT_PUBLIC_SITE_URL` (canonical origin, defaults to the vercel.app URL) and `NEXT_PUBLIC_ALLOW_INDEXING` (must be `true` for search engines to index; otherwise noindex + robots.txt blocks all). New packages: `@vercel/analytics`, `@vercel/speed-insights`. Live site: `parmarproperties-lisitng.vercel.app`; repo `parmarrproperties-ai/parmarproperties-lisitng` (`main` is protected; merge via PR). The notes below describe the older two-app setup.
 
 Both Frontend and Backend share the same Supabase project (`wmnptubgyikrwpbsckdn`).
 
