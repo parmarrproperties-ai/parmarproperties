@@ -3,7 +3,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Copy, ExternalLink, Check } from 'lucide-react';
 import type { Property } from '@/site/types/property';
-import { fetchPublishedProperties } from '@/site/lib/supabase/properties';
+import { fetchPropertyCards } from '@/site/lib/supabase/properties';
 
 // Google fills these ValueTrack placeholders in at click time.
 const VALUETRACK = 'utm_source=google&utm_medium=cpc&utm_campaign={campaignid}&utm_term={keyword}&utm_content={creative}';
@@ -78,7 +78,7 @@ export function AdsManager() {
 
   const load = useCallback(() => {
     setStatus('loading');
-    fetchPublishedProperties()
+    fetchPropertyCards()
       .then((list) => {
         setProperties(list);
         setStatus('ready');

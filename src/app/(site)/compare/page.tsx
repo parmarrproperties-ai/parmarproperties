@@ -6,7 +6,7 @@ import { Scale, Trash2, ArrowRight, Check } from 'lucide-react';
 import { useCompareStore } from '@/site/store/compare';
 import type { Property } from '@/site/types/property';
 import { COMPARE_PAGE_CONTENT } from '@/site/data/content/compare.content';
-import { fetchPublishedProperties } from '@/site/lib/supabase/properties';
+import { fetchPropertyCards } from '@/site/lib/supabase/properties';
 
 export default function ComparePage() {
   const { header, emptyState } = COMPARE_PAGE_CONTENT;
@@ -19,7 +19,7 @@ export default function ComparePage() {
   useEffect(() => {
     setMounted(true);
     let isMounted = true;
-    fetchPublishedProperties().then((data) => {
+    fetchPropertyCards().then((data) => {
       if (isMounted) setProperties(data);
     });
     return () => {

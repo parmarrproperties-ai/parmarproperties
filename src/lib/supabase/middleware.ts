@@ -41,9 +41,10 @@ export async function updateSession(request: NextRequest) {
 
   const pathname = request.nextUrl.pathname;
   const isLoginPage = pathname === "/admin/login";
-  const isAdminRoute = pathname.startsWith("/admin");
+  // The Google Ads URL builder exposes campaign structure, so it is staff-only too.
+  const isProtected = pathname.startsWith("/admin") || pathname.startsWith("/ads-manager");
 
-  if (isAdminRoute && !isLoginPage && !user) {
+  if (isProtected && !isLoginPage && !user) {
     const redirectUrl = request.nextUrl.clone();
     redirectUrl.pathname = "/admin/login";
     redirectUrl.searchParams.set("redirect", pathname);

@@ -28,6 +28,24 @@ const PUBLISHED_PROPERTY_SELECT = `
   )
 `;
 
+/**
+ * Card/list projection: everything PropertyCard, filters, sorting and Compare
+ * read, without galleries, long copy or floor-plan images (~5x smaller).
+ */
+const PROPERTY_CARD_SELECT = `
+  id, slug, title, name, tagline, locality, sub_location,
+  price, price_amount, price_display, price_on_request,
+  carpet_area_sqft, carpet_area, super_area, possession_date, possession, floor,
+  is_featured, recently_added, is_recommended, is_new_launch, is_luxury_collection,
+  cover_image, rera_id, rera_number, sort_order, updated_at,
+  property_configurations ( variant_code, tab_label, title, area_range, carpet_area, price_indicator, display_order ),
+  lookup_locations ( id, name, slug ),
+  lookup_bhk ( id, name, slug ),
+  lookup_property_types ( id, name, slug ),
+  lookup_construction_status!properties_status_id_fkey ( id, name, slug ),
+  property_amenities ( custom_label, lookup_amenities ( name ) )
+`;
+
 const PUBLISHED_PROPERTY_SELECT_MINIMAL = `
   *,
   property_images (*),
@@ -434,6 +452,27 @@ export async function fetchPublishedProperties(): Promise<Property[]> {
   } catch (err) {
     console.error('[properties] fetchPublishedProperties threw:', err);
     return [];
+  }
+}
+
+/**
+ * Published listings for cards and lists (home, catalogue, locations, compare,
+ * saved, similar). Use fetchPropertyBySlug for a full detail page.
+ */
+export async function fetchPropertyCards(): Promise<Property[]> {
+  const supabase = isSupabaseConfigured() ? getSupabase() : null;
+  if (!supabase) return fetchPublishedProperties();
+
+  try {
+    const { data, error } = await publishedBaseFilter(supabase, PROPERTY_CARD_SELECT);
+    if (error) {
+      logSupabaseError('fetchPropertyCards failed; falling back to full select', error);
+      return fetchPublishedProperties();
+    }
+    return mapRows(data);
+  } catch (err) {
+    console.error('[properties] fetchPropertyCards threw:', err);
+    return fetchPublishedProperties();
   }
 }
 

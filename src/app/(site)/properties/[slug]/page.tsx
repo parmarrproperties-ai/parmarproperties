@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import { PropertyDetailClient } from '@/site/components/property/PropertyDetailClient';
 import {
   fetchPropertyBySlug,
-  fetchPublishedProperties,
+  fetchPropertyCards,
   fetchPublishedPropertySlugs,
   pickSimilarProperties,
 } from '@/site/lib/supabase/properties';
@@ -38,7 +38,7 @@ export default async function PropertyDetailPage(
     notFound();
   }
 
-  const catalog = await fetchPublishedProperties();
+  const catalog = await fetchPropertyCards();
   const similarProperties = pickSimilarProperties(property, catalog);
 
   return (

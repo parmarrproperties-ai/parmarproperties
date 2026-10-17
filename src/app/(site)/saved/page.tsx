@@ -12,7 +12,7 @@ import type { Property } from '@/site/types/property';
 import { PropertyCard } from '@/site/components/property/PropertyCard';
 import { CompareBar } from '@/site/components/property/CompareBar';
 import { SAVED_PAGE_CONTENT } from '@/site/data/content/saved.content';
-import { fetchPublishedProperties } from '@/site/lib/supabase/properties';
+import { fetchPropertyCards } from '@/site/lib/supabase/properties';
 
 export default function SavedPage() {
   const { header, emptyState } = SAVED_PAGE_CONTENT;
@@ -24,7 +24,7 @@ export default function SavedPage() {
   useEffect(() => {
     setMounted(true);
     let isMounted = true;
-    fetchPublishedProperties().then((data) => {
+    fetchPropertyCards().then((data) => {
       if (isMounted) setProperties(data);
     });
     return () => {

@@ -22,6 +22,15 @@ Also, in Supabase **Authentication > Providers > Email**, turn off **"Allow new 
 
 Then run `supabase/tests/012_security.sql` in the SQL editor. It rolls back and should finish without an error.
 
+## 1b. Migrations 016 and 017 (added 2026-10-18): enquiries go through /api/leads
+
+Website forms now post to `POST /api/leads`, which calls the rate-limited `submit_lead()` function.
+- Run `016_leads_rpc_and_indexes.sql` any time. Until it runs, `/api/leads` falls back to the old direct insert.
+- Run `017_leads_rpc_only.sql` only **after** the new code is deployed and a test enquiry has arrived. It removes the public direct insert.
+- Optional env vars for staff lead emails: `RESEND_API_KEY`, `LEAD_NOTIFY_EMAIL`, `LEAD_FROM_EMAIL`, `LEAD_IP_SALT`.
+
+Full list of the design-review fixes and owner steps: `docs/design/implementation-plan.md`.
+
 ## 2. Two Supabase projects exist. Do not mix them
 
 - The original team project and a separate project used for the audit work. **No project URL or key is committed.** Each developer's `.env.local` (in `Frontend/` and `backend/`, git-ignored) decides which project their apps use.
