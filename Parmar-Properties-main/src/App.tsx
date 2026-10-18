@@ -20,6 +20,7 @@ import { SmoothScroll } from "@/components/SmoothScroll";
 import { ScrollToTopButton } from "@/components/ScrollToTopButton";
 import { Preloader } from "@/components/Preloader";
 import { FloatingWhatsApp } from "@/components/FloatingWhatsApp";
+import { SiteAnalytics } from "@/components/SiteAnalytics";
 import { Seo } from "@/seo/Seo";
 import { pages } from "@/seo/pages";
 import { organizationSchema, websiteSchema, webPageSchema } from "@/seo/schema";
@@ -116,6 +117,7 @@ export const App = () => {
       <BrowserRouter basename={import.meta.env.BASE_URL.replace(/\/$/, "") || "/"}>
         <AppRoutes />
       </BrowserRouter>
+      <SiteAnalytics />
       {import.meta.env.DEV && <Agentation />}
     </>
   );
