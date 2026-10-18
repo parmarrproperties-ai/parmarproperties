@@ -4,19 +4,19 @@
   "rewrites": [
     {
       "source": "/About",
-      "destination": "/about.html"
+      "destination": "/about"
     },
     {
       "source": "/blog/:slug",
-      "destination": "/spa.html"
+      "destination": "/spa"
     },
     {
       "source": "/admin",
-      "destination": "/spa.html"
+      "destination": "/spa"
     },
     {
       "source": "/admin/:path*",
-      "destination": "/spa.html"
+      "destination": "/spa"
     }
   ],
   "headers": [
@@ -60,7 +60,7 @@
       ]
     },
     {
-      "source": "/spa.html",
+      "source": "/spa",
       "headers": [
         {
           "key": "X-Robots-Tag",
