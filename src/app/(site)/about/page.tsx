@@ -3,11 +3,14 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ShieldCheck, Landmark, Users, ArrowRight } from 'lucide-react';
 import { ABOUT_PAGE_CONTENT } from '@/site/data/content/about.content';
+import { pageMetadata } from '@/site/lib/seo';
 
-export const metadata = {
+export const metadata = pageMetadata({
   title: ABOUT_PAGE_CONTENT.meta.pageTitle,
+  absoluteTitle: true,
   description: ABOUT_PAGE_CONTENT.meta.pageDescription,
-};
+  path: '/about',
+});
 
 export default function AboutPage() {
   const { header, story, metrics, pillars, cta } = ABOUT_PAGE_CONTENT;

@@ -723,11 +723,14 @@ function PropertiesContent({ initialProperties }: { initialProperties: Property[
 
 export default function PropertiesPageClient({
   initialProperties = null,
+  fallback,
 }: {
   initialProperties?: Property[] | null;
+  /** Server-rendered content shown until the URL's filters are read in the browser. */
+  fallback?: React.ReactNode;
 }) {
   return (
-    <Suspense fallback={<div className="pt-32 text-center text-xs">Loading Mumbai Residences...</div>}>
+    <Suspense fallback={fallback ?? <div className="pt-32 text-center text-xs">Loading Mumbai Residences...</div>}>
       <PropertiesContent initialProperties={initialProperties} />
     </Suspense>
   );

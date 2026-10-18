@@ -19,7 +19,8 @@ This document explains the technical mapping between **Frontend TypeScript compo
 | `locations` | `001`, `006` | Micro-market editorial guides (Worli, Bandra, etc.) | Public: `SELECT` active; Admin: CRUD |
 | `insights_articles` | `005` | Market Intelligence research reports | Public: `SELECT` published; Admin: CRUD |
 | `article_sections` | `005` | Structured paragraphs, tables & quotes per article | Public: `SELECT`; Admin: CRUD |
-| `leads` | `004`, `005` | Consolidated inquiry inbox from all website forms | **Public: INSERT ONLY (Anon)** (013: `is_otp_verified = false AND assigned_to IS NULL`); Admin: SELECT/UPDATE |
+| `leads` | `004`, `005` | Consolidated inquiry inbox from all website forms | **Public: no direct insert** (017). Visitors write only via `POST /api/leads` → `submit_lead()` (016, SECURITY DEFINER, always unverified/unassigned); Admin: SELECT/UPDATE |
+| `lead_rate_events` | `016` | Rate-limit ledger for `submit_lead()` (hashed IP, phone, time; rows older than 1 day pruned) | RLS on, no policies: only `submit_lead()` touches it |
 | `hero_slides` | `001` | Home page full-bleed carousel slides | Public: `SELECT` active; Admin: CRUD |
 | `site_branding` | `005` | Singleton company info, MahaRERA ID, contacts, address | Public: `SELECT`; Admin: CRUD |
 | `page_content` | `004` | Per-route headlines, badges, subtitles & JSON sections | Public: `SELECT`; Admin: CRUD |
@@ -65,6 +66,8 @@ This document explains the technical mapping between **Frontend TypeScript compo
 ---
 
 ### B. Leads Table Mapping (6 Ingestion Points)
+
+> **Since 2026-10-18:** all 6 forms call `submitLead()` (`src/site/lib/supabase/leads.ts`), which POSTs to `src/app/api/leads/route.ts` (zod validation, same-origin check, burst limit). That route calls `submit_lead(p_lead jsonb, p_ip_hash text)`: max 5 per IP per hour, 3 per phone per 10 minutes. It optionally emails staff via Resend, including when the DB save fails.
 
 All 6 forms on the website insert into the unified `leads` table:
 

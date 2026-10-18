@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { AdsManager } from '@/site/components/ppc/AdsManager';
 
 export const metadata: Metadata = {
-  title: 'Ads Manager | Parmar Properties',
+  title: { absolute: 'Ads Manager | Parmar Properties' },
   robots: { index: false, follow: false },
 };
 
