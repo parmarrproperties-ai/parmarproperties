@@ -3,7 +3,7 @@ import { navigation } from "@/content/content";
 
 export const DesktopNavigation = () => {
   return (
-    <nav className="box-border caret-transparent gap-x-[normal] hidden text-[10px] leading-[11.5px] min-h-0 min-w-0 outline-[3px] gap-y-[normal] no-underline ml-auto md:gap-x-12 md:flex md:text-[6.66667px] md:leading-[7.66667px] md:min-h-[auto] md:min-w-[auto] md:gap-y-[26.6667px]">
+    <nav className="box-border caret-transparent gap-x-[normal] hidden text-[10px] leading-[11.5px] min-h-0 min-w-0 outline-[3px] gap-y-[normal] no-underline ml-auto md:gap-x-5 xl:gap-x-12 md:flex md:text-[6.66667px] md:leading-[7.66667px] md:min-h-[auto] md:min-w-[auto] md:gap-y-[26.6667px]">
       {navigation.links.map((link, idx) => (
         <NavigationItem
           key={idx}

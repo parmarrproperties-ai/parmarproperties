@@ -53,6 +53,7 @@ export const navigation = {
     { label: "Home", href: "/", isDropdown: false },
     { label: "About Us", href: "/about", isDropdown: false },
     { label: "Services", href: "/services", isDropdown: false },
+    { label: "Properties", href: "/listing/properties", isDropdown: false },
     { label: "Expertise", href: "/#expertise", isDropdown: false },
     { label: "Blogs", href: "/blog", isDropdown: false },
     { label: "Contact", href: "/contact", isDropdown: false },
@@ -264,6 +265,7 @@ export const footer = {
   primaryLinks: [
     { label: "About", href: "/about" },
     { label: "Services", href: "/services" },
+    { label: "Properties", href: "/listing/properties" },
     { label: "Buy", href: "/services/buy" },
     { label: "Sell", href: "/services/sell" },
     { label: "Lease", href: "/services/lease" },

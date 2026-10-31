@@ -171,15 +171,21 @@ ${sitemapEntries
 fs.writeFileSync(path.join(dist, "sitemap.xml"), sitemap);
 
 const aiBots = ["GPTBot", "OAI-SearchBot", "ChatGPT-User", "ClaudeBot", "Claude-SearchBot", "Claude-User", "PerplexityBot", "Perplexity-User", "Google-Extended", "Applebot-Extended", "Bingbot"];
+// /listing/* is the property listing app (see vercel.json). Crawlers only read
+// robots.txt at the domain root, so its private pages are listed here too.
+const disallow = ["/admin", "/listing/admin", "/listing/api/", "/listing/ads-manager", "/listing/ppc-preview/", "/listing/compare", "/listing/saved", "/listing/*/project"]
+  .map((p) => `Disallow: ${p}`)
+  .join("\n");
 const robots = `# robots.txt for ${site.url}
 User-agent: *
 Allow: /
-Disallow: /admin
+${disallow}
 
 # AI search and answer engines are welcome to read and cite this site.
-${aiBots.map((b) => `User-agent: ${b}\nAllow: /\nDisallow: /admin`).join("\n\n")}
+${aiBots.map((b) => `User-agent: ${b}\nAllow: /\n${disallow}`).join("\n\n")}
 
 Sitemap: ${absoluteUrl("/sitemap.xml")}
+Sitemap: ${absoluteUrl("/listing/sitemap.xml")}
 `;
 fs.writeFileSync(path.join(dist, "robots.txt"), robots);
 

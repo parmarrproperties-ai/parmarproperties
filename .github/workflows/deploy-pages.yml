@@ -3,6 +3,9 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
+    paths:
+      - "main-site/**"
+      - ".github/workflows/deploy-pages.yml"
   workflow_dispatch:
 
 permissions:
@@ -16,7 +19,7 @@ concurrency:
 
 defaults:
   run:
-    working-directory: Parmar-Properties-main
+    working-directory: main-site
 
 jobs:
   build:
@@ -30,7 +33,7 @@ jobs:
         with:
           node-version: 20
           cache: npm
-          cache-dependency-path: Parmar-Properties-main/package-lock.json
+          cache-dependency-path: main-site/package-lock.json
 
       - name: Install dependencies
         run: npm ci
@@ -46,7 +49,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: Parmar-Properties-main/dist
+          path: main-site/dist
 
   deploy:
     needs: build

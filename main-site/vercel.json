@@ -3,6 +3,14 @@
   "trailingSlash": false,
   "rewrites": [
     {
+      "source": "/listing",
+      "destination": "https://parmarproperties-lisitng.vercel.app/listing"
+    },
+    {
+      "source": "/listing/:path*",
+      "destination": "https://parmarproperties-lisitng.vercel.app/listing/:path*"
+    },
+    {
       "source": "/About",
       "destination": "/about"
     },
