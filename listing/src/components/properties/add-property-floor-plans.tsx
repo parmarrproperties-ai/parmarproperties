@@ -1,5 +1,6 @@
 "use client";
 
+import { withBasePath } from "@/lib/base-path";
 import * as React from "react";
 import { Image as ImageIcon, LayoutPanelTop, Trash, Upload } from "lucide-react";
 import { toast } from "sonner";
@@ -134,7 +135,7 @@ function LayoutPreview({
     <div className="group relative h-[240px] max-h-[280px] overflow-hidden rounded-lg border border-border bg-muted">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src={url}
+        src={withBasePath(url)}
         alt={label}
         className="h-full w-full object-contain"
       />
@@ -219,7 +220,7 @@ function ExistingAssetGrid({
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={asset.url}
+              src={withBasePath(asset.url)}
               alt={asset.name}
               className="aspect-video w-full object-cover"
             />

@@ -2,7 +2,7 @@
 
 import React, { useState, useMemo, useEffect, Suspense } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
+import Image from "@/components/ui/image";
 import {
   SlidersHorizontal,
   RotateCcw,

@@ -1,5 +1,6 @@
 "use client";
 
+import { withBasePath } from "@/lib/base-path";
 import * as React from "react";
 import Link from "next/link";
 import {
@@ -264,7 +265,7 @@ export function ImagesManager({
                 <div className="overflow-hidden rounded-lg border border-border sm:max-w-md">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src={cover.url}
+                    src={withBasePath(cover.url)}
                     alt={cover.alt_text ?? "Cover"}
                     className="aspect-video w-full bg-muted object-cover"
                   />
@@ -324,7 +325,7 @@ export function ImagesManager({
                       <GripVertical className="pointer-events-none absolute top-2 right-2 z-10 size-5 rounded bg-background/80 p-0.5 text-muted-foreground shadow-sm" />
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
-                        src={image.url}
+                        src={withBasePath(image.url)}
                         alt={image.alt_text ?? ""}
                         draggable={false}
                         className="aspect-video w-full bg-muted object-cover"

@@ -1,5 +1,6 @@
 import { createBrowserClient } from "@supabase/ssr";
 import type { Database } from "@/types/database";
+import { withBasePath } from "@/lib/base-path";
 
 let revalidateTimer: ReturnType<typeof setTimeout> | undefined;
 
@@ -8,7 +9,7 @@ function schedulePublicSiteRevalidate() {
   if (typeof window === "undefined") return;
   clearTimeout(revalidateTimer);
   revalidateTimer = setTimeout(() => {
-    void fetch("/api/revalidate", { method: "POST" }).catch(() => undefined);
+    void fetch(withBasePath("/api/revalidate"), { method: "POST" }).catch(() => undefined);
   }, 1500);
 }
 

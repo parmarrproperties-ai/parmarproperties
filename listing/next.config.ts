@@ -1,5 +1,7 @@
 import type { NextConfig } from "next";
 
+import { BASE_PATH } from "./src/lib/base-path";
+
 const remotePatterns: NonNullable<NextConfig["images"]>["remotePatterns"] = [
   { protocol: "https", hostname: "images.unsplash.com" },
 ];
@@ -19,6 +21,8 @@ try {
 }
 
 const nextConfig: NextConfig = {
+  // Served at parmarproperties.in/listing: the main site forwards /listing/* here.
+  basePath: BASE_PATH,
   allowedDevOrigins: ["192.168.1.188"],
   images: {
     remotePatterns,

@@ -1,5 +1,6 @@
 'use client';
 
+import { withBasePath } from "@/lib/base-path";
 import React, { useState } from 'react';
 import { ShieldCheck } from 'lucide-react';
 import type { Property } from '@/site/types/property';
@@ -80,5 +81,5 @@ export function EnquiryForm({
 
 export function Logo({ className = 'h-9 w-auto' }: { className?: string }) {
   // eslint-disable-next-line @next/next/no-img-element
-  return <img src="/logo_without_bg.png" alt="Parmar Properties" className={className} />;
+  return <img src={withBasePath("/logo_without_bg.png")} alt="Parmar Properties" className={className} />;
 }

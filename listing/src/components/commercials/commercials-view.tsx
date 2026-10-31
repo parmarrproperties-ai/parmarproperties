@@ -1,5 +1,6 @@
 "use client";
 
+import { withBasePath } from "@/lib/base-path";
 import * as React from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import {
@@ -304,7 +305,7 @@ export function CommercialsView() {
                             {cover ? (
                               /* eslint-disable-next-line @next/next/no-img-element */
                               <img
-                                src={cover}
+                                src={withBasePath(cover)}
                                 alt={item.title}
                                 className="size-10 shrink-0 rounded-md border border-border object-cover"
                               />

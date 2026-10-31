@@ -1,5 +1,6 @@
 "use client";
 
+import { withBasePath } from "@/lib/base-path";
 import * as React from "react";
 import { FileText, Trash, Upload } from "lucide-react";
 
@@ -143,7 +144,7 @@ export function MediaPicker({
               optimisation is intentionally skipped here. */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={shownUrl}
+            src={withBasePath(shownUrl)}
             alt={fileName ?? "Selected image"}
             className="aspect-video w-full object-cover"
           />

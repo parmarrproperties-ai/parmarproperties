@@ -1,5 +1,6 @@
 'use client';
 
+import { withBasePath } from "@/lib/base-path";
 import React from 'react';
 import { Phone, ArrowRight } from 'lucide-react';
 import type { Property } from '@/site/types/property';
@@ -48,7 +49,7 @@ export function PpcLanding({ property }: { property: Property }) {
     <div className="bg-mineral text-ink font-sans min-h-screen pb-16 md:pb-0">
       <header className="sticky top-0 z-30 flex items-center justify-between px-4 sm:px-8 py-3 bg-white/95 backdrop-blur border-b border-line">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/logo_without_bg.png" alt="Parmar Properties" className="h-9 w-auto" />
+        <img src={withBasePath("/logo_without_bg.png")} alt="Parmar Properties" className="h-9 w-auto" />
         <div className="flex items-center gap-4">
           <a href={PHONE_TEL} className={`hidden sm:inline-flex items-center gap-2 text-sm font-semibold text-brick ${FOCUS}`}>
             <Phone className="w-4 h-4" aria-hidden /> {PHONE_DISPLAY}
@@ -62,7 +63,7 @@ export function PpcLanding({ property }: { property: Property }) {
       <section className="relative text-white bg-ink overflow-hidden">
         {hero ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={hero} alt="" className="absolute inset-0 w-full h-full object-cover" />
+          <img src={withBasePath(hero)} alt="" className="absolute inset-0 w-full h-full object-cover" />
         ) : null}
         <div className="absolute inset-0 bg-linear-to-r from-ink/85 via-ink/55 to-ink/30" aria-hidden />
         <div className="relative max-w-6xl mx-auto px-4 sm:px-8 py-14 sm:py-24 grid gap-10 lg:grid-cols-[1fr_380px] items-end">
@@ -117,7 +118,7 @@ export function PpcLanding({ property }: { property: Property }) {
               // eslint-disable-next-line @next/next/no-img-element
               <img
                 key={src}
-                src={src}
+                src={withBasePath(src)}
                 alt={`${property.title}, view ${i + 2}`}
                 loading="lazy"
                 className={`w-full object-cover ${gallery.length === 1 ? 'aspect-16/9' : 'aspect-4/3'} ${gallery.length > 2 && i === 0 ? 'col-span-2 row-span-2 h-full' : ''}`}
@@ -157,7 +158,7 @@ export function PpcLanding({ property }: { property: Property }) {
             {plans.map((p) => (
               <figure key={p.title} className="bg-surface border border-line p-3">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={p.image} alt={`Floor plan: ${p.title}`} loading="lazy" className="w-full h-auto" />
+                <img src={withBasePath(p.image)} alt={`Floor plan: ${p.title}`} loading="lazy" className="w-full h-auto" />
                 <figcaption className="mt-3 text-base">
                   <span className="font-semibold">{p.title}</span>
                   {p.area ? <span className="text-slateText"> · {p.area}</span> : null}
@@ -204,7 +205,7 @@ export function PpcLanding({ property }: { property: Property }) {
               {property.reraQrImage ? (
                 <div className="flex items-center gap-4">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={property.reraQrImage} alt="MahaRERA registration QR code" className="w-24 h-24 bg-white p-1 border border-line" />
+                  <img src={withBasePath(property.reraQrImage)} alt="MahaRERA registration QR code" className="w-24 h-24 bg-white p-1 border border-line" />
                   {property.reraId ? <p className="text-sm text-slateText">MahaRERA registration<br /><span className="font-semibold text-ink">{property.reraId}</span></p> : null}
                 </div>
               ) : null}

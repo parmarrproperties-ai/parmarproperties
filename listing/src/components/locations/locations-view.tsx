@@ -1,5 +1,6 @@
 "use client";
 
+import { withBasePath } from "@/lib/base-path";
 import * as React from "react";
 import { MapPin, Pencil, Plus, Trash } from "lucide-react";
 import { toast } from "sonner";
@@ -168,7 +169,7 @@ export function LocationsView() {
               {location.cover_image || location.image_url ? (
                 /* eslint-disable-next-line @next/next/no-img-element */
                 <img
-                  src={location.cover_image ?? location.image_url ?? ""}
+                  src={withBasePath(location.cover_image ?? location.image_url ?? "")}
                   alt={location.name}
                   className="aspect-video w-full object-cover"
                 />

@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
+import Image from "@/components/ui/image";
 import { ShieldCheck, Landmark, Users, ArrowRight } from 'lucide-react';
 import { ABOUT_PAGE_CONTENT } from '@/site/data/content/about.content';
 import { pageMetadata } from '@/site/lib/seo';

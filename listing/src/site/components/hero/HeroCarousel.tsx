@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import Image from 'next/image';
+import Image from "@/components/ui/image";
 import { useRouter } from 'next/navigation';
 import {
   ChevronDown,

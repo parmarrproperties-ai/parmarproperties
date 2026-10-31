@@ -1,3 +1,4 @@
+import { withBasePath } from "@/lib/base-path";
 import React from 'react';
 import { Phone, ArrowRight } from 'lucide-react';
 import type { Property } from '@/site/types/property';
@@ -22,14 +23,14 @@ export function Folio({ property }: { property: Property }) {
         {a ? (
           <div className={`grid gap-2 sm:gap-3 ${b ? 'lg:grid-cols-3' : ''}`}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={a} alt={`${property.title}`} className={`w-full object-cover aspect-4/3 sm:aspect-[16/10] ${b ? 'lg:col-span-2 lg:row-span-2 lg:h-full lg:aspect-auto' : ''}`} />
+            <img src={withBasePath(a)} alt={`${property.title}`} className={`w-full object-cover aspect-4/3 sm:aspect-[16/10] ${b ? 'lg:col-span-2 lg:row-span-2 lg:h-full lg:aspect-auto' : ''}`} />
             {b ? (
               // eslint-disable-next-line @next/next/no-img-element
-              <img src={b} alt="" className="hidden lg:block w-full h-full object-cover aspect-4/3" />
+              <img src={withBasePath(b)} alt="" className="hidden lg:block w-full h-full object-cover aspect-4/3" />
             ) : null}
             {c ? (
               // eslint-disable-next-line @next/next/no-img-element
-              <img src={c} alt="" className="hidden lg:block w-full h-full object-cover aspect-4/3" />
+              <img src={withBasePath(c)} alt="" className="hidden lg:block w-full h-full object-cover aspect-4/3" />
             ) : null}
           </div>
         ) : null}

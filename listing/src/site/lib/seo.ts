@@ -9,7 +9,7 @@ import type { Metadata } from 'next';
  *                            unset on preview/staging domains so they stay out of Google.
  */
 export const SITE_URL = (
-  process.env.NEXT_PUBLIC_SITE_URL || 'https://parmarproperties-lisitng.vercel.app'
+  process.env.NEXT_PUBLIC_SITE_URL || 'https://www.parmarproperties.in/listing'
 ).replace(/\/+$/, '');
 
 export const ALLOW_INDEXING = process.env.NEXT_PUBLIC_ALLOW_INDEXING === 'true';

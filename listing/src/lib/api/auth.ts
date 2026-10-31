@@ -1,5 +1,6 @@
 import type { Profile } from "@/types";
 
+import { BASE_PATH } from "@/lib/base-path";
 import { getSupabase, throwOnError } from "./client";
 
 export async function signIn(email: string, password: string): Promise<void> {
@@ -103,7 +104,7 @@ export async function sendPasswordReset(email: string): Promise<void> {
   const redirectTo =
     typeof window === "undefined"
       ? undefined
-      : `${window.location.origin}/admin/login`;
+      : `${window.location.origin}${BASE_PATH}/admin/login`;
 
   const { error } = await supabase.auth.resetPasswordForEmail(email, {
     redirectTo,

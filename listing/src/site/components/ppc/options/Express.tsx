@@ -1,3 +1,4 @@
+import { withBasePath } from "@/lib/base-path";
 import React from 'react';
 import { Phone } from 'lucide-react';
 import type { Property } from '@/site/types/property';
@@ -23,7 +24,7 @@ export function Express({ property }: { property: Property }) {
         <div className="relative min-h-64 sm:min-h-80 lg:min-h-[560px] bg-ink">
           {d.hero ? (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={d.hero} alt={property.title} className="absolute inset-0 w-full h-full object-cover" />
+            <img src={withBasePath(d.hero)} alt={property.title} className="absolute inset-0 w-full h-full object-cover" />
           ) : null}
         </div>
         <div className="bg-white p-6 sm:p-10 flex flex-col gap-6">
@@ -55,7 +56,7 @@ export function Express({ property }: { property: Property }) {
           <section aria-label="Gallery" className="grid grid-cols-3 gap-2">
             {d.gallery.slice(0, 3).map((src, i) => (
               // eslint-disable-next-line @next/next/no-img-element
-              <img key={src} src={src} alt={`${property.title}, view ${i + 2}`} loading="lazy" className="w-full object-cover aspect-4/5 sm:aspect-[4/3]" />
+              <img key={src} src={withBasePath(src)} alt={`${property.title}, view ${i + 2}`} loading="lazy" className="w-full object-cover aspect-4/5 sm:aspect-[4/3]" />
             ))}
           </section>
         ) : null}

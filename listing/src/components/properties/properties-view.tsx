@@ -1,5 +1,6 @@
 "use client";
 
+import { withBasePath } from "@/lib/base-path";
 import * as React from "react";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -274,7 +275,7 @@ export function PropertiesView() {
                             {thumbnail ? (
                               /* eslint-disable-next-line @next/next/no-img-element */
                               <img
-                                src={thumbnail.url}
+                                src={withBasePath(thumbnail.url)}
                                 alt={thumbnail.alt_text ?? title}
                                 className="size-10 shrink-0 rounded-md border border-border object-cover"
                               />

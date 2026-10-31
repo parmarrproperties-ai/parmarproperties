@@ -1,5 +1,6 @@
 "use client";
 
+import { withBasePath } from "@/lib/base-path";
 import * as React from "react";
 import { ExternalLink, Images, Pencil, Plus, Trash } from "lucide-react";
 import { toast } from "sonner";
@@ -144,7 +145,7 @@ export function HeroSlidesView() {
                   {slide.image_url ? (
                     /* eslint-disable-next-line @next/next/no-img-element */
                     <img
-                      src={slide.image_url}
+                      src={withBasePath(slide.image_url)}
                       alt={slide.heading}
                       className="h-16 w-28 shrink-0 rounded-md border border-border object-cover"
                     />

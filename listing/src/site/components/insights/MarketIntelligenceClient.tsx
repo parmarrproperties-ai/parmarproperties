@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
+import Image from "@/components/ui/image";
 import { ArrowRight, CheckCircle2, FileText } from 'lucide-react';
 import { ScrollReveal } from '@/site/components/ui/ScrollReveal';
 import { INSIGHTS_PAGE_CONTENT } from '@/site/data/content/insights.content';

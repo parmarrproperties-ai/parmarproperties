@@ -1,3 +1,4 @@
+import { withBasePath } from "@/lib/base-path";
 import React from 'react';
 import { Phone, ArrowRight } from 'lucide-react';
 import type { Property } from '@/site/types/property';
@@ -13,7 +14,7 @@ export function Split({ property }: { property: Property }) {
       <div className="relative h-[68svh] lg:h-screen lg:sticky lg:top-0 bg-ink text-white">
         {d.hero ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={d.hero} alt="" className="absolute inset-0 w-full h-full object-cover" />
+          <img src={withBasePath(d.hero)} alt="" className="absolute inset-0 w-full h-full object-cover" />
         ) : null}
         <div className="absolute inset-0 bg-linear-to-t from-ink/90 via-ink/10 to-ink/30" aria-hidden />
         <span className="absolute top-4 left-4 sm:top-8 sm:left-8 bg-white px-3 py-1.5"><Logo className="h-7 w-auto" /></span>
@@ -51,7 +52,7 @@ export function Split({ property }: { property: Property }) {
           <section aria-label="Gallery" className="grid grid-cols-2 gap-2">
             {d.gallery.slice(0, 4).map((src, i) => (
               // eslint-disable-next-line @next/next/no-img-element
-              <img key={src} src={src} alt={`${property.title}, view ${i + 2}`} loading="lazy" className={`w-full object-cover aspect-4/3 ${i === 0 && d.gallery.length % 2 === 1 ? 'col-span-2' : ''}`} />
+              <img key={src} src={withBasePath(src)} alt={`${property.title}, view ${i + 2}`} loading="lazy" className={`w-full object-cover aspect-4/3 ${i === 0 && d.gallery.length % 2 === 1 ? 'col-span-2' : ''}`} />
             ))}
           </section>
         ) : null}

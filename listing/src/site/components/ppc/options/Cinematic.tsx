@@ -1,3 +1,4 @@
+import { withBasePath } from "@/lib/base-path";
 import React from 'react';
 import { Phone, ArrowRight } from 'lucide-react';
 import type { Property } from '@/site/types/property';
@@ -13,7 +14,7 @@ export function Cinematic({ property }: { property: Property }) {
       <section className="relative min-h-svh flex flex-col">
         {d.hero ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={d.hero} alt="" className="absolute inset-0 w-full h-full object-cover" />
+          <img src={withBasePath(d.hero)} alt="" className="absolute inset-0 w-full h-full object-cover" />
         ) : null}
         <div className="absolute inset-0 bg-linear-to-b from-ink/60 via-ink/10 to-ink" aria-hidden />
         <header className="relative flex items-center justify-between px-4 sm:px-10 py-4">
@@ -56,7 +57,7 @@ export function Cinematic({ property }: { property: Property }) {
         <section aria-label="Gallery" className="flex gap-3 overflow-x-auto snap-x snap-mandatory px-4 sm:px-10 pb-4">
           {d.gallery.map((src, i) => (
             // eslint-disable-next-line @next/next/no-img-element
-            <img key={src} src={src} alt={`${property.title}, view ${i + 2}`} loading="lazy" className="snap-start shrink-0 h-64 sm:h-96 w-auto max-w-[85vw] object-cover" />
+            <img key={src} src={withBasePath(src)} alt={`${property.title}, view ${i + 2}`} loading="lazy" className="snap-start shrink-0 h-64 sm:h-96 w-auto max-w-[85vw] object-cover" />
           ))}
         </section>
       ) : null}

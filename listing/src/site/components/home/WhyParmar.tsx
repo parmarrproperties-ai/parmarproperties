@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import { withBasePath } from '@/lib/base-path';
 import { Award, Gem, TrendingUp, ShieldCheck, CheckCircle2, ArrowRight, Sparkles } from 'lucide-react';
 import { ScrollReveal } from '@/site/components/ui/ScrollReveal';
 import { HOME_PAGE_CONTENT } from '@/site/data/content/home.content';
@@ -125,7 +126,7 @@ export function WhyParmar() {
             {/* Quick Contact Link */}
             <div className="shrink-0 hidden sm:block">
               <a
-                href={whyContent.whyCtaLink || '#properties'}
+                href={withBasePath(whyContent.whyCtaLink || '#properties')}
                 className="group inline-flex items-center gap-2 px-5 py-3 bg-[#2E3339] hover:bg-[#C5282F] border border-[#444C55] hover:border-[#C5282F] text-xs uppercase tracking-[0.15em] font-semibold text-white transition-all duration-300 shadow-sm"
               >
                 <span>{whyContent.whyCtaText}</span>

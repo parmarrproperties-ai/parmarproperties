@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
+import { withBasePath } from '@/lib/base-path';
+import Image from "@/components/ui/image";
 import { Scale, X, ArrowRight, Trash2 } from 'lucide-react';
 import { useCompareStore } from '@/site/store/compare';
 import type { Property } from '@/site/types/property';
@@ -32,7 +33,7 @@ export const CompareBar: React.FC = () => {
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
     } else {
-      window.location.href = '/compare';
+      window.location.href = withBasePath('/compare');
     }
   };
 

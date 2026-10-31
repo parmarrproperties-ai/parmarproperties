@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useMemo, useState, useEffect } from 'react';
-import Image from 'next/image';
+import Image from "@/components/ui/image";
 import Link from 'next/link';
 import { MapPin, ArrowLeft, ArrowRight, ShieldCheck, Building2, TrendingUp, Phone, Mail } from 'lucide-react';
 import { PropertyCard } from '@/site/components/property/PropertyCard';

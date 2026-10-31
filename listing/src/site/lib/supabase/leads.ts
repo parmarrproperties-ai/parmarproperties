@@ -1,3 +1,5 @@
+import { withBasePath } from '@/lib/base-path';
+
 export type LeadSourceSlug =
   | 'navbar_advisory'
   | 'private_opportunities_otp'
@@ -42,7 +44,7 @@ function keepOfflineCopy(payload: SubmitLeadPayload, reason: string) {
  */
 export async function submitLead(payload: SubmitLeadPayload): Promise<{ success: boolean; error?: string }> {
   try {
-    const response = await fetch('/api/leads', {
+    const response = await fetch(withBasePath('/api/leads'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),

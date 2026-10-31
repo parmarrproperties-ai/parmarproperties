@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { withOnwards } from '@/site/lib/price';
-import Image from 'next/image';
+import Image from "@/components/ui/image";
 import Link from 'next/link';
 import {
   MapPin,

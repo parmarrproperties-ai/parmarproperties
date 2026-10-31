@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import Image from 'next/image';
+import Image from "@/components/ui/image";
 import Link from 'next/link';
 import { MapPin, Maximize2, BedDouble, ArrowRight } from 'lucide-react';
 import { Property } from '@/site/types/property';

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, Suspense } from 'react';
-import Image from 'next/image';
+import Image from "@/components/ui/image";
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { Menu, X, PhoneCall, CheckCircle2, Send, ShieldCheck } from 'lucide-react';

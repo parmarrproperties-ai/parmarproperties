@@ -1,5 +1,6 @@
 "use client";
 
+import { withBasePath } from "@/lib/base-path";
 import * as React from "react";
 import { Image as ImageIcon, Star, Trash, Upload } from "lucide-react";
 
@@ -188,7 +189,7 @@ export function AddPropertyImages({
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src={image.previewUrl}
+                  src={withBasePath(image.previewUrl)}
                   alt={image.altText || image.file.name}
                   className="aspect-video w-full rounded-md object-cover sm:w-40"
                 />

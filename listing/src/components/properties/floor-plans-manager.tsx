@@ -1,5 +1,6 @@
 "use client";
 
+import { withBasePath } from "@/lib/base-path";
 import * as React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -262,7 +263,7 @@ export function FloorPlansManager({
                   {plan.image_url ? (
                     /* eslint-disable-next-line @next/next/no-img-element */
                     <img
-                      src={plan.image_url}
+                      src={withBasePath(plan.image_url)}
                       alt={plan.name}
                       draggable={false}
                       className="aspect-video w-full bg-muted object-contain"

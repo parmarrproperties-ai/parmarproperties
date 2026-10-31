@@ -1,5 +1,6 @@
 "use client";
 
+import { withBasePath } from "@/lib/base-path";
 import * as React from "react";
 import {
   ChevronDown,
@@ -172,7 +173,7 @@ export function PropertyConfigurationsManager({
                     {previewUrl ? (
                       /* eslint-disable-next-line @next/next/no-img-element */
                       <img
-                        src={previewUrl}
+                        src={withBasePath(previewUrl)}
                         alt={config.title}
                         className="size-14 shrink-0 rounded-md border border-border object-cover"
                       />
