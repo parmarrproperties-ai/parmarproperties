@@ -1,0 +1,80 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/listing",
+      "destination": "https://parmarproperties-lisitng.vercel.app/listing"
+    },
+    {
+      "source": "/listing/:path*",
+      "destination": "https://parmarproperties-lisitng.vercel.app/listing/:path*"
+    },
+    {
+      "source": "/About",
+      "destination": "/about"
+    },
+    {
+      "source": "/blog/:slug",
+      "destination": "/spa"
+    },
+    {
+      "source": "/admin",
+      "destination": "/spa"
+    },
+    {
+      "source": "/admin/:path*",
+      "destination": "/spa"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=63072000; includeSubDomains; preload"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        }
+      ]
+    },
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/admin(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
+      "source": "/spa",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex"
+        }
+      ]
+    }
+  ]
+}
