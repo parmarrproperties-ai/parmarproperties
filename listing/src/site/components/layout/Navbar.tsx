@@ -1,389 +1,206 @@
 'use client';
 
-import React, { useState, useEffect, Suspense } from 'react';
-import Image from "@/components/ui/image";
+/**
+ * Site header. Same design as the main site (www.parmarproperties.in): logo, fonts,
+ * sizes, scroll behaviour and mobile drawer. The menu items are the listing site's own.
+ */
+import React, { Suspense, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
-import { Menu, X, PhoneCall, CheckCircle2, Send, ShieldCheck } from 'lucide-react';
-import { submitLead } from '@/site/lib/supabase/leads';
+import { withBasePath } from '@/lib/base-path';
+
+const MAIN = 'https://www.parmarproperties.in';
+const INSTRUMENT: React.CSSProperties = { fontFamily: "var(--font-instrument), 'Instrument Sans', sans-serif" };
+const INTER: React.CSSProperties = { fontFamily: "'Inter', sans-serif" };
+
+const navigation = [
+  { id: 'home', label: 'Home', href: '/' },
+  { id: 'buy', label: 'Buy', href: '/properties?tab=buy' },
+  { id: 'new-launches', label: 'New Launches', href: '/properties?tab=new-launches' },
+  { id: 'luxury-collection', label: 'Luxury Collection', href: '/properties?tab=luxury-collection' },
+  { id: 'commercials', label: 'Commercials', href: '/commercials' },
+  { id: 'locations', label: 'Location', href: '/locations' },
+  { id: 'intelligence', label: 'Insights', href: '/market-intelligence' },
+];
+
+const ctaButton = {
+  label: 'Schedule Consultation',
+  href: 'https://wa.me/919322232899?text=Hi%2C%20I%20would%20like%20to%20schedule%20a%20consultation.',
+};
+
+function isLinkActive(id: string, pathname: string | null, tab: string | null): boolean {
+  if (!pathname) return false;
+  if (id === 'home') return pathname === '/';
+  if (pathname.startsWith('/properties')) {
+    if (id === 'new-launches') return tab === 'new-launches';
+    if (id === 'luxury-collection') return tab === 'luxury-collection';
+    if (id === 'buy') return !tab || tab === 'buy';
+    return false;
+  }
+  if (id === 'commercials') return pathname.startsWith('/commercials');
+  if (id === 'locations') return pathname.startsWith('/locations');
+  if (id === 'intelligence') return pathname.startsWith('/market-intelligence');
+  return false;
+}
 
 function NavbarContent() {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const currentTab = searchParams ? searchParams.get('tab') : null;
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [advisoryModalOpen, setAdvisoryModalOpen] = useState(false);
-  const [advisorySubmitted, setAdvisorySubmitted] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [advisoryForm, setAdvisoryForm] = useState({
-    name: '',
-    phone: '',
-    email: '',
-    assetType: 'Residential Luxury',
-    message: '',
-  });
+  const tab = useSearchParams()?.get('tab') ?? null;
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isHidden, setIsHidden] = useState(false);
+
+  // Same as the main site: hide while scrolling down, show again when scrolling up.
+  useEffect(() => {
+    let lastScrollY = window.scrollY;
+    let ticking = false;
+    const handleScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(() => {
+        const y = window.scrollY;
+        if (y <= 0) setIsHidden(false);
+        else if (y > lastScrollY && y > 100) setIsHidden(true);
+        else if (y < lastScrollY) setIsHidden(false);
+        lastScrollY = y;
+        ticking = false;
+      });
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   useEffect(() => {
-    if (mobileMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
+    document.body.style.overflow = isMobileMenuOpen ? 'hidden' : '';
     return () => {
       document.body.style.overflow = '';
     };
-  }, [mobileMenuOpen]);
-
-  const navLinks = [
-    { href: '/', id: 'home', label: 'Home' },
-    { href: '/properties?tab=buy', id: 'buy', label: 'Buy' },
-    { href: '/properties?tab=new-launches', id: 'new-launches', label: 'New Launches' },
-    { href: '/properties?tab=luxury-collection', id: 'luxury-collection', label: 'Luxury Collection' },
-    { href: '/commercials', id: 'commercials', label: 'Commercials' },
-    { href: '/locations', id: 'locations', label: 'Location' },
-    { href: '/market-intelligence', id: 'intelligence', label: 'Insights' },
-  ];
-
-  const isLinkActive = (id: string) => {
-    if (!pathname) return false;
-    if (id === 'home') {
-      return pathname === '/';
-    }
-    if (pathname.startsWith('/properties')) {
-      if (id === 'new-launches') {
-        return currentTab === 'new-launches';
-      }
-      if (id === 'luxury-collection') {
-        return currentTab === 'luxury-collection';
-      }
-      if (id === 'buy') {
-        return !currentTab || currentTab === 'buy';
-      }
-      return false;
-    }
-    if (id === 'commercials') {
-      return pathname.startsWith('/commercials');
-    }
-    if (id === 'locations') {
-      return pathname.startsWith('/locations');
-    }
-    if (id === 'intelligence') {
-      return pathname.startsWith('/market-intelligence');
-    }
-    return false;
-  };
-
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, link: (typeof navLinks)[0]) => {
-    setMobileMenuOpen(false);
-    if (link.id === 'home' && pathname === '/') {
-      e.preventDefault();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-  };
-
-  const handleAdvisorySubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    try {
-      const res = await submitLead({
-        fullName: advisoryForm.name,
-        phone: advisoryForm.phone,
-        email: advisoryForm.email,
-        assetClass: advisoryForm.assetType,
-        message: advisoryForm.message,
-        sourceSlug: 'navbar_advisory',
-      });
-      if (!res.success) {
-        console.error('Navbar lead submission rejected by database:', res.error);
-      }
-    } catch (err) {
-      console.error('Navbar lead submit exception:', err);
-    } finally {
-      setIsSubmitting(false);
-      setAdvisorySubmitted(true);
-    }
-  };
+  }, [isMobileMenuOpen]);
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 bg-[#EDEEE9]/95 backdrop-blur-md text-[#15181A] border-b border-[#CFD1CA] shadow-xs transition-colors duration-200 py-[4px]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-          {/* Brand Logo */}
-          <Link
-            href="/"
-            onClick={(e) => {
-              if (pathname === '/') {
-                e.preventDefault();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }
-            }}
-            className="flex items-center group cursor-pointer py-0.5 shrink-0 mr-3"
-          >
-            <Image
-              src="/logo_without_bg.png"
-              alt="Parmar Properties - Building Relationships"
-              width={240}
-              height={85}
-              className="h-10 sm:h-12 md:h-14 lg:h-15 w-auto object-contain transition-transform duration-200 group-hover:scale-105"
-              priority
-            />
-          </Link>
+    <header
+      data-mobile-menu-open={isMobileMenuOpen ? 'true' : 'false'}
+      className={`box-border caret-transparent text-sm min-h-[auto] min-w-[auto] fixed no-underline not-italic font-['Instrument_Sans'] z-[100] top-0 inset-x-0 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+        isHidden ? 'opacity-0 pointer-events-none -translate-y-4' : 'opacity-100 pointer-events-auto translate-y-0'
+      } bg-white/95 backdrop-blur-md shadow-sm`}
+    >
+      <div className="box-border caret-transparent w-full max-w-[1920px] no-underline mx-auto px-4 sm:px-6 md:px-10 lg:px-16">
+        <div className="flex justify-between items-center box-border caret-transparent text-neutral-900 leading-[11.5px] min-h-[64px] relative no-underline z-[100] md:leading-[1.5] md:min-h-[75px] w-full">
+          <div className="relative z-10">
+            <div className="flex items-center py-[5px]">
+              <a
+                href={MAIN + '/'}
+                className="flex items-center transition-opacity duration-200 hover:opacity-80"
+                aria-label="Go to home page"
+              >
+                <img
+                  src={withBasePath('/brand/parmar-properties-logo.webp')}
+                  width={1308}
+                  height={508}
+                  alt="Parmar Properties"
+                  className="h-[54px] md:h-[68px] xl:ml-[80px] w-auto object-contain object-left pointer-events-none"
+                />
+              </a>
+            </div>
+          </div>
 
-          {/* Desktop Navigation Links: HOME, BUY, NEW LAUNCHES, LUXURY COLLECTION, COMMERCIALS, LOCATION, INSIGHTS */}
-          <nav className="hidden xl:flex items-center space-x-5 2xl:space-x-6">
-            {navLinks.map((link) => {
-              const isActive = isLinkActive(link.id);
+          <nav className="box-border caret-transparent gap-x-[normal] hidden text-[10px] leading-[11.5px] min-h-0 min-w-0 gap-y-[normal] no-underline ml-auto xl:gap-x-7 2xl:gap-x-12 xl:flex xl:text-[6.66667px] xl:leading-[7.66667px] xl:min-h-[auto] xl:min-w-[auto] xl:gap-y-[26.6667px]">
+            {navigation.map((link) => {
+              const active = isLinkActive(link.id, pathname, tab);
               return (
-                <Link
+                <div
                   key={link.id}
-                  href={link.href}
-                  onClick={(e) => handleNavClick(e, link)}
-                  className={`relative text-xs font-sans tracking-[0.1em] uppercase py-1.5 transition-colors duration-300 group whitespace-nowrap ${
-                    isActive ? 'text-[#C5282F] font-bold' : 'text-[#5B605F] hover:text-[#C5282F]'
-                  }`}
+                  className="group relative uppercase items-center box-border caret-transparent gap-x-2.5 flex text-lg font-medium leading-[22.5px] min-h-0 min-w-0 gap-y-2.5 no-underline md:gap-x-[6.66667px] md:text-[13.3333px] md:leading-[16.6667px] md:min-h-[auto] md:min-w-[auto] md:gap-y-[6.66667px]"
                 >
-                  <span>{link.label}</span>
-                  {/* Active Red Underline */}
-                  <span
-                    className={`absolute bottom-0 left-0 h-[2px] bg-[#C5282F] transition-all duration-300 ease-out ${
-                      isActive ? 'w-full' : 'w-0 group-hover:w-full'
-                    }`}
-                  />
-                </Link>
+                  <Link
+                    href={link.href}
+                    className="block text-base font-semibold text-neutral-900 transition-colors duration-200 py-2 whitespace-nowrap"
+                    style={INSTRUMENT}
+                  >
+                    <span className="relative">
+                      {link.label}
+                      <span
+                        className={`absolute -bottom-1 left-0 h-0.5 bg-[#C5282F] transition-all duration-300 ${
+                          active ? 'w-full' : 'w-0 group-hover:w-full'
+                        }`}
+                      ></span>
+                    </span>
+                  </Link>
+                </div>
               );
             })}
           </nav>
 
-          {/* Mobile & Tablet Navigation Toggle */}
-          <div className="flex xl:hidden items-center shrink-0">
+          <div className="flex justify-end items-center relative z-[9999] pointer-events-auto xl:hidden">
             <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 sm:p-2.5 focus:outline-none text-[#15181A] hover:text-[#C5282F] transition-colors cursor-pointer flex items-center justify-center"
-              aria-label="Toggle navigation menu"
-              aria-expanded={mobileMenuOpen}
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label="Menu control"
+              className="items-center z-50 bg-transparent caret-transparent flex flex-col text-[10px] h-[30px] justify-center leading-[11.5px] min-h-[auto] min-w-[auto] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black relative no-underline w-[30px] border p-0 border-transparent xl:hidden"
             >
-              {mobileMenuOpen ? (
-                <X className="w-5 h-5" strokeWidth={1.5} />
-              ) : (
-                <div className="w-5 flex flex-col justify-center gap-[4.5px]" aria-hidden="true">
-                  <span
-                    className="w-full bg-[#15181A] block shrink-0"
-                    style={{ height: '1.5px', minHeight: '1.5px', maxHeight: '1.5px' }}
-                  />
-                  <span
-                    className="w-full bg-[#15181A] block shrink-0"
-                    style={{ height: '1.5px', minHeight: '1.5px', maxHeight: '1.5px' }}
-                  />
-                  <span
-                    className="w-full bg-[#15181A] block shrink-0"
-                    style={{ height: '1.5px', minHeight: '1.5px', maxHeight: '1.5px' }}
-                  />
-                </div>
-              )}
+              <span className={`bg-neutral-900 box-border caret-transparent block text-[10px] h-px leading-[11.5px] absolute no-underline w-full transition-all duration-300 ${isMobileMenuOpen ? 'rotate-45' : '-translate-y-[5px]'}`}></span>
+              <span className={`bg-neutral-900 box-border caret-transparent block text-[10px] h-px leading-[11.5px] absolute no-underline w-full transition-all duration-300 ${isMobileMenuOpen ? '-rotate-45' : 'translate-y-[5px]'}`}></span>
             </button>
           </div>
         </div>
-      </header>
+      </div>
+    </header>
 
-      {/* Mobile Drawer */}
-      {mobileMenuOpen && (
-        <div
-          className="fixed inset-0 z-40 xl:hidden bg-[#15181A]/60 backdrop-blur-sm transition-opacity"
-          onClick={() => setMobileMenuOpen(false)}
-        >
-          <div
-            className="fixed top-[52px] sm:top-[64px] right-0 bottom-0 w-[85%] max-w-xs sm:max-w-sm bg-[#EDEEE9] border-l border-[#CFD1CA] p-5 sm:p-6 flex flex-col justify-between shadow-2xl overflow-y-auto"
-            role="dialog"
-            aria-modal="true"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="pt-1">
-              <nav className="flex flex-col space-y-1.5">
-                {navLinks.map((link) => {
-                  const isActive = isLinkActive(link.id);
-                  return (
-                    <Link
-                      key={link.id}
-                      href={link.href}
-                      onClick={(e) => handleNavClick(e, link)}
-                      className={`text-sm tracking-wide flex items-center justify-between py-2.5 px-3.5 transition-all duration-200 rounded-xs border-l-2 ${
-                        isActive
-                          ? 'bg-[#C5282F]/10 text-[#C5282F] font-bold border-[#C5282F] pl-4'
-                          : 'text-[#15181A] hover:bg-[#C5282F]/10 hover:text-[#C5282F] border-transparent hover:pl-4'
-                      }`}
-                    >
-                      <span className="uppercase tracking-wider text-xs">{link.label}</span>
-                      {isActive && <span className="w-2 h-2 rounded-full bg-[#C5282F]" />}
-                    </Link>
-                  );
-                })}
-              </nav>
-            </div>
-
-            <div className="pt-5 border-t border-[#CFD1CA] space-y-3">
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  setAdvisorySubmitted(false);
-                  setAdvisoryModalOpen(true);
-                }}
-                className="w-full py-3 bg-[#C5282F] hover:bg-[#A31D23] text-white text-xs uppercase tracking-[0.15em] font-semibold flex items-center justify-center gap-2 shadow-xs cursor-pointer active:scale-98 transition-colors"
+      {/* Mobile drawer: identical to the main site */}
+      <div
+        className={`fixed inset-0 bg-white z-[90] transition-all duration-300 xl:hidden flex flex-col pt-28 px-8 pb-10 not-italic ${
+          isMobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        }`}
+      >
+        <div className="flex flex-col flex-1 gap-5 mt-2 overflow-y-auto max-h-[70vh]">
+          {navigation.map((link, index) => (
+            <div key={link.id} className="flex flex-col border-b border-neutral-100 last:border-0 pb-3 last:pb-0">
+              <Link
+                href={link.href}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className={`uppercase flex items-center justify-between text-black text-[24px] font-normal tracking-normal no-underline hover:text-black/60 transition-all duration-300 py-2 ${
+                  isMobileMenuOpen ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+                }`}
+                style={{ transitionDelay: `${isMobileMenuOpen ? 100 + index * 50 : 0}ms`, ...INTER }}
               >
-                <PhoneCall className="w-3.5 h-3.5" />
-                <span>TALK TO OUR ADVISORY</span>
-              </button>
-              <div className="text-[11px] text-[#8E9291] text-center">
-                MahaRERA: A51900018442
-              </div>
+                <span>{link.label}</span>
+              </Link>
             </div>
-          </div>
+          ))}
         </div>
-      )}
 
-      {/* TALK TO OUR ADVISORY MODAL */}
-      {advisoryModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/75 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="relative w-full max-w-lg bg-[#F7F7F4] border border-[#CFD1CA] shadow-2xl p-5 sm:p-8 text-[#15181A] max-h-[92vh] overflow-y-auto">
-            <button
-              onClick={() => setAdvisoryModalOpen(false)}
-              className="absolute top-4 right-4 p-2 text-[#5B605F] hover:text-[#15181A] hover:bg-black/5 rounded-full transition-colors cursor-pointer"
-              aria-label="Close Modal"
-            >
-              <X className="w-5 h-5" />
-            </button>
-
-            {advisorySubmitted ? (
-              <div className="text-center py-8 space-y-4">
-                <div className="w-14 h-14 bg-[#C5282F]/10 border border-[#C5282F]/20 text-[#C5282F] rounded-full flex items-center justify-center mx-auto">
-                  <CheckCircle2 className="w-8 h-8" />
-                </div>
-                <h3 className="font-serif text-2xl text-[#15181A] font-light">
-                  Consultation Scheduled
-                </h3>
-                <p className="text-xs sm:text-sm text-[#5B605F] max-w-sm mx-auto leading-relaxed">
-                  Thank you, <strong>{advisoryForm.name}</strong>. Our Senior Real Estate Advisory Director will reach out to you directly at <strong>{advisoryForm.phone}</strong> for a discreet private consultation.
-                </p>
-                <div className="pt-4">
-                  <button
-                    onClick={() => setAdvisoryModalOpen(false)}
-                    className="px-6 py-2.5 bg-[#15181A] text-white text-xs uppercase tracking-widest font-semibold hover:bg-[#C5282F] transition-colors cursor-pointer"
-                  >
-                    Done
-                  </button>
-                </div>
-              </div>
-            ) : (
-              <div>
-                <div className="mb-6">
-                  <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 bg-[#C5282F]/10 text-[#C5282F] text-[10px] uppercase tracking-[0.2em] font-semibold mb-2">
-                    <ShieldCheck className="w-3 h-3" /> Private Advisory Desk
-                  </div>
-                  <h3 className="font-serif text-2xl sm:text-3xl text-[#15181A] font-light">
-                    TALK TO OUR ADVISORY
-                  </h3>
-                  <p className="text-xs text-[#5B605F] mt-1 font-sans">
-                    Connect directly with Parmar Properties’ senior promoters for off-market access, capital valuations, or portfolio structuring in Mumbai.
-                  </p>
-                </div>
-
-                <form onSubmit={handleAdvisorySubmit} className="space-y-4 text-xs">
-                  <div>
-                    <label className="block uppercase tracking-wider font-semibold text-[#15181A] mb-1">
-                      Full Name *
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      value={advisoryForm.name}
-                      onChange={(e) => setAdvisoryForm({ ...advisoryForm, name: e.target.value })}
-                      placeholder="e.g. Rahul Singhania"
-                      className="w-full px-3.5 py-2.5 bg-white border border-[#CFD1CA] focus:border-[#C5282F] focus:outline-none text-xs"
-                    />
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <div>
-                      <label className="block uppercase tracking-wider font-semibold text-[#15181A] mb-1">
-                        Phone Number *
-                      </label>
-                      <input
-                        type="tel"
-                        required
-                        value={advisoryForm.phone}
-                        onChange={(e) => setAdvisoryForm({ ...advisoryForm, phone: e.target.value })}
-                        placeholder="+91 98200 00000"
-                        className="w-full px-3.5 py-2.5 bg-white border border-[#CFD1CA] focus:border-[#C5282F] focus:outline-none text-xs"
-                      />
-                    </div>
-                    <div>
-                      <label className="block uppercase tracking-wider font-semibold text-[#15181A] mb-1">
-                        Email Address *
-                      </label>
-                      <input
-                        type="email"
-                        required
-                        value={advisoryForm.email}
-                        onChange={(e) => setAdvisoryForm({ ...advisoryForm, email: e.target.value })}
-                        placeholder="rahul@example.com"
-                        className="w-full px-3.5 py-2.5 bg-white border border-[#CFD1CA] focus:border-[#C5282F] focus:outline-none text-xs"
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block uppercase tracking-wider font-semibold text-[#15181A] mb-1">
-                      Interest / Asset Class
-                    </label>
-                    <select
-                      value={advisoryForm.assetType}
-                      onChange={(e) => setAdvisoryForm({ ...advisoryForm, assetType: e.target.value })}
-                      className="w-full px-3.5 py-2.5 bg-white border border-[#CFD1CA] focus:border-[#C5282F] focus:outline-none text-xs"
-                    >
-                      <option value="Residential Luxury">Luxury Residential (Worli, Bandra, Juhu, Malabar Hill)</option>
-                      <option value="New Launches">Pre-Launch &amp; Upcoming Towers</option>
-                      <option value="Commercial Acquisition">Commercial Grade-A (BKC, Lower Parel, Retail)</option>
-                      <option value="Private Off-Market">Confidential Off-Market Trophy Assets</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label className="block uppercase tracking-wider font-semibold text-[#15181A] mb-1">
-                      Message / Requirements (Optional)
-                    </label>
-                    <textarea
-                      rows={3}
-                      value={advisoryForm.message}
-                      onChange={(e) => setAdvisoryForm({ ...advisoryForm, message: e.target.value })}
-                      placeholder="Preferred carpet area, target budget, or specific enclaves of interest..."
-                      className="w-full px-3.5 py-2 bg-white border border-[#CFD1CA] focus:border-[#C5282F] focus:outline-none text-xs"
-                    />
-                  </div>
-
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full py-3 bg-[#C5282F] hover:bg-[#A31D23] disabled:opacity-60 text-white text-xs uppercase tracking-[0.2em] font-semibold transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-sm mt-3"
-                  >
-                    <Send className="w-3.5 h-3.5" />
-                    <span>{isSubmitting ? 'CONNECTING ADVISORY...' : 'REQUEST PRIVATE CONSULTATION'}</span>
-                  </button>
-                </form>
-              </div>
-            )}
-          </div>
+        <div
+          className={`mt-auto w-full transition-all duration-500 ${isMobileMenuOpen ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}
+          style={{ transitionDelay: `${isMobileMenuOpen ? 100 + navigation.length * 50 : 0}ms` }}
+        >
+          <a
+            href={ctaButton.href}
+            className="uppercase w-full md:w-auto md:px-16 flex items-center justify-center bg-[#0F0F0F] text-white font-medium text-[17px] py-[18px] rounded-full hover:bg-black transition-colors"
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            {ctaButton.label}
+          </a>
         </div>
-      )}
+      </div>
     </>
   );
 }
 
-export const Navbar: React.FC = () => {
+/** useSearchParams needs a Suspense boundary; the fallback is the same bar with just the logo. */
+export function Navbar() {
   return (
     <Suspense
       fallback={
-        <header className="fixed top-0 left-0 right-0 z-50 bg-[#EDEEE9]/95 backdrop-blur-md text-[#15181A] border-b border-[#CFD1CA] py-[5px]">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-            <div className="h-14 w-40" />
+        <header className="fixed top-0 inset-x-0 z-[100] bg-white/95 backdrop-blur-md shadow-sm">
+          <div className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 md:px-10 lg:px-16">
+            <div className="flex items-center min-h-[64px] md:min-h-[75px] py-[5px]">
+              <img
+                src={withBasePath('/brand/parmar-properties-logo.webp')}
+                width={1308}
+                height={508}
+                alt="Parmar Properties"
+                className="h-[54px] md:h-[68px] xl:ml-[80px] w-auto object-contain object-left"
+              />
+            </div>
           </div>
         </header>
       }
@@ -391,4 +208,4 @@ export const Navbar: React.FC = () => {
       <NavbarContent />
     </Suspense>
   );
-};
+}

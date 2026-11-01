@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Plus_Jakarta_Sans } from "next/font/google";
+import { Instrument_Sans, Playfair_Display, Plus_Jakarta_Sans } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
@@ -18,6 +18,14 @@ const playfair = Playfair_Display({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800"],
   variable: "--font-playfair",
+  display: "swap",
+});
+
+// Same font as the main site header (www.parmarproperties.in).
+const instrumentSans = Instrument_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-instrument",
   display: "swap",
 });
 
@@ -58,7 +66,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en-IN" className={`${playfair.variable} ${plusJakarta.variable} scroll-smooth`}>
+    <html lang="en-IN" className={`${playfair.variable} ${plusJakarta.variable} ${instrumentSans.variable} scroll-smooth`}>
       <body className="min-h-screen flex flex-col bg-mineral text-ink">
         <JsonLd data={[organizationJsonLd(), websiteJsonLd()]} />
         <SiteChrome>{children}</SiteChrome>

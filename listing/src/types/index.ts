@@ -1,3 +1,4 @@
+import type { CommercialDealType } from "@/lib/segments";
 export type PropertyStatus =
   | "active"
   | "inactive"
@@ -427,7 +428,12 @@ export interface CommercialProperty extends AuditFields {
   slug: string;
   title: string;
   tagline: string;
-  hub_id: string;
+  /** Legacy hub column, no longer used by the forms. */
+  hub_id: string | null;
+  /** Shared location list (lookup_locations): same locations as residential. */
+  lookup_location_id: string | null;
+  /** Buy, Pre-Lease or Rent. */
+  deal_type: CommercialDealType;
   sub_location: string;
   price: number;
   carpet_area: number;
@@ -447,6 +453,7 @@ export interface CommercialProperty extends AuditFields {
 
 export interface CommercialPropertyWithRelations extends CommercialProperty {
   hub?: LookupItem | null;
+  location?: LookupItem | null;
   commercial_type?: LookupItem | null;
   grade?: LookupItem | null;
 }
@@ -455,6 +462,8 @@ export interface CommercialFilters {
   search?: string;
   status?: PublicationStatus | "";
   hub_id?: string;
+  lookup_location_id?: string;
+  deal_type?: CommercialDealType | "";
   sort?: "newest" | "oldest" | "title" | "price" | "updated";
   page?: number;
   pageSize?: number;

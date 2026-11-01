@@ -85,11 +85,11 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property, priority =
           </div>
         </div>
 
-        {/* Card Footer: RERA number above, full-width horizontal action button */}
+        {/* Card Footer: one RERA number (the first if a project has several wings); full list is on the property page */}
         <div className="pt-4 flex flex-col gap-2.5">
           <div className="flex items-center justify-between text-[11px] text-[#5B605F] font-sans">
             <span className="text-[10px] uppercase tracking-wider font-semibold text-[#5B605F]">MahaRERA</span>
-            <span className="font-mono font-medium">{property.reraId}</span>
+            <span className="font-mono font-medium">{property.reraId?.split(/[,;]/)[0].trim()}</span>
           </div>
           <Link
             href={`/properties/${property.slug}`}

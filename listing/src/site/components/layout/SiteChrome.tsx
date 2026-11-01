@@ -4,6 +4,7 @@ import React from 'react';
 import { usePathname } from 'next/navigation';
 import { Navbar } from '@/site/components/layout/Navbar';
 import { Footer } from '@/site/components/layout/Footer';
+import { FloatingWhatsApp } from '@/site/components/layout/FloatingWhatsApp';
 
 /** PPC landing pages (/<slug>/project) and /ads-manager render without the site nav and footer. */
 export function SiteChrome({ children }: { children: React.ReactNode }) {
@@ -15,6 +16,7 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
       <Navbar />
       <main className="flex-1">{children}</main>
       <Footer />
+      <FloatingWhatsApp />
     </>
   );
 }

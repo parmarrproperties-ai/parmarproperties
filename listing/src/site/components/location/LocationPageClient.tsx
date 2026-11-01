@@ -13,6 +13,8 @@ import {
   type LocationInfo as CmsLocationInfo,
 } from '@/site/lib/supabase/locations';
 import { fetchPropertyCards } from '@/site/lib/supabase/properties';
+import { LocationCategoryLinks } from '@/site/components/location/LocationCategoryLinks';
+import { sameLocation, type SegmentCounts } from '@/site/lib/location-segments';
 
 interface LocationInfo {
   name: string;
@@ -144,6 +146,8 @@ interface LocationPageClientProps {
   initialLocation?: CmsLocationInfo | null;
   initialProperties?: Property[];
   initialCorridor?: CmsLocationInfo[];
+  /** Listing counts per category, used for the Residential / Commercial links. */
+  segmentCounts?: SegmentCounts;
 }
 
 export default function LocationPageClient({
@@ -151,6 +155,7 @@ export default function LocationPageClient({
   initialLocation,
   initialProperties,
   initialCorridor,
+  segmentCounts,
 }: LocationPageClientProps) {
   const slug = slugProp.toLowerCase();
   const serverRendered = initialLocation !== undefined;
@@ -205,12 +210,8 @@ export default function LocationPageClient({
 
   const locationProperties = useMemo(() => {
     if (!location) return [];
-    const target = location.name.toLowerCase();
-    return properties.filter((p) => {
-      const pLoc = p.location.toLowerCase();
-      const pSub = (p.subLocation || '').toLowerCase();
-      return pLoc.includes(target) || pSub.includes(target) || target.includes(pLoc);
-    });
+    // Same rule as the Residential / Commercial category pages, so the counts always agree.
+    return properties.filter((p) => sameLocation(p.location, location.name));
   }, [properties, location]);
 
   if (locationLoading) {
@@ -330,6 +331,10 @@ export default function LocationPageClient({
           </div>
         </div>
       </section>
+
+      {segmentCounts ? (
+        <LocationCategoryLinks locationName={location.name} locationSlug={location.slug} counts={segmentCounts} />
+      ) : null}
 
       {/* Main Content: Properties List */}
       <section className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
