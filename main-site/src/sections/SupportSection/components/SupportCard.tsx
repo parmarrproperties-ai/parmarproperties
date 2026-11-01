@@ -46,8 +46,7 @@ export const SupportCard = (props: SupportCardProps) => {
           <div className="relative z-10 mt-auto transition-transform duration-500 ease-in-out group-hover:translate-y-0">
             <a
               href={props.href || "https://parmar-properties-two.vercel.app/services"}
-              target="_blank"
-              rel="noopener noreferrer"
+              {...((props.href || "").startsWith("/") ? {} : { target: "_blank", rel: "noopener noreferrer" })}
               className="inline-flex items-center gap-3 px-6 py-3 rounded-full border border-white/50 text-white font-['Instrument_Sans'] text-sm md:text-base font-medium transition-all duration-300 group-hover:bg-white group-hover:text-black group-hover:border-white"
             >
               {props.buttonText}

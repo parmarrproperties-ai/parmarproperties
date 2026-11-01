@@ -13,6 +13,7 @@ export const ServicesSection = () => {
             description={item.description}
             label={item.label}
             number={item.number}
+            href={item.href}
             delay={index * 150}
           />
         ))}

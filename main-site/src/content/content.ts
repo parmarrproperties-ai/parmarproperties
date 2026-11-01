@@ -32,7 +32,7 @@ type NavLink = {
 };
 type CtaButton = { label: string; href: string };
 type TextSegment = { text: string; revealColorClass: string; baseColorClass: string };
-type ServiceItem = { number: number; label: string; description: string; imageUrl: string };
+type ServiceItem = { number: number; label: string; description: string; imageUrl: string; href?: string };
 type ProcessStep = { stepNumber: string; title: string; description: string };
 type SupportCard = { title: string; description: string; imageSrc: string; iconSrc: string; buttonText: string; href: string };
 type TestimonialItem = { quote: string; author: string; rating: number; imageUrl: string };
@@ -65,7 +65,7 @@ export const navigation = {
 export const hero = {
   headline: "Access. Influence. Legacy",
   subHeadline: "SOUTH MUMBAI'S TRUSTED LUXURY REAL ESTATE ADVISORY SINCE 1981",
-  ctaButton: { label: "Find Properties", href: "https://wa.me/919322232899?text=Hi%2C%20I%20am%20looking%20to%20find%20properties." } as CtaButton,
+  ctaButton: { label: "Find Properties", href: "/listing/properties" } as CtaButton,
 };
 
 // ─── Identity Section ───────────────────────────────────────
@@ -112,6 +112,7 @@ export const services = {
       label: "Buy",
       description: "Access exclusive and pre-launch luxury inventory in South Mumbai. Take advantage of strategic timing, valuation guidance, and street-level pricing intelligence.",
       imageUrl: buyImg,
+      href: "/listing/properties",
     },
     {
       number: 2,
@@ -135,7 +136,7 @@ export const services = {
 export const processSouthMumbai = {
   heading: "Real Estate,\nRewired.",
   subHeading: "Steps:",
-  ctaButton: { label: "Start Your Search", href: "https://wa.me/919322232899?text=Hi%2C%20I%20want%20to%20start%20my%20property%20search." },
+  ctaButton: { label: "Start Your Search", href: "/listing/properties" },
   steps: [
     { stepNumber: "01", title: "Talk to a Real Human.", description: "We match you with an expert who actually listens." },
     { stepNumber: "02", title: "Get Clarity.", description: "We define what you really need, not just what's available." },
@@ -162,8 +163,8 @@ export const support = {
       description: "Access to carefully curated homes, pre-launch projects, and private listings through our trusted network.",
       imageSrc: exclusiveOpportunitiesImg,
       iconSrc: "https://c.animaapp.com/mq3zczchi8fb7N/assets/icon-6.svg",
-      buttonText: "Let's Connect",
-      href: "https://wa.me/919322232899?text=Hi%2C%20I%20am%20interested%20in%20exclusive%20opportunities.",
+      buttonText: "View New Launches",
+      href: "/listing/properties?tab=new-launches",
     },
     {
       title: "Complete Support",
@@ -266,6 +267,9 @@ export const footer = {
     { label: "About", href: "/about" },
     { label: "Services", href: "/services" },
     { label: "Properties", href: "/listing/properties" },
+    { label: "Locations", href: "/listing/locations" },
+    { label: "Commercial", href: "/listing/commercials" },
+    { label: "Market Insights", href: "/listing/market-intelligence" },
     { label: "Buy", href: "/services/buy" },
     { label: "Sell", href: "/services/sell" },
     { label: "Lease", href: "/services/lease" },
