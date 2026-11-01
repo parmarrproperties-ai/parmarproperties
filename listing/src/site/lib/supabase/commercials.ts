@@ -1,5 +1,5 @@
 import { getSupabase } from './client';
-import { COMMERCIAL_PROPERTIES, CommercialProperty } from '@/site/data/commercials';
+import type { CommercialProperty } from '@/site/data/commercials';
 
 export function mapDbCommercialToFrontend(dbRow: Record<string, any>): CommercialProperty {
   const price = Number(dbRow.price) || 0;
@@ -29,7 +29,7 @@ export function mapDbCommercialToFrontend(dbRow: Record<string, any>): Commercia
 export async function fetchPublishedCommercials(): Promise<CommercialProperty[]> {
   const supabase = getSupabase();
   if (!supabase) {
-    return COMMERCIAL_PROPERTIES;
+    return [];
   }
 
   try {
@@ -40,12 +40,12 @@ export async function fetchPublishedCommercials(): Promise<CommercialProperty[]>
       .order('sort_order', { ascending: true });
 
     if (error || !data || data.length === 0) {
-      return COMMERCIAL_PROPERTIES;
+      return [];
     }
 
     return data.map(mapDbCommercialToFrontend);
   } catch (err) {
-    console.warn('Failed to fetch commercials from Supabase, using fallback:', err);
-    return COMMERCIAL_PROPERTIES;
+    console.warn('Failed to fetch commercials from Supabase:', err);
+    return [];
   }
 }

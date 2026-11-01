@@ -17,7 +17,7 @@ import {
   ChevronDown,
   Check,
 } from 'lucide-react';
-import { COMMERCIAL_PROPERTIES, CommercialProperty } from '@/site/data/commercials';
+import type { CommercialProperty } from '@/site/data/commercials';
 import { ScrollReveal } from '@/site/components/ui/ScrollReveal';
 import { ScrollProgressBar } from '@/site/components/ui/ScrollProgressBar';
 import { PrivateOpportunities } from '@/site/components/property/PrivateOpportunities';
@@ -198,7 +198,7 @@ function CommercialCard({ property }: { property: CommercialProperty }) {
 }
 
 function CommercialsContent() {
-  const [commercials, setCommercials] = useState<CommercialProperty[]>(COMMERCIAL_PROPERTIES);
+  const [commercials, setCommercials] = useState<CommercialProperty[]>([]);
   const [selectedLocality, setSelectedLocality] = useState<string>('All');
   const [minPrice, setMinPrice] = useState<number>(15);
   const [maxPrice, setMaxPrice] = useState<number>(65);
