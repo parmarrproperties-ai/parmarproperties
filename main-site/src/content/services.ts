@@ -24,6 +24,8 @@ export type ServicePage = {
   imageUrl: string;
   imageAlt: string;
   whatsappText: string;
+  /** Optional second button that opens the matching listing page. */
+  browse?: { label: string; href: string };
   sections: ServiceSection[];
   faqs: Faq[];
 };
@@ -48,6 +50,7 @@ export const servicePages: ServicePage[] = [
     imageUrl: buyImg,
     imageAlt: "Luxury apartment interior in South Mumbai",
     whatsappText: "Hi, I am looking to buy a property in South Mumbai.",
+    browse: { label: "Browse properties", href: "/listing/properties" },
     sections: [
       {
         question: "How does Parmar Properties help you buy a home?",
@@ -190,6 +193,7 @@ export const servicePages: ServicePage[] = [
     imageUrl: nriImg,
     imageAlt: "NRI family reviewing Mumbai property investment options",
     whatsappText: "Hi, I am an NRI and need help with property in Mumbai.",
+    browse: { label: "Browse properties", href: "/listing/properties" },
     sections: [
       {
         question: "Can NRIs buy property in Mumbai?",

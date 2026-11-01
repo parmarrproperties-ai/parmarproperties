@@ -38,6 +38,9 @@ export const ServiceDetailPage = () => {
             <a href={whatsappLink(service.whatsappText)} target="_blank" rel="noopener noreferrer" className={primaryButton}>
               Talk to an advisor <ArrowIcon size={14} />
             </a>
+            {service.browse && (
+              <a href={service.browse.href} className={secondaryButton}>{service.browse.label}</a>
+            )}
             <Link to="/contact" className={secondaryButton}>Contact details</Link>
           </div>
         </div>

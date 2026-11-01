@@ -1,20 +1,22 @@
 import { ScrollReveal } from "@/components/ScrollReveal";
 
+const WHATSAPP_SERVICES = "https://wa.me/919322232899?text=Hi%2C%20I%20would%20like%20to%20know%20more%20about%20your%20services.";
+
 export type ServicePanelProps = {
   imageUrl: string;
   description: string;
   label: string;
   number: number;
   delay?: number;
+  href?: string;
 };
 
-export const ServicePanel = ({ imageUrl, description, label, number, delay = 0 }: ServicePanelProps) => {
+export const ServicePanel = ({ imageUrl, description, label, number, delay = 0, href = WHATSAPP_SERVICES }: ServicePanelProps) => {
   return (
     <ScrollReveal delay={delay} direction="up" distance={40} className="w-full">
       <a
-        href="https://wa.me/919322232899?text=Hi%2C%20I%20would%20like%20to%20know%20more%20about%20your%20services."
-        target="_blank"
-        rel="noopener noreferrer"
+        href={href}
+        {...(href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
         className="group relative w-full border-t border-white/20 bg-black overflow-hidden flex flex-col md:flex-row items-start md:items-center pt-10 pb-5 md:pt-24 md:pb-[76px] px-6 md:px-16 transition-all duration-500 cursor-pointer block"
       >
         {/* Background Image (appears on hover on desktop, always visible on mobile) */}

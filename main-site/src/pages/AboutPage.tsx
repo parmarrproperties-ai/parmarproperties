@@ -493,6 +493,7 @@ export const AboutPage = () => {
  </p>
  </ScrollReveal>
  <ScrollReveal direction="up"delay={300}>
+ <div className="flex flex-wrap justify-center gap-3">
  <a
  href="/contact"
  className="inline-flex items-center gap-3 bg-black text-white text-sm md:text-base font-semibold leading-none px-8 py-4 rounded-full hover:bg-black/80 hover:-translate-y-0.5 hover:scale-105 transition-all duration-300 shadow-md"
@@ -500,6 +501,14 @@ export const AboutPage = () => {
  <span>Schedule a Private Consultation</span>
  <ArrowIcon size={16} />
  </a>
+ <a
+ href="/listing/properties"
+ className="inline-flex items-center gap-3 border border-black text-black text-sm md:text-base font-semibold leading-none px-8 py-4 rounded-full hover:bg-black hover:text-white hover:-translate-y-0.5 hover:scale-105 transition-all duration-300"
+ >
+ <span>Browse Properties</span>
+ <ArrowIcon size={16} />
+ </a>
+ </div>
  </ScrollReveal>
  </div>
  </section>

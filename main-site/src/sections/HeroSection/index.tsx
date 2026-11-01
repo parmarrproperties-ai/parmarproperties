@@ -531,7 +531,7 @@ export const HeroSection = () => {
               style={{ fontFamily: "'Instrument Sans', sans-serif", fontSize: "clamp(13px, 1.4vw, 50px)", textAlign: "center", marginTop: "clamp(0px, 1vw, 20px)", marginBottom: "clamp(12px, 2vw, 40px)" }}>
               <strong className="font-semibold text-black">{hero.subHeadline}</strong>
             </h1>
-            <a href={hero.ctaButton.href} target="_blank"
+            <a href={hero.ctaButton.href} target={hero.ctaButton.href.startsWith("http") ? "_blank" : undefined}
               className="group inline-flex items-center bg-gray-900 text-white font-semibold rounded-full hover:bg-gray-800 hover:scale-105 transition-all duration-300 shadow-md hover:shadow-xl animate-hero-button"
               style={{
                 fontFamily: "'Instrument Sans', sans-serif",

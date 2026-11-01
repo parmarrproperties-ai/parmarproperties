@@ -23,8 +23,11 @@ export const SiteAnalytics = () => {
     const onClick = (e: MouseEvent) => {
       const link = (e.target as Element | null)?.closest?.("a[href]") as HTMLAnchorElement | null;
       if (!link) return;
-      const type = leadType(link.getAttribute("href") || "");
+      const href = link.getAttribute("href") || "";
+      const type = leadType(href);
       if (type) track("Lead Click", { type, page: window.location.pathname });
+      // Buttons that used to open WhatsApp now open the listing site: count those too.
+      else if (href.startsWith("/listing")) track("Listing Click", { to: href.split("?")[0], page: window.location.pathname });
     };
     document.addEventListener("click", onClick, { capture: true });
     return () => document.removeEventListener("click", onClick, { capture: true });
