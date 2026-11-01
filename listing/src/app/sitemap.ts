@@ -2,10 +2,14 @@ import type { MetadataRoute } from 'next';
 
 import { getSupabase } from '@/site/lib/supabase/client';
 import { absoluteUrl } from '@/site/lib/seo';
+import { fetchPropertyCards } from '@/site/lib/supabase/properties';
+import { fetchPublishedCommercials } from '@/site/lib/supabase/commercials';
+import { segmentCounts } from '@/site/lib/location-segments';
+import { COMMERCIAL_CATEGORIES, RESIDENTIAL_CATEGORIES, segmentPath } from '@/lib/segments';
 
 export const revalidate = 3600;
 
-type Row = { slug: string; updated_at?: string | null; cover_image?: string | null };
+type Row = { slug: string; name?: string; updated_at?: string | null; cover_image?: string | null };
 
 function rowsOrEmpty(table: string, result: { data: unknown; error: { message: string } | null }): Row[] {
   if (result.error) {
@@ -29,6 +33,39 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       ])
     : [];
   const empty = { data: [], error: null };
+
+  // Residential / Commercial category pages are listed only when they have listings.
+  const [cards, commercials, segmentLocationResult] = supabase
+    ? await Promise.all([
+        fetchPropertyCards(),
+        fetchPublishedCommercials(),
+        supabase
+          .from('locations')
+          .select('slug, name, updated_at')
+          .eq('is_active', true)
+          .eq('publication_status', 'published'),
+      ])
+    : [[], [], empty];
+  const segmentLocations = rowsOrEmpty('locations (categories)', segmentLocationResult);
+  const segmentPages: MetadataRoute.Sitemap = segmentLocations.flatMap((loc) => {
+    if (!loc.name) return [];
+    const counts = segmentCounts(cards, commercials, loc.name);
+    const lastMod = loc.updated_at ? new Date(loc.updated_at) : undefined;
+    return [
+      ...RESIDENTIAL_CATEGORIES.filter((c) => counts.residential[c.slug] > 0).map((c) => ({
+        url: absoluteUrl(segmentPath(loc.slug, 'residential', c.slug)),
+        lastModified: lastMod,
+        changeFrequency: 'weekly' as const,
+        priority: 0.6,
+      })),
+      ...COMMERCIAL_CATEGORIES.filter((c) => counts.commercial[c.slug] > 0).map((c) => ({
+        url: absoluteUrl(segmentPath(loc.slug, 'commercial', c.slug)),
+        lastModified: lastMod,
+        changeFrequency: 'weekly' as const,
+        priority: 0.6,
+      })),
+    ];
+  });
   const properties = rowsOrEmpty('properties', propertyResult ?? empty);
   const locations = rowsOrEmpty('locations', locationResult ?? empty);
   const articles = rowsOrEmpty('insights_articles', articleResult ?? empty);
@@ -59,6 +96,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'monthly' as const,
       priority: 0.6,
     })),
+    ...segmentPages,
     ...articles.map((row) => ({
       url: absoluteUrl(`/market-intelligence/${row.slug}`),
       lastModified: lastModified(row),

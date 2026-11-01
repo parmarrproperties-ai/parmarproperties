@@ -375,9 +375,10 @@ export const commercialPropertySchema = z.object({
     .min(1, "Slug is required")
     .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, "Use lowercase letters, numbers, and hyphens"),
   tagline: z.string().min(1, "Tagline is required").max(200),
-  hub_id: z.string().uuid("Select a commercial hub"),
+  lookup_location_id: z.string().uuid("Select a location"),
+  deal_type: z.enum(["buy", "pre_lease", "rent"], { message: "Select Buy, Pre-Lease or Rent" }),
   sub_location: z.string().min(1, "Sub-location is required").max(150),
-  price: z.coerce.number().gt(0, "Price must be greater than 0"),
+  price: z.coerce.number().gt(0, "Enter the amount, it must be greater than 0").max(9999.99, "Amount is too large"),
   carpet_area: z.coerce.number().int().gt(0, "Carpet area is required"),
   commercial_type_id: z.string().uuid("Select a commercial type"),
   floor: z.string().min(1, "Floor details are required").max(80),

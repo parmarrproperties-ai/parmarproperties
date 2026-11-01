@@ -18,6 +18,7 @@ import {
   listLookupCommercialGrades,
   listLookupCommercialHubs,
   listLookupCommercialTypes,
+  listLookupLocations,
 } from "./lookups";
 
 const TABLE = "commercial_properties";
@@ -69,6 +70,8 @@ export async function listCommercialProperties(
 
   if (filters.status) query = query.eq("status", filters.status);
   if (filters.hub_id) query = query.eq("hub_id", filters.hub_id);
+  if (filters.lookup_location_id) query = query.eq("lookup_location_id", filters.lookup_location_id);
+  if (filters.deal_type) query = query.eq("deal_type", filters.deal_type);
 
   switch (filters.sort) {
     case "oldest":
@@ -110,19 +113,22 @@ async function attachRelations(
 ): Promise<CommercialPropertyWithRelations[]> {
   if (rows.length === 0) return [];
 
-  const [hubs, types, grades] = await Promise.all([
+  const [hubs, locations, types, grades] = await Promise.all([
     listLookupCommercialHubs(false),
+    listLookupLocations(false),
     listLookupCommercialTypes(false),
     listLookupCommercialGrades(false),
   ]);
 
   const hubById = new Map(hubs.map((h) => [h.id, h]));
+  const locationById = new Map(locations.map((l) => [l.id, l]));
   const typeById = new Map(types.map((t) => [t.id, t]));
   const gradeById = new Map(grades.map((g) => [g.id, g]));
 
   return rows.map((row) => ({
     ...row,
-    hub: hubById.get(row.hub_id) ?? null,
+    hub: row.hub_id ? hubById.get(row.hub_id) ?? null : null,
+    location: row.lookup_location_id ? locationById.get(row.lookup_location_id) ?? null : null,
     commercial_type: typeById.get(row.commercial_type_id) ?? null,
     grade: row.grade_id ? gradeById.get(row.grade_id) ?? null : null,
   }));
@@ -197,14 +203,14 @@ export async function deleteCommercialProperty(id: string): Promise<void> {
 }
 
 export async function listCommercialFormLookups(): Promise<{
-  hubs: LookupItem[];
+  locations: LookupItem[];
   types: LookupItem[];
   grades: LookupItem[];
 }> {
-  const [hubs, types, grades] = await Promise.all([
-    listLookupCommercialHubs(),
+  const [locations, types, grades] = await Promise.all([
+    listLookupLocations(),
     listLookupCommercialTypes(),
     listLookupCommercialGrades(),
   ]);
-  return { hubs, types, grades };
+  return { locations, types, grades };
 }

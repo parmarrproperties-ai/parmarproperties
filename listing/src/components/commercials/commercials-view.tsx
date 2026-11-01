@@ -22,7 +22,7 @@ import type {
 } from "@/types";
 import { formatDateTime, getErrorMessage } from "@/lib/utils";
 import { useResource } from "@/lib/hooks/use-resource";
-import { DEFAULT_PAGE_SIZE, formatCrore } from "@/lib/constants";
+import { DEFAULT_PAGE_SIZE } from "@/lib/constants";
 import {
   deleteCommercialProperty,
   listCommercialProperties,
@@ -56,6 +56,7 @@ import { Pagination } from "@/components/shared/pagination";
 import { ConfirmDialog, useConfirm } from "@/components/shared/confirm-dialog";
 import { PublicationStatusBadge } from "@/components/shared/status-badge";
 import { CommercialDialog } from "@/components/commercials/commercial-dialog";
+import { dealTypeLabel, formatCommercialAmount } from "@/lib/segments";
 
 const ALL = "all";
 
@@ -286,7 +287,7 @@ export function CommercialsView() {
                 <TableHeader>
                   <TableRow>
                     <TableHead>Listing</TableHead>
-                    <TableHead>Hub</TableHead>
+                    <TableHead>Location</TableHead>
                     <TableHead>Price</TableHead>
                     <TableHead>Type</TableHead>
                     <TableHead>Status</TableHead>
@@ -323,10 +324,11 @@ export function CommercialsView() {
                           </div>
                         </TableCell>
                         <TableCell className="text-sm text-muted-foreground">
-                          {item.hub?.name ?? "—"}
+                          {item.location?.name ?? item.hub?.name ?? "—"}
+                          <span className="block text-xs">{dealTypeLabel(item.deal_type)}</span>
                         </TableCell>
                         <TableCell className="whitespace-nowrap text-sm">
-                          {formatCrore(item.price)}
+                          {formatCommercialAmount(item.price, item.deal_type)}
                         </TableCell>
                         <TableCell className="text-sm text-muted-foreground">
                           {item.commercial_type?.name ?? "—"}

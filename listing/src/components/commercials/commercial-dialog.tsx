@@ -36,6 +36,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Field, FieldGrid } from "@/components/shared/field";
+import { COMMERCIAL_DEAL_TYPES, type CommercialDealType } from "@/lib/segments";
 import { Spinner } from "@/components/shared/states";
 import { TagInput } from "@/components/shared/tag-input";
 import {
@@ -64,7 +65,8 @@ function toFormValues(
     title: commercial?.title ?? "",
     slug: commercial?.slug ?? "",
     tagline: commercial?.tagline ?? "",
-    hub_id: commercial?.hub_id ?? "",
+    lookup_location_id: commercial?.lookup_location_id ?? "",
+    deal_type: commercial?.deal_type ?? undefined,
     sub_location: commercial?.sub_location ?? "",
     price: commercial?.price ?? undefined,
     carpet_area: commercial?.carpet_area ?? undefined,
@@ -92,10 +94,10 @@ export function CommercialDialog({
   const [selection, setSelection] =
     React.useState<FileSelection>(unchangedSelection);
   const [lookups, setLookups] = React.useState<{
-    hubs: LookupItem[];
+    locations: LookupItem[];
     types: LookupItem[];
     grades: LookupItem[];
-  }>({ hubs: [], types: [], grades: [] });
+  }>({ locations: [], types: [], grades: [] });
   const [slugLocked, setSlugLocked] = React.useState(false);
 
   const form = useForm<CommercialValues, unknown, CommercialOutput>({
@@ -244,18 +246,40 @@ export function CommercialDialog({
           </Field>
 
           <FieldGrid>
-            <Field label="Hub" required error={errors.hub_id?.message}>
+            <Field label="Location" required error={errors.lookup_location_id?.message}>
               <Select
-                value={form.watch("hub_id") || undefined}
-                onValueChange={(value) => form.setValue("hub_id", value)}
+                value={form.watch("lookup_location_id") || undefined}
+                onValueChange={(value) =>
+                  form.setValue("lookup_location_id", value, { shouldValidate: true })
+                }
               >
-                <SelectTrigger aria-label="Commercial hub">
-                  <SelectValue placeholder="Select hub" />
+                <SelectTrigger aria-label="Location">
+                  <SelectValue placeholder="Select location" />
                 </SelectTrigger>
                 <SelectContent>
-                  {lookups.hubs.map((hub) => (
-                    <SelectItem key={hub.id} value={hub.id}>
-                      {hub.name}
+                  {lookups.locations.map((loc) => (
+                    <SelectItem key={loc.id} value={loc.id}>
+                      {loc.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </Field>
+
+            <Field label="Listed for" required error={errors.deal_type?.message}>
+              <Select
+                value={form.watch("deal_type") || undefined}
+                onValueChange={(value) =>
+                  form.setValue("deal_type", value as CommercialDealType, { shouldValidate: true })
+                }
+              >
+                <SelectTrigger aria-label="Buy, Pre-Lease or Rent">
+                  <SelectValue placeholder="Buy, Pre-Lease or Rent" />
+                </SelectTrigger>
+                <SelectContent>
+                  {COMMERCIAL_DEAL_TYPES.map((d) => (
+                    <SelectItem key={d.value} value={d.value}>
+                      {d.label}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -278,17 +302,21 @@ export function CommercialDialog({
 
           <FieldGrid>
             <Field
-              label="Price (₹)"
+              label={form.watch("deal_type") === "buy" || !form.watch("deal_type") ? "Price (₹ Cr)" : "Monthly rent (₹ Lakh)"}
               htmlFor="commercial-price"
               required
-              hint="Stored as rupees; the site may show crores."
+              hint={
+                form.watch("deal_type") === "buy" || !form.watch("deal_type")
+                  ? "In crores, e.g. 36.5 for ₹36.5 Cr."
+                  : "In lakh per month, e.g. 3.5 for ₹3.5 Lakh / month."
+              }
               error={errors.price?.message}
             >
               <Input
                 id="commercial-price"
                 type="number"
                 min={0}
-                step="1"
+                step="0.01"
                 {...form.register("price")}
               />
             </Field>
