@@ -928,7 +928,7 @@ export const PropertyDetailClient: React.FC<PropertyDetailClientProps> = ({
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {similarProperties.map((p, idx) => (
-              <ScrollReveal key={p.id} animation="fade-up" delay={idx * 100}>
+              <ScrollReveal key={p.id} animation="fade-up" delay={idx * 100} className="h-full">
                 <PropertyCard property={p} />
               </ScrollReveal>
             ))}

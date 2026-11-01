@@ -120,7 +120,7 @@ export default function HomePageClient({
             </p>
           ) : null}
           {featuredProperties.map((property, idx) => (
-            <ScrollReveal key={property.id} animation="fade-up" delay={(idx % 3) * 120}>
+            <ScrollReveal key={property.id} animation="fade-up" delay={(idx % 3) * 120} className="h-full">
               <PropertyCard property={property} priority={idx < 3} />
             </ScrollReveal>
           ))}

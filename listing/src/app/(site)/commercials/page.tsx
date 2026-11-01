@@ -2,12 +2,16 @@
 
 import React, { useState, useMemo, useEffect, Suspense } from 'react';
 import Link from 'next/link';
+import { useRouter, useSearchParams } from 'next/navigation';
 import {
   SlidersHorizontal,
   RotateCcw,
   ArrowUpDown,
   Filter,
   Building2,
+  Compass,
+  CalendarClock,
+  KeyRound,
   X,
   ChevronDown,
   Check,
@@ -19,8 +23,25 @@ import { PrivateOpportunities } from '@/site/components/property/PrivateOpportun
 import { COMMERCIALS_PAGE_CONTENT } from '@/site/data/content/commercials.content';
 import { fetchPublishedCommercials } from '@/site/lib/supabase/commercials';
 import { CommercialCard } from '@/site/components/commercial/CommercialCard';
+import { COMMERCIAL_CATEGORIES, type CommercialCategory } from '@/lib/segments';
+
+// Same look as the Buy / New Launches / Luxury Collection tabs on the properties page.
+const TAB_STYLE: Record<CommercialCategory, { icon: typeof Compass; active: string; iconClass: string }> = {
+  buy: { icon: Compass, active: 'bg-[#C5282F] text-white shadow-xs', iconClass: '' },
+  'pre-lease': { icon: CalendarClock, active: 'bg-[#393187] text-white shadow-xs', iconClass: '' },
+  rent: { icon: KeyRound, active: 'bg-[#15181A] text-white shadow-xs', iconClass: 'text-[#C5282F]' },
+};
 
 function CommercialsContent() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const rawTab = searchParams ? searchParams.get('tab') : null;
+  const activeTab: CommercialCategory = rawTab === 'pre-lease' ? 'pre-lease' : rawTab === 'rent' ? 'rent' : 'buy';
+  const dealType = COMMERCIAL_CATEGORIES.find((c) => c.slug === activeTab)?.dealType ?? 'buy';
+  const handleTabChange = (tab: CommercialCategory) => {
+    router.push(`/commercials?tab=${tab}`, { scroll: false });
+  };
+
   const [commercials, setCommercials] = useState<CommercialProperty[]>([]);
   const [selectedLocality, setSelectedLocality] = useState<string>('All');
   const [minPrice, setMinPrice] = useState<number>(15);
@@ -62,10 +83,27 @@ function CommercialsContent() {
     setSortBy('featured');
   };
 
+  const tabCounts = useMemo(() => {
+    const counts = { buy: 0, 'pre-lease': 0, rent: 0 } as Record<CommercialCategory, number>;
+    for (const c of COMMERCIAL_CATEGORIES) counts[c.slug] = commercials.filter((p) => p.dealType === c.dealType).length;
+    return counts;
+  }, [commercials]);
+
+  // Location filter lists the locations that actually have commercial listings.
+  const localityOptions = useMemo(
+    () => Array.from(new Set(commercials.map((c) => c.location).filter(Boolean))).sort(),
+    [commercials],
+  );
+
   const filteredProperties = useMemo(() => {
-    let list = commercials.filter((p) => {
+    const list = commercials.filter((p) => {
+      if (p.dealType !== dealType) return false;
       if (selectedLocality !== 'All' && p.location !== selectedLocality) return false;
-      if (p.price < minPrice || p.price > maxPrice) return false;
+      // The budget slider is in crores, so it only applies to Buy; its end stops mean "no limit".
+      if (activeTab === 'buy') {
+        if (minPrice > 15 && p.price < minPrice) return false;
+        if (maxPrice < 65 && p.price > maxPrice) return false;
+      }
       return true;
     });
 
@@ -78,7 +116,7 @@ function CommercialsContent() {
     }
 
     return list;
-  }, [commercials, selectedLocality, minPrice, maxPrice, sortBy]);
+  }, [commercials, selectedLocality, minPrice, maxPrice, sortBy, dealType, activeTab]);
 
   return (
     <div className="pt-28 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto min-h-screen bg-[#EDEEE9] text-[#15181A]">
@@ -167,6 +205,34 @@ function CommercialsContent() {
             </div>
           </div>
         </div>
+
+        {/* Buy / Pre-Lease / Rent */}
+        <div className="mt-4 sm:mt-8 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 sm:bg-[#F7F7F4] sm:p-2 sm:border sm:border-[#CFD1CA] w-full" role="tablist" aria-label="Commercial categories">
+          {COMMERCIAL_CATEGORIES.map((c) => {
+            const style = TAB_STYLE[c.slug];
+            const Icon = style.icon;
+            const active = activeTab === c.slug;
+            return (
+              <button
+                key={c.slug}
+                role="tab"
+                aria-selected={active}
+                onClick={() => handleTabChange(c.slug)}
+                className={`w-full sm:w-auto sm:flex-1 py-2.5 sm:py-3 px-3.5 sm:px-4 text-[11px] sm:text-xs uppercase tracking-[0.12em] sm:tracking-[0.15em] font-semibold transition-all duration-200 flex items-center justify-between sm:justify-center gap-2 cursor-pointer rounded-xs sm:rounded-none ${
+                  active ? style.active : 'bg-white sm:bg-transparent border border-[#CFD1CA] sm:border-0 text-[#15181A] hover:bg-[#EDEEE9]'
+                }`}
+              >
+                <div className="flex items-center gap-2">
+                  <Icon className={`w-3.5 h-3.5 shrink-0 ${style.iconClass}`} />
+                  <span>{c.label}</span>
+                </div>
+                <span className={`text-[10px] px-2 py-0.5 rounded-full font-mono ${active ? 'bg-white/20 text-white' : 'bg-[#CFD1CA]/60 text-[#15181A]'}`}>
+                  {tabCounts[c.slug]}
+                </span>
+              </button>
+            );
+          })}
+        </div>
       </div>
 
       {/* Main Grid with Left Sidebar */}
@@ -191,24 +257,22 @@ function CommercialsContent() {
             {/* Locality */}
             <div>
               <label className="block text-xs uppercase tracking-wider font-semibold text-[#15181A] mb-2 font-sans">
-                Commercial Hub
+                Location
               </label>
               <select
                 value={selectedLocality}
                 onChange={(e) => setSelectedLocality(e.target.value)}
                 className="w-full p-2.5 bg-[#EDEEE9] border border-[#CFD1CA] text-xs font-medium text-[#15181A] focus:outline-none focus:border-[#C5282F]"
               >
-                <option value="All">All Commercial Hubs</option>
-                <option value="BKC">Bandra Kurla Complex (BKC)</option>
-                <option value="Lower Parel">Lower Parel &amp; Senapati Bapat Marg</option>
-                <option value="Worli">Worli Coastal Commercial</option>
-                <option value="Nariman Point">Nariman Point &amp; Marine Drive</option>
-                <option value="Bandra West">Bandra West &amp; Pali Hill</option>
-                <option value="Powai">Powai Business Park</option>
+                <option value="All">All Locations</option>
+                {localityOptions.map((l) => (
+                  <option key={l} value={l}>{l}</option>
+                ))}
               </select>
             </div>
 
-            {/* 2-Way Price Slider */}
+            {/* 2-Way Price Slider (Buy only; rent is a monthly amount) */}
+            {activeTab === 'buy' && (
             <div>
               <div className="flex items-center justify-between mb-3 font-sans">
                 <label className="text-xs uppercase tracking-wider font-semibold text-[#15181A]">
@@ -269,6 +333,7 @@ function CommercialsContent() {
                 <span>{maxPrice >= 65 ? '₹65 Cr+' : `₹${maxPrice} Cr`}</span>
               </div>
             </div>
+            )}
           </div>
         </aside>
 
@@ -290,14 +355,14 @@ function CommercialsContent() {
                   onChange={(e) => setSelectedLocality(e.target.value)}
                   className="w-full p-2.5 bg-[#F7F7F4] border border-[#CFD1CA] text-xs font-medium"
                 >
-                  <option value="All">All Commercial Hubs</option>
-                  <option value="BKC">BKC</option>
-                  <option value="Lower Parel">Lower Parel</option>
-                  <option value="Worli">Worli</option>
-                  <option value="Nariman Point">Nariman Point</option>
-                </select>
+                  <option value="All">All Locations</option>
+                {localityOptions.map((l) => (
+                  <option key={l} value={l}>{l}</option>
+                ))}
+              </select>
               </div>
 
+              {activeTab === 'buy' && (
               <div>
                 <div className="flex justify-between text-xs mb-3 font-sans">
                   <span className="font-semibold">Budget Range</span>
@@ -356,6 +421,7 @@ function CommercialsContent() {
                   <span>{maxPrice >= 65 ? '₹65 Cr+' : `₹${maxPrice} Cr`}</span>
                 </div>
               </div>
+              )}
 
               <div className="pt-4 flex gap-3">
                 <button
@@ -396,7 +462,7 @@ function CommercialsContent() {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredProperties.map((property, idx) => (
-                <ScrollReveal key={property.id} animation="fade-up" delay={(idx % 3) * 100}>
+                <ScrollReveal key={property.id} animation="fade-up" delay={(idx % 3) * 100} className="h-full">
                   <CommercialCard property={property} />
                 </ScrollReveal>
               ))}

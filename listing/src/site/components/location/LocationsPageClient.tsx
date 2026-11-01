@@ -315,7 +315,7 @@ function LocationsContent() {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredProperties.map((property, idx) => (
-              <ScrollReveal key={property.id} animation="fade-up" delay={(idx % 3) * 100}>
+              <ScrollReveal key={property.id} animation="fade-up" delay={(idx % 3) * 100} className="h-full">
                 <PropertyCard property={property} />
               </ScrollReveal>
             ))}

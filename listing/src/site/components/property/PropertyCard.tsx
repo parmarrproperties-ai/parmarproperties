@@ -16,7 +16,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property, priority =
   const [imgError, setImgError] = useState(false);
 
   return (
-    <div className="group bg-[#F7F7F4] rounded-none border border-[#CFD1CA] hover:border-[#15181A] hover:-translate-y-2 hover:shadow-2xl transition-all duration-400 ease-out flex flex-col overflow-hidden will-change-transform relative">
+    <div className="group bg-[#F7F7F4] rounded-none border border-[#CFD1CA] hover:border-[#15181A] hover:-translate-y-2 hover:shadow-2xl transition-all duration-400 ease-out flex flex-col h-full overflow-hidden will-change-transform relative">
       {/* Top interactive accent line */}
       <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#C5282F] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left z-20" />
 
@@ -58,14 +58,14 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property, priority =
         <div>
           <div className="flex items-center gap-1.5 text-xs text-[#5B605F] mb-2 font-sans">
             <MapPin className="w-3.5 h-3.5 text-[#C5282F]" />
-            <span>{property.subLocation}</span>
+            <span className="truncate">{property.subLocation}</span>
           </div>
 
           <h3 className="font-sans text-lg sm:text-xl font-bold tracking-tight text-[#15181A] group-hover:text-[#C5282F] transition-colors line-clamp-1 mb-2">
             {property.title}
           </h3>
 
-          <p className="text-xs text-[#5B605F] line-clamp-2 mb-5 font-sans leading-relaxed">
+          <p className="text-xs text-[#5B605F] line-clamp-2 min-h-[39px] mb-5 font-sans leading-relaxed">
             {property.tagline}
           </p>
 
