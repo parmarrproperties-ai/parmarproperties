@@ -1,11 +1,12 @@
 'use client';
 
 /**
- * Site header. Matches the main site (www.parmarproperties.in) header: same logo,
- * sizes, fonts, links, scroll behaviour and mobile drawer. Company pages link to
- * the main domain; property pages stay inside /listing.
+ * Site header. Same design as the main site (www.parmarproperties.in): logo, fonts,
+ * sizes, scroll behaviour and mobile drawer. The menu items are the listing site's own.
  */
-import React, { useEffect, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
+import Link from 'next/link';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { withBasePath } from '@/lib/base-path';
 
 const MAIN = 'https://www.parmarproperties.in';
@@ -13,13 +14,13 @@ const INSTRUMENT: React.CSSProperties = { fontFamily: "var(--font-instrument), '
 const INTER: React.CSSProperties = { fontFamily: "'Inter', sans-serif" };
 
 const navigation = [
-  { label: 'Home', href: `${MAIN}/` },
-  { label: 'About Us', href: `${MAIN}/about` },
-  { label: 'Services', href: `${MAIN}/services` },
-  { label: 'Properties', href: withBasePath('/properties') },
-  { label: 'Expertise', href: `${MAIN}/#expertise` },
-  { label: 'Blogs', href: `${MAIN}/blog` },
-  { label: 'Contact', href: `${MAIN}/contact` },
+  { id: 'home', label: 'Home', href: '/' },
+  { id: 'buy', label: 'Buy', href: '/properties?tab=buy' },
+  { id: 'new-launches', label: 'New Launches', href: '/properties?tab=new-launches' },
+  { id: 'luxury-collection', label: 'Luxury Collection', href: '/properties?tab=luxury-collection' },
+  { id: 'commercials', label: 'Commercials', href: '/commercials' },
+  { id: 'locations', label: 'Location', href: '/locations' },
+  { id: 'intelligence', label: 'Insights', href: '/market-intelligence' },
 ];
 
 const ctaButton = {
@@ -27,9 +28,24 @@ const ctaButton = {
   href: 'https://wa.me/919322232899?text=Hi%2C%20I%20would%20like%20to%20schedule%20a%20consultation.',
 };
 
-const isExternal = (href: string) => href.startsWith('http');
+function isLinkActive(id: string, pathname: string | null, tab: string | null): boolean {
+  if (!pathname) return false;
+  if (id === 'home') return pathname === '/';
+  if (pathname.startsWith('/properties')) {
+    if (id === 'new-launches') return tab === 'new-launches';
+    if (id === 'luxury-collection') return tab === 'luxury-collection';
+    if (id === 'buy') return !tab || tab === 'buy';
+    return false;
+  }
+  if (id === 'commercials') return pathname.startsWith('/commercials');
+  if (id === 'locations') return pathname.startsWith('/locations');
+  if (id === 'intelligence') return pathname.startsWith('/market-intelligence');
+  return false;
+}
 
-export function Navbar() {
+function NavbarContent() {
+  const pathname = usePathname();
+  const tab = useSearchParams()?.get('tab') ?? null;
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
 
@@ -82,39 +98,44 @@ export function Navbar() {
                   width={1308}
                   height={508}
                   alt="Parmar Properties"
-                  className="h-[54px] md:h-[68px] md:ml-[80px] w-auto object-contain object-left pointer-events-none"
+                  className="h-[54px] md:h-[68px] xl:ml-[80px] w-auto object-contain object-left pointer-events-none"
                 />
               </a>
             </div>
           </div>
 
-          <nav className="box-border caret-transparent gap-x-[normal] hidden text-[10px] leading-[11.5px] min-h-0 min-w-0 gap-y-[normal] no-underline ml-auto md:gap-x-5 xl:gap-x-12 md:flex md:text-[6.66667px] md:leading-[7.66667px] md:min-h-[auto] md:min-w-[auto] md:gap-y-[26.6667px]">
-            {navigation.map((link) => (
-              <div
-                key={link.label}
-                className="group relative uppercase items-center box-border caret-transparent gap-x-2.5 flex text-lg font-medium leading-[22.5px] min-h-0 min-w-0 gap-y-2.5 no-underline md:gap-x-[6.66667px] md:text-[13.3333px] md:leading-[16.6667px] md:min-h-[auto] md:min-w-[auto] md:gap-y-[6.66667px]"
-              >
-                <a
-                  href={link.href}
-                  target={isExternal(link.href) && link.href.includes('wa.me') ? '_blank' : undefined}
-                  rel={isExternal(link.href) && link.href.includes('wa.me') ? 'noopener noreferrer' : undefined}
-                  className="block text-base font-semibold text-neutral-900 transition-colors duration-200 py-2"
-                  style={INSTRUMENT}
+          <nav className="box-border caret-transparent gap-x-[normal] hidden text-[10px] leading-[11.5px] min-h-0 min-w-0 gap-y-[normal] no-underline ml-auto xl:gap-x-7 2xl:gap-x-12 xl:flex xl:text-[6.66667px] xl:leading-[7.66667px] xl:min-h-[auto] xl:min-w-[auto] xl:gap-y-[26.6667px]">
+            {navigation.map((link) => {
+              const active = isLinkActive(link.id, pathname, tab);
+              return (
+                <div
+                  key={link.id}
+                  className="group relative uppercase items-center box-border caret-transparent gap-x-2.5 flex text-lg font-medium leading-[22.5px] min-h-0 min-w-0 gap-y-2.5 no-underline md:gap-x-[6.66667px] md:text-[13.3333px] md:leading-[16.6667px] md:min-h-[auto] md:min-w-[auto] md:gap-y-[6.66667px]"
                 >
-                  <span className="relative">
-                    {link.label}
-                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-neutral-900 transition-all duration-300 group-hover:w-full"></span>
-                  </span>
-                </a>
-              </div>
-            ))}
+                  <Link
+                    href={link.href}
+                    className="block text-base font-semibold text-neutral-900 transition-colors duration-200 py-2 whitespace-nowrap"
+                    style={INSTRUMENT}
+                  >
+                    <span className="relative">
+                      {link.label}
+                      <span
+                        className={`absolute -bottom-1 left-0 h-0.5 bg-neutral-900 transition-all duration-300 ${
+                          active ? 'w-full' : 'w-0 group-hover:w-full'
+                        }`}
+                      ></span>
+                    </span>
+                  </Link>
+                </div>
+              );
+            })}
           </nav>
 
-          <div className="flex justify-end items-center relative z-[9999] pointer-events-auto md:hidden">
+          <div className="flex justify-end items-center relative z-[9999] pointer-events-auto xl:hidden">
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               aria-label="Menu control"
-              className="items-center z-50 bg-transparent caret-transparent flex flex-col text-[10px] h-[30px] justify-center leading-[11.5px] min-h-[auto] min-w-[auto] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black relative no-underline w-[30px] border p-0 border-transparent md:hidden md:text-[6.66667px] md:h-5 md:leading-[7.66667px] md:min-h-0 md:min-w-0 md:w-5"
+              className="items-center z-50 bg-transparent caret-transparent flex flex-col text-[10px] h-[30px] justify-center leading-[11.5px] min-h-[auto] min-w-[auto] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black relative no-underline w-[30px] border p-0 border-transparent xl:hidden"
             >
               <span className={`bg-neutral-900 box-border caret-transparent block text-[10px] h-px leading-[11.5px] absolute no-underline w-full transition-all duration-300 ${isMobileMenuOpen ? 'rotate-45' : '-translate-y-[5px]'}`}></span>
               <span className={`bg-neutral-900 box-border caret-transparent block text-[10px] h-px leading-[11.5px] absolute no-underline w-full transition-all duration-300 ${isMobileMenuOpen ? '-rotate-45' : 'translate-y-[5px]'}`}></span>
@@ -126,14 +147,14 @@ export function Navbar() {
 
       {/* Mobile drawer: identical to the main site */}
       <div
-        className={`fixed inset-0 bg-white z-[90] transition-all duration-300 md:hidden flex flex-col pt-28 px-8 pb-10 not-italic ${
+        className={`fixed inset-0 bg-white z-[90] transition-all duration-300 xl:hidden flex flex-col pt-28 px-8 pb-10 not-italic ${
           isMobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
       >
         <div className="flex flex-col flex-1 gap-5 mt-2 overflow-y-auto max-h-[70vh]">
           {navigation.map((link, index) => (
-            <div key={link.label} className="flex flex-col border-b border-neutral-100 last:border-0 pb-3 last:pb-0">
-              <a
+            <div key={link.id} className="flex flex-col border-b border-neutral-100 last:border-0 pb-3 last:pb-0">
+              <Link
                 href={link.href}
                 onClick={() => setIsMobileMenuOpen(false)}
                 className={`uppercase flex items-center justify-between text-black text-[24px] font-normal tracking-normal no-underline hover:text-black/60 transition-all duration-300 py-2 ${
@@ -142,7 +163,7 @@ export function Navbar() {
                 style={{ transitionDelay: `${isMobileMenuOpen ? 100 + index * 50 : 0}ms`, ...INTER }}
               >
                 <span>{link.label}</span>
-              </a>
+              </Link>
             </div>
           ))}
         </div>
@@ -161,5 +182,30 @@ export function Navbar() {
         </div>
       </div>
     </>
+  );
+}
+
+/** useSearchParams needs a Suspense boundary; the fallback is the same bar with just the logo. */
+export function Navbar() {
+  return (
+    <Suspense
+      fallback={
+        <header className="fixed top-0 inset-x-0 z-[100] bg-white/95 backdrop-blur-md shadow-sm">
+          <div className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 md:px-10 lg:px-16">
+            <div className="flex items-center min-h-[64px] md:min-h-[75px] py-[5px]">
+              <img
+                src={withBasePath('/brand/parmar-properties-logo.webp')}
+                width={1308}
+                height={508}
+                alt="Parmar Properties"
+                className="h-[54px] md:h-[68px] xl:ml-[80px] w-auto object-contain object-left"
+              />
+            </div>
+          </div>
+        </header>
+      }
+    >
+      <NavbarContent />
+    </Suspense>
   );
 }

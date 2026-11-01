@@ -10,7 +10,7 @@ export function FloatingWhatsApp() {
       href="https://wa.me/919322232899?text=Hi%2C%20I%20would%20like%20to%20connect."
       target="_blank"
       rel="noopener noreferrer"
-      className="fixed bottom-[76px] right-6 md:bottom-[88px] md:right-8 z-[9999] flex items-center justify-center w-11 h-11 bg-[#25D366] text-white rounded-full shadow-lg hover:bg-[#20b858] transition-all duration-500"
+      className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-[80] flex items-center justify-center w-11 h-11 bg-[#25D366] text-white rounded-full shadow-lg hover:bg-[#20b858] transition-all duration-500"
       aria-label="Contact us on WhatsApp"
     >
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
