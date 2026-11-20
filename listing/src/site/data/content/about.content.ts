@@ -28,7 +28,7 @@
 
 export const ABOUT_PAGE_CONTENT = {
   meta: {
-    pageTitle: "About Parmar Properties | 40+ Years of Mumbai Real Estate Heritage",
+    pageTitle: "About Parmar Properties | Mumbai Real Estate Since 1981",
     pageDescription: "Founded in Mumbai, Parmar Properties is a premier discreet luxury real estate advisory representing high-net-worth individuals, family offices, and NRI investors.",
     canonicalPath: "/about",
   },

@@ -64,40 +64,62 @@ export function segmentCopy(kind: SegmentKind, category: string, loc: string) {
   const table: Record<string, { heading: string; title: string; description: string; intro: string }> = {
     'residential/buy': {
       heading: `Residences for Sale in ${loc}`,
-      title: `Luxury Apartments for Sale in ${loc}, Mumbai`,
+      title: `Apartments for Sale in ${loc}, Mumbai`,
       description: `Browse verified luxury apartments and residences for sale in ${loc}, Mumbai. Prices, floor plans and MahaRERA details from Parmar Properties.`,
       intro: `Verified residences currently available to buy in ${loc}.`,
     },
     'residential/new-launches': {
       heading: `New Launches in ${loc}`,
-      title: `New Launch Apartments in ${loc}, Mumbai`,
+      title: `New Launch Projects in ${loc}, Mumbai`,
       description: `New launch and pre-launch residential projects in ${loc}, Mumbai, with prices, configurations and MahaRERA details. Enquire with Parmar Properties.`,
       intro: `New and pre-launch residential projects in ${loc}.`,
     },
     'residential/luxury-collection': {
       heading: `Luxury Collection in ${loc}`,
-      title: `Luxury Collection Residences in ${loc}, Mumbai`,
+      title: `Luxury Residences in ${loc}, Mumbai`,
       description: `Hand-picked luxury collection residences in ${loc}, Mumbai. View photos, floor plans and enquire with Parmar Properties.`,
       intro: `Hand-picked luxury residences in ${loc}.`,
     },
     'commercial/buy': {
       heading: `Commercial Property for Sale in ${loc}`,
-      title: `Commercial Property for Sale in ${loc}, Mumbai`,
+      title: `Commercial Property for Sale in ${loc}`,
       description: `Offices, retail and commercial spaces for sale in ${loc}, Mumbai. Carpet areas, prices and MahaRERA details from Parmar Properties.`,
       intro: `Offices and commercial spaces available to buy in ${loc}.`,
     },
     'commercial/pre-lease': {
       heading: `Pre-Lease Commercial Space in ${loc}`,
-      title: `Pre-Lease Commercial Space in ${loc}, Mumbai`,
+      title: `Pre-Lease Offices in ${loc}, Mumbai`,
       description: `Pre-lease offices and commercial spaces in ${loc}, Mumbai. Secure space before completion with Parmar Properties.`,
       intro: `Commercial space you can pre-lease in ${loc} before completion.`,
     },
     'commercial/rent': {
       heading: `Commercial Space for Rent in ${loc}`,
-      title: `Commercial Space for Rent in ${loc}, Mumbai`,
+      title: `Commercial Space for Rent in ${loc}`,
       description: `Offices and commercial spaces for rent in ${loc}, Mumbai. Monthly rent, carpet area and floor details from Parmar Properties.`,
       intro: `Offices and commercial spaces available to rent in ${loc}.`,
     },
   };
   return table[key];
+}
+
+/** Total listings in a location (Residential Buy already holds every residence). */
+export function locationTotal(counts: SegmentCounts): number {
+  return kindTotal(counts, 'residential') + kindTotal(counts, 'commercial');
+}
+
+/**
+ * New Launches / Luxury Collection pages that list exactly the same properties as the
+ * Buy page are duplicates of it. They point their canonical link at Buy and stay out of
+ * the sitemap until they hold something different.
+ */
+export function duplicatesBuyPage(
+  properties: Property[],
+  locationName: string,
+  category: ResidentialCategory,
+): boolean {
+  if (category === 'buy') return false;
+  const mine = residentialIn(properties, locationName, category);
+  if (mine.length === 0) return false;
+  const buy = residentialIn(properties, locationName, 'buy');
+  return mine.length === buy.length && mine.every((p) => buy.some((b) => b.id === p.id));
 }

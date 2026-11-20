@@ -278,6 +278,19 @@ export const footer = {
     { label: "FAQ", href: "/faq" },
     { label: "Contact", href: "/contact" },
   ] as FooterLink[],
+  /** Location pages on the listing site; every page of the main site links to them. */
+  popularLocations: [
+    { label: "Worli", href: "/listing/locations/worli" },
+    { label: "Malabar Hill", href: "/listing/locations/malabar-hill" },
+    { label: "Lower Parel", href: "/listing/locations/lower-parel" },
+    { label: "Prabhadevi", href: "/listing/locations/prabhadevi" },
+    { label: "Sewri", href: "/listing/locations/sewri" },
+    { label: "Bandra West", href: "/listing/locations/bandra-west" },
+    { label: "Juhu", href: "/listing/locations/juhu" },
+    { label: "Cuffe Parade", href: "/listing/locations/cuffe-parade" },
+    { label: "Powai", href: "/listing/locations/powai" },
+    { label: "All locations", href: "/listing/locations" },
+  ] as FooterLink[],
   socialLinks: [
     { label: "Facebook", href: "https://www.facebook.com/people/Parmar-Properties/61556751864965/" },
     { label: "Instagram", href: "https://www.instagram.com/parmar_properties" },

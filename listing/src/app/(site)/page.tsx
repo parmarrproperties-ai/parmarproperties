@@ -6,7 +6,7 @@ import { SITE_NAME, pageMetadata } from '@/site/lib/seo';
 export const revalidate = 60;
 
 export const metadata = pageMetadata({
-  title: `Luxury Apartments & Real Estate in South Mumbai | ${SITE_NAME}`,
+  title: `Luxury Real Estate in South Mumbai | ${SITE_NAME}`,
   absoluteTitle: true,
   description:
     'Mumbai real estate advisors since 1981. Verified luxury apartments, penthouses and new launches in Worli, Malabar Hill, Prabhadevi, Lower Parel and South Mumbai, with MahaRERA-checked listings.',

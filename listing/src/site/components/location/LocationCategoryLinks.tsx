@@ -14,10 +14,12 @@ export function LocationCategoryLinks({
   locationName,
   locationSlug,
   counts,
+  guides = [],
 }: {
   locationName: string;
   locationSlug: string;
   counts: SegmentCounts;
+  guides?: { slug: string; title: string }[];
 }) {
   return (
     <section className="py-14 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto" aria-label={`Browse ${locationName}`}>
@@ -51,6 +53,21 @@ export function LocationCategoryLinks({
           );
         })}
       </div>
+
+      {guides.length > 0 ? (
+        <div className="mt-6 bg-[#F7F7F4] border border-[#CFD1CA] p-6">
+          <h3 className="font-serif text-2xl font-light text-[#15181A] mb-4">Guides about {locationName}</h3>
+          <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-3 text-sm font-sans">
+            {guides.map((g) => (
+              <li key={g.slug}>
+                <Link href={`/market-intelligence/${g.slug}`} className="font-semibold hover:text-[#C5282F] transition-colors">
+                  {g.title}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
     </section>
   );
 }

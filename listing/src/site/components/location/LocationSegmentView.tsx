@@ -2,6 +2,9 @@ import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 
 import { PropertyCard } from '@/site/components/property/PropertyCard';
+import { LocationSegmentContent } from '@/site/components/location/LocationSegmentContent';
+import type { InsightArticle } from '@/site/lib/supabase/insights';
+import type { SegmentSummary } from '@/site/lib/location-insights';
 import { CommercialCard } from '@/site/components/commercial/CommercialCard';
 import type { LocationInfo } from '@/site/lib/supabase/locations';
 import type { Property } from '@/site/types/property';
@@ -26,6 +29,8 @@ export function LocationSegmentView({
   copy,
   properties,
   commercials,
+  summary,
+  guides,
 }: {
   location: LocationInfo;
   kind: SegmentKind;
@@ -34,6 +39,8 @@ export function LocationSegmentView({
   copy: { heading: string; intro: string };
   properties: Property[];
   commercials: CommercialProperty[];
+  summary: SegmentSummary;
+  guides: InsightArticle[];
 }) {
   const categories = categoriesFor(kind);
   const categoryCounts = counts[kind] as Record<string, number>;
@@ -140,6 +147,17 @@ export function LocationSegmentView({
               : commercials.map((c) => <CommercialCard key={c.id} property={c} />)}
           </div>
         )}
+
+        {itemCount > 0 ? (
+          <LocationSegmentContent
+            location={location}
+            kind={kind}
+            summary={summary}
+            properties={properties}
+            commercials={commercials}
+            guides={guides}
+          />
+        ) : null}
 
         <div className="mt-12">
           <Link

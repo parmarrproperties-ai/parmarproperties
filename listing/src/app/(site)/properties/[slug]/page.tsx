@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import { PropertyDetailClient } from '@/site/components/property/PropertyDetailClient';
 import { JsonLd } from '@/site/components/seo/JsonLd';
 import type { Property } from '@/site/types/property';
-import { NOINDEX, SITE_NAME, absoluteUrl, breadcrumbJsonLd, pageMetadata } from '@/site/lib/seo';
+import { NOINDEX, ORGANIZATION_ID, SITE_NAME, absoluteUrl, breadcrumbJsonLd, pageMetadata } from '@/site/lib/seo';
 import {
   fetchPropertyBySlug,
   fetchPropertyCards,
@@ -67,7 +67,7 @@ function propertyJsonLd(property: Property) {
     name: property.title,
     description: propertySeoDescription(property),
     image: images.slice(0, 6).map((src) => absoluteUrl(src)),
-    provider: { '@id': `${absoluteUrl('/')}#organization` },
+    provider: { '@id': ORGANIZATION_ID },
     about: {
       '@type': property.propertyType === 'Apartment' || property.propertyType === 'Sea-Facing Apartment' ? 'Apartment' : 'Residence',
       name: property.title,

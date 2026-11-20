@@ -148,6 +148,8 @@ interface LocationPageClientProps {
   initialCorridor?: CmsLocationInfo[];
   /** Listing counts per category, used for the Residential / Commercial links. */
   segmentCounts?: SegmentCounts;
+  /** Market guides about this location, linked from the browse section. */
+  guides?: { slug: string; title: string }[];
 }
 
 export default function LocationPageClient({
@@ -156,6 +158,7 @@ export default function LocationPageClient({
   initialProperties,
   initialCorridor,
   segmentCounts,
+  guides,
 }: LocationPageClientProps) {
   const slug = slugProp.toLowerCase();
   const serverRendered = initialLocation !== undefined;
@@ -333,7 +336,12 @@ export default function LocationPageClient({
       </section>
 
       {segmentCounts ? (
-        <LocationCategoryLinks locationName={location.name} locationSlug={location.slug} counts={segmentCounts} />
+        <LocationCategoryLinks
+          locationName={location.name}
+          locationSlug={location.slug}
+          counts={segmentCounts}
+          guides={guides}
+        />
       ) : null}
 
       {/* Main Content: Properties List */}
