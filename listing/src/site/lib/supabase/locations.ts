@@ -45,7 +45,7 @@ export function mapDbLocationToFrontend(row: Record<string, any>): LocationInfo 
     description: row.description || '',
     coverImage: row.cover_image || row.image_url || '/placeholder.png',
     priceRange: row.price_range || 'Price on Request',
-    averageRate: row.average_rate || '₹65,000 - ₹1,20,000 / sq.ft',
+    averageRate: row.average_rate || 'On request',
     lifestyle: row.lifestyle || '',
     keyEnclaves: Array.isArray(row.key_enclaves) ? row.key_enclaves : [],
     isPrimaryHome: Boolean(row.is_primary_home),

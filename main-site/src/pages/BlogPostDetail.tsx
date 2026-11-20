@@ -1,3 +1,4 @@
+import { listingGuidesForPost } from "@/content/crossLinks";
 import { useEffect, useState} from"react";
 import { useParams, Link} from"react-router-dom";
 import { Header} from"@/sections/Header/index";
@@ -248,6 +249,22 @@ export const BlogPostDetail = () => {
  </div>
  </ScrollReveal>
 )}
+
+ {/* Matching guide and listings on the listing site */}
+ {(listingGuidesForPost[post.slug] ?? []).length > 0 && (
+ <ScrollReveal direction="up"delay={300} className="flex flex-col gap-3 rounded-none bg-white p-8">
+ <h2 className="text-[22px] md:text-[26px] text-black">Related on our listing site</h2>
+ <ul className="flex flex-col gap-2">
+ {listingGuidesForPost[post.slug].map((link) => (
+ <li key={link.href}>
+ <a href={link.href} className="text-[15px] md:text-[16px] text-black underline underline-offset-4 hover:text-black/60 transition-colors">
+ {link.label}
+ </a>
+ </li>
+ ))}
+ </ul>
+ </ScrollReveal>
+ )}
 
  {/* Advisor call-to-action */}
  <ScrollReveal direction="up"delay={300} className="flex flex-col gap-4 rounded-none bg-white p-8">

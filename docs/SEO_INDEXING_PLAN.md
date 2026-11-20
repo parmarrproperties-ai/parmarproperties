@@ -52,7 +52,9 @@ Site: https://www.parmarproperties.in/ · Source: Google Search Console, Page in
 | No copy-paste between `/buy` and `/luxury-collection` | **Done**: identical pages are merged by canonical, the rest read differently because they are built from different listings |
 | FAQ block with `FAQPage` schema | **Done** on every category page that has listings |
 | `RealEstateAgent` on the home page, `Article` on guides | Already in place |
-| Internal linking | **Done**: every main-site page now links to nine location pages (footer "Popular locations"); each location page links to its guides; each guide links to the locations it covers; location pages link to all six category pages |
+| Internal linking | **Done**: every main-site page links to the 12 locations that have listings (footer "Popular locations"); each location page links to its guides; each guide links to the locations it covers; location pages link to all six category pages |
+| Blog post and guide on the same topic ("Worli vs Mahalaxmi") | **Done**: each now links to the other, so they read as a pair instead of competing. Same for the Worli and NRI pairs. The pairs are listed in `main-site/src/content/crossLinks.ts` and `listing/src/site/data/cross-links.ts` |
+| Missing locations | **Done (21 Nov)**: Mahalaxmi (published), Parel, Mahim West, Dadar West, Dadar East, Matunga West, Gamdevi and Mazgaon were created and published from the real listing data (price band from your listings, streets from your listings, a photo from one of your projects). No per-square-foot rate was invented; the page says "On request" until you enter one in the admin |
 | Pages visible in raw HTML | Location, category, property and guide pages already were. The commercial page is now too |
 | `/listing/about` | Left as it is. It overlaps with the main-site `/about`; if you want one version only, say so and I will redirect it |
 
@@ -62,7 +64,9 @@ See "Your steps" below.
 
 ## Your steps
 
-**Right after this is live (about 15 minutes):**
+**Done on 20 Nov (by Claude in the browser):** both sitemaps submitted (22 and 43 URLs read), Validate fix started on the 5 reasons, removal request for `/code-theme.com/` submitted, indexing requested for all 10 pages.
+
+**For reference, the steps that were done:**
 
 1. Search Console, **Sitemaps**: resubmit `sitemap.xml` and `listing/sitemap.xml`.
 2. Search Console, **Page indexing**: open each reason (Duplicate, Not found, Soft 404, Page with redirect, Crawled) and click **Validate fix**. Do not start validation for "Discovered": it is already running and rechecks by itself.
@@ -81,7 +85,7 @@ See "Your steps" below.
 
 **In the admin (this is what moves the numbers most):**
 
-- Create and publish the locations that have properties but no public page: Mahalaxmi (a draft that needs publishing), Parel, Mahim West, Dadar West, Dadar East, Matunga West, Gamdevi, Mazgaon. Each becomes a location page plus its category pages.
+- ~~Create and publish the locations that have properties but no public page~~ Done. You can improve their text in the admin under Locations (description, tagline, average rate, cover photo).
 - Publish real commercial listings (Buy, Pre-Lease, Rent). Until then the commercial pages stay out of search on purpose.
 - Add listings to Powai, Prabhadevi, Juhu, Cuffe Parade and Bandra West so those pages can be indexed.
 - Complete the 21 draft properties so they can be published.
@@ -101,7 +105,7 @@ Check Search Console weekly.
 
 | Week | Indexed | Not indexed | Clicks | Notes |
 |---|---|---|---|---|
-| Baseline (20 Nov) | 22 | 74 | 33 (19 days) | |
+| Baseline (20 Nov) | 22 | 74 | 33 (28 days), 378 impressions | Validations started 20 Nov for 5 reasons; removal submitted; 10 pages requested |
 | Week 1 | | | | |
 | Week 2 | | | | |
 | Week 3 | | | | |
@@ -116,5 +120,5 @@ Targets by the end of week 4:
 ## Notes
 
 - Indexing is slow for new domains. Expect 2 to 6 weeks before the "Discovered" pages move, even with all of this done.
-- The main-site footer lists nine locations by hand (`main-site/src/content/content.ts`, `footer.popularLocations`). Add a line there when you publish a new location.
+- The main-site footer lists the 12 locations that have listings by hand (`main-site/src/content/content.ts`, `footer.popularLocations`). Add a line there when a location gets its first listing. Powai, Prabhadevi, Juhu, Cuffe Parade and Bandra West are not in it until they have listings.
 - Pages that are empty on purpose (`noindex`, not in the sitemap): `/listing/commercials`, locations with no listings, and category pages with no listings. They switch to indexable by themselves once something is published, within about a minute.

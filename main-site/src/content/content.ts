@@ -281,14 +281,17 @@ export const footer = {
   /** Location pages on the listing site; every page of the main site links to them. */
   popularLocations: [
     { label: "Worli", href: "/listing/locations/worli" },
+    { label: "Mahalaxmi", href: "/listing/locations/mahalaxmi" },
+    { label: "Parel", href: "/listing/locations/parel" },
+    { label: "Mahim West", href: "/listing/locations/mahim-west" },
     { label: "Malabar Hill", href: "/listing/locations/malabar-hill" },
     { label: "Lower Parel", href: "/listing/locations/lower-parel" },
-    { label: "Prabhadevi", href: "/listing/locations/prabhadevi" },
     { label: "Sewri", href: "/listing/locations/sewri" },
-    { label: "Bandra West", href: "/listing/locations/bandra-west" },
-    { label: "Juhu", href: "/listing/locations/juhu" },
-    { label: "Cuffe Parade", href: "/listing/locations/cuffe-parade" },
-    { label: "Powai", href: "/listing/locations/powai" },
+    { label: "Dadar West", href: "/listing/locations/dadar-west" },
+    { label: "Dadar East", href: "/listing/locations/dadar-east" },
+    { label: "Matunga West", href: "/listing/locations/matunga-west" },
+    { label: "Gamdevi", href: "/listing/locations/gamdevi" },
+    { label: "Mazgaon", href: "/listing/locations/mazgaon" },
     { label: "All locations", href: "/listing/locations" },
   ] as FooterLink[],
   socialLinks: [
