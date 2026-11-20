@@ -1,13 +1,39 @@
 import Link from 'next/link';
 
 import type { LocationInfo } from '@/site/lib/supabase/locations';
+import type { CrossLink } from '@/site/data/cross-links';
 
 /** Links from a market guide to the location pages it is about, so readers can see what is for sale there. */
-export function ArticleRelatedLocations({ locations }: { locations: LocationInfo[] }) {
-  if (locations.length === 0) return null;
+export function ArticleRelatedLocations({
+  locations,
+  readings = [],
+}: {
+  locations: LocationInfo[];
+  /** Matching posts on the main site. */
+  readings?: CrossLink[];
+}) {
+  if (locations.length === 0 && readings.length === 0) return null;
   return (
     <section className="bg-[#EDEEE9] px-4 sm:px-6 lg:px-8 pb-16" aria-label="Locations in this guide">
       <div className="max-w-7xl mx-auto border-t border-[#CFD1CA] pt-10">
+        {readings.length > 0 ? (
+          <div className="mb-10">
+            <span className="text-[11px] uppercase tracking-[0.25em] font-semibold text-[#C5282F] block mb-2">
+              Related reading
+            </span>
+            <ul className="space-y-2 font-sans text-sm sm:text-base">
+              {readings.map((r) => (
+                <li key={r.href}>
+                  <a href={r.href} className="font-semibold underline underline-offset-4 hover:text-[#C5282F] transition-colors">
+                    {r.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
+        {locations.length > 0 ? (
+          <>
         <span className="text-[11px] uppercase tracking-[0.25em] font-semibold text-[#C5282F] block mb-2">
           In this guide
         </span>
@@ -30,6 +56,8 @@ export function ArticleRelatedLocations({ locations }: { locations: LocationInfo
             </li>
           ))}
         </ul>
+          </>
+        ) : null}
       </div>
     </section>
   );

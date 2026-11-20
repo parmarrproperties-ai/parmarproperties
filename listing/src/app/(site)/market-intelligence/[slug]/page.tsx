@@ -5,6 +5,7 @@ import { ArticleRelatedLocations } from '@/site/components/insights/ArticleRelat
 import { fetchArticleBySlug, fetchInsightsArticles } from '@/site/lib/supabase/insights';
 import { fetchLocations } from '@/site/lib/supabase/locations';
 import { locationsMentioned } from '@/site/lib/location-insights';
+import { blogPostsForGuide } from '@/site/data/cross-links';
 
 // Supabase fetches are cached by Next; without this a CMS edit never shows.
 export const revalidate = 60;
@@ -21,7 +22,10 @@ export default async function ArticleDetailPage(props: { params: Promise<{ slug:
   return (
     <>
       <ArticleDetailClient key={slug} slug={slug} initialArticle={article} initialAllArticles={allArticles} />
-      <ArticleRelatedLocations locations={locationsMentioned(article, locations)} />
+      <ArticleRelatedLocations
+        locations={locationsMentioned(article, locations)}
+        readings={blogPostsForGuide[article.slug] ?? []}
+      />
     </>
   );
 }
