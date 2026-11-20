@@ -102,6 +102,18 @@ export const Footer = () => {
             </div>
           </div>
 
+          {/* Popular locations: internal links to the listing site's location pages */}
+          <nav aria-label="Popular locations" className="mb-10 text-[13px] text-white/60">
+            <span className="uppercase tracking-[0.2em] text-[11px] text-white/40 mr-4">Popular locations</span>
+            <ul className="inline-flex flex-wrap gap-x-5 gap-y-2 align-middle">
+              {footer.popularLocations.map((link) => (
+                <li key={link.label}>
+                  <a href={link.href} className="hover:text-white transition-colors">{link.label}</a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
           {/* Bottom Section */}
           <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6 text-[13px] font-medium text-white/50 tracking-wide">
             <div>

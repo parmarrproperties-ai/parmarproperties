@@ -32,17 +32,38 @@ export const BUSINESS = {
   openingHours: 'Mo-Su 10:00-18:30',
 } as const;
 
+/** Stable ids that other JSON-LD nodes point at. */
+export const ORGANIZATION_ID = `${SITE_URL}/#organization`;
+export const WEBSITE_ID = `${SITE_URL}/#website`;
+
+/**
+ * Full public URL. The site home is `/listing`, not `/listing/`: the slash version
+ * redirects, and a redirecting canonical or sitemap URL shows up as "Page with redirect".
+ */
 export function absoluteUrl(path = '/'): string {
   if (/^https?:\/\//i.test(path)) return path;
+  if (path === '/' || path === '') return SITE_URL;
   return `${SITE_URL}${path.startsWith('/') ? path : `/${path}`}`;
 }
 
 /** Trims to a search-snippet-friendly length at a word boundary. */
-export function clampDescription(text: string, max = 158): string {
+export function clampDescription(text: string, max = 155): string {
   const clean = text.replace(/\s+/g, ' ').trim();
   if (clean.length <= max) return clean;
   const cut = clean.slice(0, max - 1);
   return `${cut.slice(0, cut.lastIndexOf(' ')).replace(/[,;:.\s]+$/, '')}…`;
+}
+
+/**
+ * Search results show about 60 characters of a title. Add the brand while it still fits;
+ * otherwise show the page's own title (and cut it at a word if it is longer than 60).
+ */
+export function fitTitle(title: string, max = 60): string {
+  const withBrand = `${title} | ${SITE_NAME}`;
+  if (withBrand.length <= max) return withBrand;
+  if (title.length <= max) return title;
+  const cut = title.slice(0, max - 1);
+  return `${cut.slice(0, cut.lastIndexOf(' ')).replace(/[,;:.\s|-]+$/, '')}…`;
 }
 
 interface PageMetadataInput {
@@ -68,16 +89,16 @@ export function pageMetadata({
 }: PageMetadataInput): Metadata {
   const desc = clampDescription(description);
   const ogImage = image && !image.endsWith('/placeholder.png') ? image : DEFAULT_OG_IMAGE;
-  const fullTitle = absoluteTitle ? title : `${title} | ${SITE_NAME}`;
+  const fullTitle = absoluteTitle ? title : fitTitle(title);
 
   return {
     // Absolute so nested layouts can't drop the brand suffix from the template.
     title: { absolute: fullTitle },
     description: desc,
-    alternates: { canonical: path },
+    alternates: { canonical: absoluteUrl(path) },
     openGraph: {
       type,
-      url: path,
+      url: absoluteUrl(path),
       siteName: SITE_NAME,
       locale: 'en_IN',
       title: fullTitle,
@@ -105,7 +126,7 @@ export function organizationJsonLd() {
   return {
     '@context': 'https://schema.org',
     '@type': 'RealEstateAgent',
-    '@id': `${SITE_URL}/#organization`,
+    '@id': ORGANIZATION_ID,
     name: BUSINESS.name,
     legalName: BUSINESS.legalName,
     url: SITE_URL,
@@ -135,11 +156,11 @@ export function websiteJsonLd() {
   return {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    '@id': `${SITE_URL}/#website`,
+    '@id': WEBSITE_ID,
     url: SITE_URL,
     name: SITE_NAME,
     inLanguage: 'en-IN',
-    publisher: { '@id': `${SITE_URL}/#organization` },
+    publisher: { '@id': ORGANIZATION_ID },
   };
 }
 

@@ -10,7 +10,7 @@ export const revalidate = 60;
 
 // Tabs and filters are query strings on this one URL, so they all canonicalise here.
 export const metadata = pageMetadata({
-  title: 'Luxury Flats & Apartments for Sale in South Mumbai',
+  title: 'Luxury Flats for Sale in South Mumbai',
   description:
     'Browse verified luxury apartments, penthouses and new launches for sale in Worli, Malabar Hill, Prabhadevi, Lower Parel, Mahalaxmi, Dadar and across South Mumbai. Prices, floor plans and MahaRERA details.',
   path: '/properties',

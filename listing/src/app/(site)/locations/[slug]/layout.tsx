@@ -3,6 +3,9 @@ import type { Metadata } from 'next';
 import { JsonLd } from '@/site/components/seo/JsonLd';
 import { fetchLocationBySlug } from '@/site/lib/supabase/locations';
 import { NOINDEX, breadcrumbJsonLd, pageMetadata } from '@/site/lib/seo';
+import { fetchPropertyCards } from '@/site/lib/supabase/properties';
+import { fetchPublishedCommercials } from '@/site/lib/supabase/commercials';
+import { locationTotal, segmentCounts } from '@/site/lib/location-segments';
 
 export const revalidate = 60;
 
@@ -10,8 +13,12 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
   const { slug } = await props.params;
   const location = await fetchLocationBySlug(slug);
   if (!location) return { title: 'Location not found', robots: NOINDEX };
+  const [properties, commercials] = await Promise.all([fetchPropertyCards(), fetchPublishedCommercials()]);
+  const empty = locationTotal(segmentCounts(properties, commercials, location.name)) === 0;
   return pageMetadata({
-    title: `Luxury Apartments in ${location.name}, Mumbai: Prices & Area Guide`,
+    // A location with no listings yet is kept out of search results until it has some.
+    noindex: empty,
+    title: `${location.name} Luxury Apartments, Mumbai`,
     description: [
       location.tagline ? `${location.name}: ${location.tagline}.` : `${location.name}, Mumbai.`,
       location.description,

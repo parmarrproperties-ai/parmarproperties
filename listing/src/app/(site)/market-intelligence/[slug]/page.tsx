@@ -1,7 +1,10 @@
 import { notFound } from 'next/navigation';
 
 import ArticleDetailClient from '@/site/components/insights/ArticleDetailClient';
+import { ArticleRelatedLocations } from '@/site/components/insights/ArticleRelatedLocations';
 import { fetchArticleBySlug, fetchInsightsArticles } from '@/site/lib/supabase/insights';
+import { fetchLocations } from '@/site/lib/supabase/locations';
+import { locationsMentioned } from '@/site/lib/location-insights';
 
 // Supabase fetches are cached by Next; without this a CMS edit never shows.
 export const revalidate = 60;
@@ -9,7 +12,16 @@ export const revalidate = 60;
 export default async function ArticleDetailPage(props: { params: Promise<{ slug: string }> }) {
   const { slug } = await props.params;
   // Fetched on the server so the full article text ships in the HTML for search engines.
-  const [article, allArticles] = await Promise.all([fetchArticleBySlug(slug), fetchInsightsArticles()]);
+  const [article, allArticles, locations] = await Promise.all([
+    fetchArticleBySlug(slug),
+    fetchInsightsArticles(),
+    fetchLocations(),
+  ]);
   if (!article) notFound();
-  return <ArticleDetailClient key={slug} slug={slug} initialArticle={article} initialAllArticles={allArticles} />;
+  return (
+    <>
+      <ArticleDetailClient key={slug} slug={slug} initialArticle={article} initialAllArticles={allArticles} />
+      <ArticleRelatedLocations locations={locationsMentioned(article, locations)} />
+    </>
+  );
 }

@@ -39,7 +39,7 @@ const plusJakarta = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Luxury Apartments & Real Estate in South Mumbai | Parmar Properties",
+    default: "Luxury Real Estate in South Mumbai | Parmar Properties",
     template: `%s | ${SITE_NAME}`,
   },
   description:
