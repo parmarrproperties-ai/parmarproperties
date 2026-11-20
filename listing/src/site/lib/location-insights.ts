@@ -21,9 +21,9 @@ export interface SegmentSummary {
 }
 
 const PHRASES: Record<string, string> = {
-  'residential/buy': 'residences for sale',
-  'residential/new-launches': 'new launch projects',
-  'residential/luxury-collection': 'luxury collection residences',
+  'residential/buy': 'flats for sale',
+  'residential/new-launches': 'new launch flats',
+  'residential/luxury-collection': 'ultra luxury flats',
   'commercial/buy': 'commercial properties for sale',
   'commercial/pre-lease': 'pre-lease commercial spaces',
   'commercial/rent': 'commercial spaces for rent',
@@ -57,6 +57,14 @@ function areaText(areas: number[]): string | null {
   return a[0] === a[a.length - 1] ? `${f(a[0])} sq ft` : `${f(a[0])} to ${f(a[a.length - 1])} sq ft`;
 }
 
+/** "3 & 4 BHK" and "2 and 3 BHK" across projects become one line: "2, 3 and 4 BHK". */
+function configurationsOf(properties: Property[]): string[] {
+  const nums = Array.from(
+    new Set(properties.flatMap((p) => Array.from((p.bhk || '').matchAll(/\d+(?:\.\d+)?/g)).map((m) => Number(m[0])))),
+  ).sort((a, b) => a - b);
+  return nums.length > 0 ? [`${list(nums.map(String), 8)} BHK`] : uniq(properties.map((p) => p.bhk));
+}
+
 export function summariseResidential(
   location: LocationInfo,
   category: string,
@@ -66,11 +74,7 @@ export function summariseResidential(
   const phrase = PHRASES[`residential/${category}`] ?? 'residences';
   const names = properties.map((p) => p.title);
   const developers = uniq(properties.map((p) => p.developerName));
-  // "3 & 4 BHK" and "2 and 3 BHK" across projects become one line: "2, 3 and 4 BHK".
-  const bhkNumbers = Array.from(
-    new Set(properties.flatMap((p) => Array.from((p.bhk || '').matchAll(/\d+(?:\.\d+)?/g)).map((m) => Number(m[0])))),
-  ).sort((a, b) => a - b);
-  const configs = bhkNumbers.length > 0 ? [`${list(bhkNumbers.map(String), 8)} BHK`] : uniq(properties.map((p) => p.bhk));
+  const configs = configurationsOf(properties);
   const price = rangeText(properties);
   const onRequest = properties.length - priced(properties).length;
   const area = areaText(properties.map((p) => p.carpetArea));
@@ -192,4 +196,66 @@ export function kindLabel(kind: SegmentKind): string {
 export function locationsMentioned(article: InsightArticle, locations: LocationInfo[], max = 3): LocationInfo[] {
   const text = `${article.title} ${article.subtitle} ${article.slug.replace(/-/g, ' ')}`.toLowerCase();
   return locations.filter((l) => text.includes(l.name.toLowerCase())).slice(0, max);
+}
+
+/** Content for a budget page ("Flats above ₹10 crore"), built from the listings that fall in the band. */
+export function summariseBudget(
+  bandPhrase: string,
+  properties: Property[],
+): SegmentSummary {
+  const names = properties.map((p) => p.title);
+  const areas = uniq(properties.map((p) => p.location));
+  const developers = uniq(properties.map((p) => p.developerName));
+  const configs = configurationsOf(properties);
+  const price = rangeText(properties);
+  const area = areaText(properties.map((p) => p.carpetArea));
+  const status = uniq(properties.map((p) => p.possession));
+  const busiest = areas
+    .map((a) => ({ a, n: properties.filter((p) => p.location === a).length }))
+    .sort((x, y) => y.n - x.n)[0];
+
+  const facts: Fact[] = [
+    { label: 'Flats listed', value: String(properties.length) },
+    ...(price ? [{ label: 'Price range', value: price }] : []),
+    ...(areas.length ? [{ label: 'Locations', value: list(areas, 8) }] : []),
+    ...(configs.length ? [{ label: 'Configurations', value: list(configs, 8) }] : []),
+    ...(area ? [{ label: 'Carpet area', value: area }] : []),
+    ...(status.length ? [{ label: 'Possession', value: list(status) }] : []),
+    ...(developers.length ? [{ label: 'Developers', value: list(developers, 8) }] : []),
+  ];
+
+  const paragraphs = [
+    `${properties.length === 1 ? 'One flat is' : `${properties.length} flats are`} currently listed ${bandPhrase} on Parmar Properties, across ${list(areas, 8)}: ${list(names, 8)}.` +
+      (price ? ` Asking prices run from ${price}.` : ''),
+    busiest && areas.length > 1
+      ? `${busiest.a} has the most flats in this budget (${busiest.n}). Each location page has the neighbourhood, nearby landmarks and every flat listed there.`
+      : '',
+    'Prices shown are asking prices and can change, so ask our advisors for the current cost sheet, taxes and charges before you decide.',
+  ].filter(Boolean);
+
+  const faqs: Faq[] = [
+    {
+      question: `How many flats ${bandPhrase} are listed?`,
+      answer: `${properties.length} ${properties.length === 1 ? 'flat is' : 'flats are'} listed ${bandPhrase} right now${areas.length ? `, in ${list(areas, 8)}` : ''}.`,
+    },
+    ...(configs.length
+      ? [{ question: `What sizes are available ${bandPhrase}?`, answer: `Configurations ${bandPhrase} include ${list(configs, 8)}${area ? `, with a carpet area of ${area}` : ''}.` }]
+      : []),
+    {
+      question: `Are these flats ready to move in?`,
+      answer: status.length
+        ? `Current status across these flats: ${list(status)}. Each project page gives its possession details and MahaRERA registration.`
+        : `Each project page gives its possession details and MahaRERA registration.`,
+    },
+    {
+      question: `How do I check that a project is RERA registered?`,
+      answer: `Each listing shows its MahaRERA registration number where available. You can check any number on the MahaRERA website (maharera.maharashtra.gov.in) before you book.`,
+    },
+    {
+      question: `How can I arrange a site visit?`,
+      answer: `Call ${BUSINESS.telephone} or message us on WhatsApp and an advisor will arrange a private viewing.`,
+    },
+  ];
+
+  return { phrase: `flats ${bandPhrase}`, paragraphs, facts, faqs };
 }

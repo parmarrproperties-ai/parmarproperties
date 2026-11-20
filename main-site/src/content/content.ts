@@ -294,6 +294,13 @@ export const footer = {
     { label: "Mazgaon", href: "/listing/locations/mazgaon" },
     { label: "All locations", href: "/listing/locations" },
   ] as FooterLink[],
+  /** Budget pages on the listing site. */
+  budgetLinks: [
+    { label: "Under ₹5 Cr", href: "/listing/budget/flats-under-5-crore" },
+    { label: "₹5 to ₹10 Cr", href: "/listing/budget/flats-5-to-10-crore" },
+    { label: "Above ₹10 Cr", href: "/listing/budget/flats-above-10-crore" },
+    { label: "Above ₹25 Cr", href: "/listing/budget/flats-above-25-crore" },
+  ] as FooterLink[],
   socialLinks: [
     { label: "Facebook", href: "https://www.facebook.com/people/Parmar-Properties/61556751864965/" },
     { label: "Instagram", href: "https://www.instagram.com/parmar_properties" },

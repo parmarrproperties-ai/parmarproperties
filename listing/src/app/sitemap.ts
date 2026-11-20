@@ -6,6 +6,7 @@ import { fetchPropertyCards } from '@/site/lib/supabase/properties';
 import { fetchPublishedCommercials } from '@/site/lib/supabase/commercials';
 import { duplicatesBuyPage, locationTotal, segmentCounts } from '@/site/lib/location-segments';
 import { COMMERCIAL_CATEGORIES, RESIDENTIAL_CATEGORIES, segmentPath } from '@/lib/segments';
+import { BUDGET_BANDS, budgetPath, duplicatesBand, inBand } from '@/site/lib/budget-pages';
 
 export const revalidate = 3600;
 
@@ -71,6 +72,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       })),
     ];
   });
+  // Budget pages are listed when they hold flats and are not a copy of a wider band.
+  const budgetPages: MetadataRoute.Sitemap = BUDGET_BANDS.filter(
+    (b) => inBand(cards, b).length > 0 && !duplicatesBand(cards, b),
+  ).map((b) => ({
+    url: absoluteUrl(budgetPath(b.slug)),
+    changeFrequency: 'weekly' as const,
+    priority: 0.7,
+  }));
   const properties = rowsOrEmpty('properties', propertyResult ?? empty);
   const articles = rowsOrEmpty('insights_articles', articleResult ?? empty);
 
@@ -103,6 +112,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.6,
     })),
     ...segmentPages,
+    ...budgetPages,
     ...articles.map((row) => ({
       url: absoluteUrl(`/market-intelligence/${row.slug}`),
       lastModified: lastModified(row),

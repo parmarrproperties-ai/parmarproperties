@@ -1,3 +1,4 @@
+import { BUDGET_BANDS, budgetPath } from '@/site/lib/budget-pages';
 import React from 'react';
 import Link from 'next/link';
 import { ExternalLink, ShieldCheck, Phone, Mail, MapPin } from 'lucide-react';
@@ -60,6 +61,18 @@ export const Footer: React.FC = () => {
             <Link href="/locations" className="hover:text-[#C5282F] transition-colors">Locations</Link>
             <span className="text-[#33383D] select-none">&bull;</span>
             <Link href="/market-intelligence" className="hover:text-[#C5282F] transition-colors">Insights</Link>
+          </nav>
+        </div>
+
+        {/* Flats by budget: internal links to the budget pages from every page */}
+        <div className="py-4 sm:py-5 border-b border-[#23272A]">
+          <nav aria-label="Flats by budget" className="flex flex-wrap items-center gap-x-4 sm:gap-x-6 gap-y-2 text-xs font-medium text-[#CFD1CA]">
+            <span className="uppercase tracking-[0.2em] text-[11px] text-white/40">Flats by budget</span>
+            {BUDGET_BANDS.map((b) => (
+              <Link key={b.slug} href={budgetPath(b.slug)} className="hover:text-[#C5282F] transition-colors">
+                {b.label}
+              </Link>
+            ))}
           </nav>
         </div>
 

@@ -5,7 +5,7 @@ import { fetchLocationBySlug } from '@/site/lib/supabase/locations';
 import { NOINDEX, breadcrumbJsonLd, pageMetadata } from '@/site/lib/seo';
 import { fetchPropertyCards } from '@/site/lib/supabase/properties';
 import { fetchPublishedCommercials } from '@/site/lib/supabase/commercials';
-import { locationTotal, segmentCounts } from '@/site/lib/location-segments';
+import { isLuxuryLocation, locationHeading, locationTotal, segmentCounts } from '@/site/lib/location-segments';
 
 export const revalidate = 60;
 
@@ -14,15 +14,18 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
   const location = await fetchLocationBySlug(slug);
   if (!location) return { title: 'Location not found', robots: NOINDEX };
   const [properties, commercials] = await Promise.all([fetchPropertyCards(), fetchPublishedCommercials()]);
-  const empty = locationTotal(segmentCounts(properties, commercials, location.name)) === 0;
+  const counts = segmentCounts(properties, commercials, location.name);
+  const empty = locationTotal(counts) === 0;
+  const heading = locationHeading(location.name, isLuxuryLocation(location, counts));
+  const intro = (location.description || '').split(/(?<=[.!?])\s/)[0] ?? '';
   return pageMetadata({
     // A location with no listings yet is kept out of search results until it has some.
     noindex: empty,
-    title: `${location.name} Luxury Apartments, Mumbai`,
+    title: `${heading}, Mumbai`,
     description: [
-      location.tagline ? `${location.name}: ${location.tagline}.` : `${location.name}, Mumbai.`,
-      location.description,
-      location.priceRange ? `Homes ${location.priceRange}.` : '',
+      `${heading}: apartments for sale in ${location.name}, Mumbai${location.tagline ? `, ${location.tagline.toLowerCase()}` : ''}.`,
+      intro,
+      location.priceRange && location.priceRange !== 'Price on Request' ? `${location.priceRange}.` : '',
     ].join(' '),
     path: `/locations/${location.slug}`,
     image: location.coverImage,

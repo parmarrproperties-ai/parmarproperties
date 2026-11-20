@@ -122,3 +122,33 @@ Targets by the end of week 4:
 - Indexing is slow for new domains. Expect 2 to 6 weeks before the "Discovered" pages move, even with all of this done.
 - The main-site footer lists the 12 locations that have listings by hand (`main-site/src/content/content.ts`, `footer.popularLocations`). Add a line there when a location gets its first listing. Powai, Prabhadevi, Juhu, Cuffe Parade and Bandra West are not in it until they have listings.
 - Pages that are empty on purpose (`noindex`, not in the sitemap): `/listing/commercials`, locations with no listings, and category pages with no listings. They switch to indexable by themselves once something is published, within about a minute.
+
+---
+
+# Keyword plan: what was done on the site (22 Nov 2026)
+
+Based on your Search Console queries and the keyword list. No search-volume data was available, so nothing below is ranked by volume.
+
+## Done
+
+| Keyword idea | What changed |
+|---|---|
+| "luxury flats in [area]" on location pages | Location pages now use it in the title, the H1 and the description, for example "Luxury Flats in Worli, Mumbai". A location only gets "Luxury" when your own data supports it (it has a Luxury Collection listing, or its price band starts at ₹10 Cr or more). Others say "Flats in Parel, Mumbai" |
+| "flats for sale in [area]", "new launch in [area]", "ultra luxury apartments in [area]" | Category page titles, headings and descriptions use these exact phrasings, and the written content and FAQs use them too |
+| Budget keywords ("flats above 10 crore", "5 to 10 crore flats", "flats under 5 crore", "flats above 25 crore") | **Four new pages** at `/listing/budget/<band>`, each built from the real listings in that price band (price range, locations, configurations, possession, developers, FAQ with FAQPage schema). They are in the sitemap, linked from the footer of both sites, and empty or duplicate bands are `noindex` automatically |
+| NRI cluster (documents, power of attorney, NRE vs NRO, OCI, stamp duty, TDS, repatriation) | `/services/nri` now answers each of these, with a "Read next" list linking the blog guide, the market guide and the budget pages. Answers are kept general and say to confirm with a lawyer and chartered accountant |
+| Buyer-guide cluster | `/services/buy` links to the two matching blog guides and the budget pages |
+| "rera number" (you rank position 1) | The main-site footer now shows the MahaRERA agent registration (`A51900018442`, the same number the listing site already shows), the About page has a Company details block with a link to the MahaRERA website, and the number is in the organization markup |
+| Other "Parmar" businesses confusing Google | The About page now states the legal name, trading name, address and registration clearly; the organization markup already carried `sameAs`, `alternateName` and the CIN |
+| Internal links with keyword anchors | Footer "Flats by budget" row on both sites; budget pages link to location pages and to each flat |
+
+## Not done, and why
+
+| Item | Why | What is needed |
+|---|---|---|
+| Rewrite the title and description of the page that ranks #5 for "how to buy a house in mumbai"; expand the pages ranking 19 to 45 | I do not know which page ranks. Blog posts are edited in the blog admin (SEO panel), not in code | The browser task asks Search Console which page ranks for each query. Then I draft the new titles, descriptions and extra sections |
+| Data-led articles ("South Mumbai property rates per sq ft 2026", "Mumbai real estate market forecast 2026", rental yield, redevelopment) | These need verified figures and sources. I will not invent numbers | Share the figures and sources you trust, or tell me which published reports to summarise |
+| Location pages for Tardeo, Nepean Sea Road, Altamount Road, Pedder Road, Walkeshwar, Colaba, Samruddhimarg | None has a published listing yet (Tardeo has 3 drafts). An empty location page is `noindex` and adds nothing | Publish listings there first; then I create the location page |
+| Per-sq-ft rate answers ("What is the price per sq ft in Worli?") | Your listings give a starting price and one area per configuration, which is not a reliable rate | Enter the average rate in the admin for each location, or share a source |
+| Pune pages, UrbanDhan finance pages | Separate scope | Decide whether you want them |
+| Volumes and difficulty | No Keyword Planner access | Check in Google Keyword Planner (free) before committing to new content |

@@ -14,7 +14,7 @@ import {
 } from '@/site/lib/supabase/locations';
 import { fetchPropertyCards } from '@/site/lib/supabase/properties';
 import { LocationCategoryLinks } from '@/site/components/location/LocationCategoryLinks';
-import { sameLocation, type SegmentCounts } from '@/site/lib/location-segments';
+import { isLuxuryLocation, locationHeading, sameLocation, type SegmentCounts } from '@/site/lib/location-segments';
 
 interface LocationInfo {
   name: string;
@@ -308,7 +308,7 @@ export default function LocationPageClient({
             </div>
 
             <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-light text-white tracking-tight mb-4">
-              {location.name.toUpperCase()}
+              {locationHeading(location.name, isLuxuryLocation(location, segmentCounts))}
             </h1>
             <p className="text-sm sm:text-base text-white/80 font-sans leading-relaxed mb-8">
               {location.tagline} &bull; {location.description}

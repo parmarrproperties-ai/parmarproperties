@@ -78,6 +78,23 @@ export const ServiceDetailPage = () => {
           </p>
         </section>
 
+        {service.related && service.related.length > 0 && (
+          <section className="flex flex-col gap-4">
+            <h2 className="text-[22px] md:text-[26px] tracking-[-0.03em]">Read next</h2>
+            <ul className="flex flex-col gap-2">
+              {service.related.map((r) => (
+                <li key={r.href}>
+                  {r.href.startsWith("/listing") ? (
+                    <a href={r.href} className="text-[15px] md:text-[16px] underline underline-offset-4 hover:text-black/60 transition-colors">{r.label}</a>
+                  ) : (
+                    <Link to={r.href} className="text-[15px] md:text-[16px] underline underline-offset-4 hover:text-black/60 transition-colors">{r.label}</Link>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+
         <section className="flex flex-col gap-4">
           <h2 className="text-[22px] md:text-[26px] tracking-[-0.03em]">Other services</h2>
           <ul className="flex flex-wrap gap-3">
