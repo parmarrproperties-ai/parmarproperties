@@ -63,22 +63,22 @@ export function segmentCopy(kind: SegmentKind, category: string, loc: string) {
   const key = `${kind}/${category}`;
   const table: Record<string, { heading: string; title: string; description: string; intro: string }> = {
     'residential/buy': {
-      heading: `Residences for Sale in ${loc}`,
-      title: `Apartments for Sale in ${loc}, Mumbai`,
-      description: `Browse verified luxury apartments and residences for sale in ${loc}, Mumbai. Prices, floor plans and MahaRERA details from Parmar Properties.`,
-      intro: `Verified residences currently available to buy in ${loc}.`,
+      heading: `Flats for Sale in ${loc}`,
+      title: `Flats for Sale in ${loc}, Mumbai`,
+      description: `Flats and apartments for sale in ${loc}, Mumbai: ready to move and under construction projects with prices, floor plans and MahaRERA details from Parmar Properties.`,
+      intro: `Verified flats currently available to buy in ${loc}, ready to move and under construction.`,
     },
     'residential/new-launches': {
-      heading: `New Launches in ${loc}`,
-      title: `New Launch Projects in ${loc}, Mumbai`,
+      heading: `New Launch Flats in ${loc}`,
+      title: `New Launch Flats in ${loc}, Mumbai`,
       description: `New launch and pre-launch residential projects in ${loc}, Mumbai, with prices, configurations and MahaRERA details. Enquire with Parmar Properties.`,
       intro: `New and pre-launch residential projects in ${loc}.`,
     },
     'residential/luxury-collection': {
-      heading: `Luxury Collection in ${loc}`,
-      title: `Luxury Residences in ${loc}, Mumbai`,
-      description: `Hand-picked luxury collection residences in ${loc}, Mumbai. View photos, floor plans and enquire with Parmar Properties.`,
-      intro: `Hand-picked luxury residences in ${loc}.`,
+      heading: `Ultra Luxury Flats in ${loc}`,
+      title: `Ultra Luxury Flats in ${loc}, Mumbai`,
+      description: `Ultra luxury flats in ${loc}, Mumbai from our Luxury Collection: hand-picked residences with photos, floor plans and MahaRERA details.`,
+      intro: `Hand-picked ultra luxury flats in ${loc}.`,
     },
     'commercial/buy': {
       heading: `Commercial Property for Sale in ${loc}`,
@@ -122,4 +122,21 @@ export function duplicatesBuyPage(
   if (mine.length === 0) return false;
   const buy = residentialIn(properties, locationName, 'buy');
   return mine.length === buy.length && mine.every((p) => buy.some((b) => b.id === p.id));
+}
+
+/**
+ * "Luxury Flats in X" is only used when the location earns it: it has a listing in the
+ * Luxury Collection, or its price band starts at ₹10 Cr or more. Otherwise the page says "Flats in X".
+ */
+export function isLuxuryLocation(
+  location: { priceRange?: string },
+  counts?: SegmentCounts,
+): boolean {
+  if (counts && counts.residential['luxury-collection'] > 0) return true;
+  const from = Number((location.priceRange ?? '').match(/₹\s*([\d.]+)/)?.[1]);
+  return Number.isFinite(from) && from >= 10;
+}
+
+export function locationHeading(name: string, luxury: boolean): string {
+  return `${luxury ? 'Luxury Flats' : 'Flats'} in ${name}`;
 }

@@ -25,6 +25,7 @@ import LnT from"assets/L&T.png";
 import Prestige from"assets/Prestige.png";
 import DilipParmarImage from"assets/Mr. Dilip Parmar.jpeg";
 import SanjayImage from"assets/sanjay.webp";
+import { site } from "@/seo/site";
 import AnkitImage from"assets/ankit.webp";
 import GroupImage from"assets/GroupImage.jpg";
 import AdvisorBackImg from"assets/AdvisorBackImg.jpeg";
@@ -476,6 +477,30 @@ export const AboutPage = () => {
 ))}
  </div>
  </div>
+ </div>
+ </section>
+
+ {/* Company details: who we are, where, and how to verify us */}
+ <section className="bg-white text-black py-12 md:py-16 px-6 md:px-16 border-t border-black/5" aria-label="Company details">
+ <div className="max-w-3xl mx-auto">
+ <h2 className="text-[24px] md:text-[32px] font-normal tracking-tight mb-6">Company details</h2>
+ <dl className="grid grid-cols-1 sm:grid-cols-[180px_1fr] gap-x-6 gap-y-3 text-[15px] leading-[1.6]">
+ <dt className="text-black/50">Legal name</dt>
+ <dd>{site.legalName}</dd>
+ <dt className="text-black/50">Trading as</dt>
+ <dd>{site.name}, South Mumbai real estate advisory since {site.foundingDate}</dd>
+ <dt className="text-black/50">Office</dt>
+ <dd>{site.address.streetAddress}, {site.address.addressLocality} {site.address.postalCode}</dd>
+ <dt className="text-black/50">MahaRERA registration</dt>
+ <dd>
+ {site.rera} (real estate agent). You can verify it on the{" "}
+ <a href="https://maharera.maharashtra.gov.in/" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">MahaRERA website</a>.
+ </dd>
+ <dt className="text-black/50">Phone</dt>
+ <dd><a href={`tel:${site.officePhone.replace(/[^+\d]/g, "")}`} className="underline underline-offset-2">{site.officePhone}</a></dd>
+ <dt className="text-black/50">Email</dt>
+ <dd><a href={`mailto:${site.email}`} className="underline underline-offset-2">{site.email}</a></dd>
+ </dl>
  </div>
  </section>
 

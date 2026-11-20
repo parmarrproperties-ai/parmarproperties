@@ -30,7 +30,7 @@ export const site = {
     addressCountry: "IN",
   },
   /** MahaRERA agent registration number — add it here to show it in the footer and schema. */
-  rera: "",
+  rera: "A51900018442",
   /** Corporate Identification Number (Ministry of Corporate Affairs). Confirm against your incorporation certificate. */
   cin: "U70109MH2011PTC214909",
   /** Optional search-engine verification codes (also settable via env at build time). */

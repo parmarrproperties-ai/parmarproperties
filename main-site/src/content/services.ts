@@ -26,6 +26,8 @@ export type ServicePage = {
   whatsappText: string;
   /** Optional second button that opens the matching listing page. */
   browse?: { label: string; href: string };
+  /** Further reading shown under the FAQ: matching guides, listings and budget pages. */
+  related?: { label: string; href: string }[];
   sections: ServiceSection[];
   faqs: Faq[];
 };
@@ -51,6 +53,13 @@ export const servicePages: ServicePage[] = [
     imageAlt: "Luxury apartment interior in South Mumbai",
     whatsappText: "Hi, I am looking to buy a property in South Mumbai.",
     browse: { label: "Browse properties", href: "/listing/properties" },
+    related: [
+      { label: "Buying a luxury home in Mumbai: 15 things to check before you book", href: "/blog/buying-a-luxury-home-in-mumbai-15-things-to-check-before-you-book" },
+      { label: "Primary vs resale luxury property in Mumbai: a buyer's guide", href: "/blog/primary-vs-resale-luxury-property-in-mumbai-a-buyer-s-guide" },
+      { label: "Flats under ₹5 crore in Mumbai", href: "/listing/budget/flats-under-5-crore" },
+      { label: "₹5 to ₹10 crore flats in Mumbai", href: "/listing/budget/flats-5-to-10-crore" },
+      { label: "Flats above ₹10 crore in Mumbai", href: "/listing/budget/flats-above-10-crore" },
+    ],
     sections: [
       {
         question: "How does Parmar Properties help you buy a home?",
@@ -186,7 +195,7 @@ export const servicePages: ServicePage[] = [
     serviceType: "NRI real estate advisory",
     seoTitle: "NRI Property Investment in Mumbai | Parmar Properties",
     seoDescription:
-      "Buy, sell or lease Mumbai property from abroad with Parmar Properties. Remote shortlisting, virtual visits, payment guidance and coordination for NRIs.",
+      "NRI property buying guide for Mumbai: FEMA rules, documents, power of attorney, NRE and NRO payments and remote shortlisting with Parmar Properties.",
     h1: "NRI Property Investment in Mumbai",
     summary:
       "Parmar Properties helps Non-Resident Indians buy, sell and lease property in Mumbai without needing to be in the city for every step. We build a remote shortlist, arrange virtual and in-person visits, explain payment and documentation requirements, and coordinate with your lawyer and bank from booking to registration.",
@@ -194,6 +203,12 @@ export const servicePages: ServicePage[] = [
     imageAlt: "NRI family reviewing Mumbai property investment options",
     whatsappText: "Hi, I am an NRI and need help with property in Mumbai.",
     browse: { label: "Browse properties", href: "/listing/properties" },
+    related: [
+      { label: "The NRI guide to buying property in Mumbai in 2026", href: "/blog/the-nri-guide-to-buying-property-in-mumbai-in-2026" },
+      { label: "NRI property guide for Mumbai (market guide)", href: "/listing/market-intelligence/nri-mumbai-property" },
+      { label: "Browse flats in Mumbai", href: "/listing/properties" },
+      { label: "Flats above ₹10 crore in Mumbai", href: "/listing/budget/flats-above-10-crore" },
+    ],
     sections: [
       {
         question: "Can NRIs buy property in Mumbai?",
@@ -216,6 +231,44 @@ export const servicePages: ServicePage[] = [
         ],
       },
       {
+        question: "What documents do NRIs need to buy a flat in Mumbai?",
+        answer: [
+          "The exact list depends on the developer and your bank, but NRI buyers are usually asked for the following. Your lawyer will confirm what applies to you.",
+        ],
+        bullets: [
+          "Passport, and your OCI card if you hold one",
+          "PAN card and proof of your overseas and Indian addresses",
+          "Passport-size photographs",
+          "Bank statements or other proof of the source of funds",
+          "A power of attorney, if someone in India will sign for you",
+        ],
+      },
+      {
+        question: "How does a power of attorney work for an NRI buyer?",
+        answer: [
+          "You can authorise a trusted person in India to sign the agreement and registration documents on your behalf. A power of attorney signed abroad is generally notarised or apostilled, or attested by the Indian embassy or consulate, and then stamped in India. Your lawyer will confirm the steps for your country.",
+        ],
+      },
+      {
+        question: "How should an NRI pay for a flat in Mumbai?",
+        answer: [
+          "Payments must go through normal banking channels: an inward remittance from abroad, or an NRE, NRO or FCNR(B) account. We share the payment schedule with you in advance so each instalment can be planned.",
+        ],
+      },
+      {
+        question: "What are the stamp duty and registration charges for NRIs?",
+        answer: [
+          "NRIs pay the same stamp duty and registration charges as residents. In Maharashtra they are a percentage of the agreement value or the ready reckoner rate, whichever is higher, and the rates change from time to time. We include the current figures in your cost sheet.",
+        ],
+      },
+      {
+        question: "What happens to tax and sale proceeds when an NRI sells in Mumbai?",
+        answer: [
+          "The buyer deducts tax at source (TDS) when paying an NRI seller. The rate depends on how long you held the property and on your tax position, and a lower deduction certificate can reduce it in some cases. Sale proceeds can generally be sent abroad subject to RBI rules, including yearly limits and conditions on how the property was paid for.",
+          "This is general information, not legal or tax advice. Please confirm the current rules with your lawyer and a chartered accountant before you buy or sell.",
+        ],
+      },
+      {
         question: "Can you manage my Mumbai property while I am abroad?",
         answer: [
           "We help NRI owners lease their homes to reliable tenants and handle the leave-and-licence process, so the property earns income while you are overseas. When you are ready to exit, our sales advisory helps you sell at the right price.",
@@ -225,6 +278,8 @@ export const servicePages: ServicePage[] = [
     faqs: [
       { question: "Do I need to visit Mumbai to buy a property?", answer: "Not necessarily. Many steps can be done remotely, and a registered power of attorney can sign on your behalf. Most NRI clients still visit once to see their shortlisted homes in person." },
       { question: "Can NRIs get a home loan in India?", answer: "Yes. Many Indian banks offer home loans to NRIs. Eligibility and documentation depend on the bank and your country of residence, so speak to your bank early." },
+      { question: "What is the difference between NRE and NRO accounts for buying property?", answer: "An NRE account holds money you have transferred from abroad and can be sent back overseas. An NRO account holds income earned in India, such as rent, and sending money abroad from it is limited by RBI rules. Both can be used to pay for property in India." },
+      { question: "Can an OCI cardholder buy property in Mumbai?", answer: "Yes. OCI cardholders can buy residential and commercial property in India on the same basis as NRIs. Agricultural land, plantation property and farmhouses are generally not permitted." },
       { question: "Is there tax on rental income or sale of property for NRIs?", answer: "Rental income and capital gains from Indian property are taxable in India, and tax may be deducted at source. Rules change, so confirm the current position with a chartered accountant before you buy or sell." },
     ],
   },
